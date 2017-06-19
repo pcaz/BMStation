@@ -127,7 +127,7 @@ body
 
 label{
 	 //margin-top:10px;
- //	display:block;
+ 	display:block;
  	//text-align: center;
 
 }
@@ -234,9 +234,9 @@ legend {
 
 #footer {
 	clear: both;
-//	border-top: 1px solid #457800;
-//	border-right: 1px solid #457800;
-//	width: $body-width;
+	border-top: 1px solid #457800;
+	border-right: 1px solid #457800;
+	width: $body-width;
     overflow: hidden; 
 	background: $footer_color;
 //    font-size: 13 pt;
@@ -435,19 +435,9 @@ div#content div.three-column div.center-content {
 	}
 
 #series-name{
-	width: 350px;
-	margin-left: -20px;	
-
-	}
-#series-name ul {
-
+	width: 300px;
 	}
 
-#series-name li{
-display:inline-block;	
- list-style-type:none;
- float:left;
-}
 
 #product #submit {
 	display:inline-block;
@@ -577,28 +567,6 @@ display:inline-block;
 */
 
 
-.list-image th[class=image]  {
-	font-size: 10px;
-	text-align:center;
-	}
-
-.list-image  th[class=image] img {
-	width:10px;
-	}
-.list-image th[class=image] img:after{
-	color:red;
-	}
-
-.list-image td[class=image] img{
-	width: 20px;
-	margin-right: 5px;
-	}
-
-.list-image td[class=image] img:hover{
-	background: #666;
-	}
-
-
 
 /*****************************/
 /*****************************/
@@ -714,7 +682,7 @@ pagination {
   position: relative;
   float: left;
   font-size: 12px;
-  padding: 0;
+  padding: 3px 6px;
   margin-left: 2px;
   line-height: 1.42857143;
   color: #337ab7;
