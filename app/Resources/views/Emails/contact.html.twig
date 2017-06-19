@@ -1,0 +1,31 @@
+{% extends '::layoutEmail.html.twig' %}
+
+{% block subject %}{% endblock %}
+{% block body %}
+{% autoescape false %}
+<img src="{{ url }}" alt="BMStation">
+<p></p>
+<p></p>
+<h3>{{'welcome'|trans}} {{ contact.name}} !</h3>
+<p></p>
+<p></p>
+Vous avez laissé un message sur le site {{ site }}.
+<p></p>
+Sujet: {{ contact.subject }}
+<p></p>
+Corps du message:
+<p></p>
+{{ contact.body }}
+<p></p>
+Nous en prendrons compte dans les plus brefs délais.
+<p></p>
+En vous remerciant
+</p></p>
+
+{{ team }}
+{% endautoescape %}
+{% endblock %}
+
+{% block body_html %}
+
+{% endblock %}

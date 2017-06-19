@@ -1,0 +1,14 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+
+<form method="POST" action="fos_user_registration_register" id="fos_user_registration_register">
+<field>
+ 
+{{ form_errors(form.user.username)}}
+ {{ form_label(form.user.username)}}
+ {{ form_widget(form.user.username)}}
+ 
+ {{ form_errors(form.user.plainPassword)}}
+ {# form_label(form.user.plainPassword)#}
+ {{ form_widget(form.user.plainPassword)}}
+</form>

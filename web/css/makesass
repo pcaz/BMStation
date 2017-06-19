@@ -1,0 +1,3 @@
+#!/bin/bash
+
+sass -w /var/www/bmstation/web/css/style.scss:/var/www/bmstation/web/css/style.css &

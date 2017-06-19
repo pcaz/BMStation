@@ -1,0 +1,168 @@
+homepageAdmin:
+  path: /admin/
+  defaults: { _controller: AppBundle:HomePage:homepage}
+chooseLangage:
+  path: /chooselangage/{langue}
+  defaults: { _controller: AppBundle:HomePage:chooseLangage} 
+annotation:
+  path: /annotation
+  defaults: { _controller: AppBundle:Category:annotation}   
+    
+    
+ #
+ #  Admin Functions
+ # 
+  
+category:
+  path: /admin/category/
+  defaults: { _controller: AppBundle:Category:list}
+category_list:
+  path: /admin/category_list/
+  defaults: { _controller: AppBundle:Category:list}
+category_get:
+  path: /admin/category_get/{id}
+  defaults: { _controller: AppBundle:Category:edit}
+category_add:
+  path: /admin/category_add
+  defaults: { _controller: AppBundle:Category:edit}
+category_modify:
+  path: /admin/category_modify/{id}
+  defaults: { _controller: AppBundle:Category:edit}
+category_delete:
+  path: /admin/category_delete/{id}
+  defaults: { _controller: AppBundle:Category:delete}
+#    
+series:
+  path: /admin/series/
+  defaults: { _controller: AppBundle:Series:list}
+series_list:
+  path: /admin/series_list/
+  defaults: { _controller: AppBundle:Series:list}
+series_add:
+  path: /admin/series/add
+  defaults: { _controller: AppBundle:Series:edit}
+series_modify:
+  path: /admin/series/modify/{id}  
+  defaults: { _controller: AppBundle:Series:edit}
+series_delete:
+  path: /admin/series/delele/{id}  
+  defaults: { _controller: AppBundle:Series:delete}
+#  
+model:
+  path: /admin/model/
+  defaults: { _controller: AppBundle:Model:list}
+model_list:
+  path: /admin/model_list/
+  defaults: { _controller: AppBundle:Model:list}
+model_add:
+  path: /admin/model/add
+  defaults: { _controller: AppBundle:Model:edit} 
+model_modify:
+  path: /admin/model/modify/{id}  
+  defaults: { _controller: AppBundle:Model:edit}
+model_delete:
+  path: /admin/model/delete/{id}
+  defaults: { _controller: AppBundle:Model:delete}
+model_search:
+  path: /admin/model/modelsearch
+  defaults: { _controller: AppBundle:Model:modelSearch}
+  requirements:
+    _method: POST
+model_getproduct:
+  path: /admin/model/getproduct/{id}
+  defaults: { _controller: AppBundle:Model:getProduct}     
+#
+product_modify:
+  path: /admin/product/modify/{id} 
+  defaults: { _controller: AppBundle:Product:modify} 
+product_add:
+  path: /admin/product/add/
+  defaults: { _controller: AppBundle:Product:add} 
+product_category:
+  path: /admin/product_category/
+  defaults: { _controller: AppBundle:Product:choice}
+product_list:
+  path: /admin/product_list/{id}
+  defaults: { _controller: AppBundle:Product:list}
+product_modelsearch:
+  path: /admin/product_modelsearch
+  defaults: { _controller: AppBundle:Product:modelSearch}
+product_modelset:
+  path: /admin/product_modelset
+  defaults: { _controller: AppBundle:Product:modelSet} 
+product_imageset:
+  path: /admin/product_imageset
+  defaults: { _controller: AppBundle:Product:imageSet} 
+product_homepage:
+  path: /admin/product/homepage
+  defaults: { _controller: AppBundle:Product:choice}   
+product_delete:
+  path: /admin/product/delete/{id} 
+  defaults: { _controller: AppBundle:Product:delete} 
+product_setcategory:
+  path: /admin/product_setcategory
+  defaults: { _controller: AppBundle:Product:setCategory} 
+  requirements:
+     _method: POST
+product_set:
+  path: /admin/product_set
+  defaults: { _controller: AppBundle:Product:set}      
+ # client
+listclient:
+  path: /admin/listclient/
+  defaults: { _controller: AppBundle:Client:listClient}
+deleteclient:
+  path: /admin/deleteclient/{id}
+  defaults: { _controller: AppBundle:Client:deleteClient} 
+editclient:
+  path: /admin/editclient/{id}
+  defaults: { _controller: AppBundle:Client:editClient} 
+adminsetclient:
+  path: /admin/adminsetclient/{id}
+  defaults: { _controller: AppBundle:Client:setClient}  
+  requirements:
+      _method: POST
+historicclient:
+  path: /admin/historicclient/{id}
+  defaults: { _controller: AppBundle:Client:historicClient} 
+edithistoricline:
+  path: /admin/edithistoricline/{id}
+  defaults: { _controller: AppBundle:Client:editHistoricLine} 
+listcontact:
+  path: /admin/admincontact
+  defaults: { _controller: AppBundle:Contact:listContact} 
+editcontact:
+  path: /admin/editcontact/{id}
+  defaults: { _controller: AppBundle:Contact:editContact}  
+ #  
+administration:
+  path: /admin/administration
+  defaults: { _controller: AppBundle:Administration:homepage}  
+admincreate:
+  path: /superadmin/admincreate
+  defaults: { _controller: AppBundle:Administration:createAdmin}
+adminlist:
+  path: /superadmin/adminlist
+  defaults: { _controller: AppBundle:Administration:listAdmin}
+adminedit:
+  path: /superadmin/adminedit/{id}
+  defaults: { _controller: AppBundle:Administration:editAdmin}      
+adminsavebase:
+  path: /superadmin/adminsavebase
+  defaults: { _controller: AppBundle:Administration:saveBase}  
+ #
+fos_user_security:
+    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+    prefix: /
+fos_user_profile:
+    resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
+    prefix: /profile
+fos_user_register:
+    resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
+    prefix: /register
+fos_user_resetting:
+    resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
+    prefix: /resetting
+fos_user_change_password:
+    resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
+    prefix: /change-password  

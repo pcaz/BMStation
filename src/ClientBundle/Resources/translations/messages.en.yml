@@ -1,0 +1,59 @@
+#
+#Messages of BMStation application
+#
+#
+# Generals
+#
+name:  Name  # Name fields
+comment: Comment # Comment fields
+image: Image # Image fields
+edit: Edit # Edit an item
+record: Record # Record button
+description: Description # Description field
+selectfile: New file
+all: all
+register: Register you
+modify: Modify
+delete: Delete
+deconnect: Deconnection send in client site
+record_done: Record done
+welcome: Welcome
+all_fields_required: All field are required
+send: Send
+leave: Leave a copy
+wait: Wait a minute
+
+#
+# Main
+#
+homepage: Homepage  # Homepage title
+choose_langage: Choose langage  # Label of the 'choose langage' list box. 
+choose_model: Choose a model
+choose_category: Type of product
+inscript: Register
+contact: Contact us
+blog: Buy/Sell
+#
+# USER FUNCTIONS
+#
+#
+userchoosecategory: Choose a product type
+userchoosemodel: Model
+firstname: First Name
+lastname: Last Name
+address: Address
+city: City
+postalcode: Postal Code
+deliveryaddress:  Delivery Address
+phone: Phone
+email: Email
+command: to command
+user: User
+required: (All fieds are required)
+#
+# contact
+#
+subject: Subject
+body: Message
+
+

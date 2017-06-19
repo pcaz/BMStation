@@ -1,0 +1,35 @@
+<html>
+    <head>
+        <title>{% block title %}BMStation{% endblock %}</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link rel="stylesheet" href="{{ asset('css/style.css') }}" type="text/css" media="all" />
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js" type="text/javascript"></script> 
+    </head>
+    <body>
+    
+        <div id="page">
+            <div id="header">
+            	<div id=logo>
+            		<img src="{{ asset('images/logo.png') }}" alt="BMStation"/>
+            	</div> <!--  logo -->
+		 		<div id="menu">
+		 		</div> <!--  menu -->   
+		 		<div id="choisir-langue">
+		            {{ "choose_langage" | trans}} :
+					<a href="{{ path('chooseLangage', {'langue' : 'fr'}) }}">FR</a> |
+    				<a href="{{ path('chooseLangage', {'langue' : 'en'}) }}">EN</a>	
+         		</div> <!-- choisir-langue-->
+            </div> <!-- header -->
+
+         	<div id="content">
+                {% block content %}
+                    {% block fos_user_content %}{% endblock %}
+                {% endblock %}
+              <a href="{{ path('homepage')}}">{{ "homepage"|trans}}</a>
+         	</div> <!-- content -->
+         	<div id="footer">
+              Tous droits réservés © 2017
+         	</div> <!-- footer -->
+        </div> <!-- page -->
+    </body>
+</html>

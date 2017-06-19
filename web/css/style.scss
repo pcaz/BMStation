@@ -1,0 +1,760 @@
+/**
+ * @package BM2
+ * @version 1.0
+ * @author pcaz
+ * @copyright presence-web
+ * @license 
+ */
+
+/********** IMPORT SECTION *************/
+
+@import "http://fonts.googleapis.com/css?family=Alice";
+@import "http://fonts.googleapis.com/css?family=Oswald";
+
+/********** MACRO SECTION *************/
+
+/***** COLOR *****/
+
+$background_color: #ffffff;
+$header_color: #ffffff;
+$content_color: #ffffff;
+$footer_color: #ffffff;
+/**** SIZE *****/
+
+$body_width: 960px;
+$min_body_width: 880px;
+
+
+/**** FONT ****/
+
+$base_font_size: 20pt;
+$font_family_content: 'Alice', serif; 
+$font_family_menu: 'Helvetica', sans-serif;
+$font_family_block: 'Oswald', sans-serif;
+
+/*** MIXINS/FUNCTIONS ***/
+@mixin content_font()
+{
+    font-family: Alice, serif;
+    font-size: 15px;
+    font-weight: normal;
+    color: #000000;
+}
+
+@mixin block_font()
+{
+    font-family: 'Oswald', sans-serif;
+    font-size: 18px;
+    font-weight: normal;
+}
+
+@mixin block_center($size:100%)
+{
+    display: block; // on ne peut centrer que les blocks
+    width: $size;   // parametre nécessaire pour le centrage
+	margin: 0 auto;
+	padding: 0;
+}
+ 
+
+@mixin border_box()
+{
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;	/* Firefox, other Gecko */
+}
+
+@mixin clear()
+{
+	clear: both;
+	}
+
+/********** BODY SECTION *************/
+
+body
+{
+  
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+//        min-width: $min_body_width;
+@include block_center($body_width);
+
+}
+
+/********* GENERALS ****************/
+
+.center{
+	@include block_center();
+	text-align:center;
+	padding: 0;
+	}
+
+
+.clear{
+	display: block;
+	clear:both;
+	
+	}
+.hidden{
+	display: none;
+	}
+.message{
+	color: green;
+	margin-bottom: 10px;
+	}
+	
+
+.error{
+	color: red;
+	margin-bottom: 10px;
+	}
+
+.success{
+	color: green;
+	margin-bottom: 10px;
+	}
+
+.img-small img{
+	height:100px;
+	}	
+
+.img-thumb img{
+	display: inline;
+	width: 70px;
+	}
+
+label{
+	 //margin-top:10px;
+ //	display:block;
+ 	//text-align: center;
+
+}
+.loading {
+    background:url(../images/loading.gif) no-repeat top left;
+    width: 36px;
+    height: 36px;
+    margin: 0 auto;
+ //   display:none;
+}
+
+#connexion a {
+	 text-decoration: none;
+	 color: blue;
+	}	
+.inline label{
+	 display:inline;
+ 	margin: 0 0 0 20px;
+	}
+.space {
+	display: block;
+	padding: 20px 0 0 0;
+	}
+
+#content a:link {
+	text-decoration: none;
+	font-weight: bold;
+	font-family: $font-family-menu;
+	margin: 0 5px 0 5px;
+	}
+
+#content a:visited{
+	}
+
+#content a:hover {
+	font-weight: bold;
+	color: blue;
+	}
+#content a:active{
+	font-size: 140%;
+	}
+
+input, textarea, select, option {
+// background-color:#FFF3F3;
+ }
+
+input, textarea, select {
+// padding:3px;
+ //border:1px solid #F5C5C5;
+ //border-radius:5px;
+ //width:200px;
+ //box-shadow:1px 1px 2px #C0C0C0 inset;
+ }
+
+#content input[type=submit] {
+	margin: 20px 0 0 0;
+	}
+	
+fieldset {
+  padding: .35em .625em .75em;
+  margin: 5px 2px;
+  border: 1px solid #c0c0c0;
+}	
+
+legend {
+	border: none;
+	padding: 0 20px;
+	margin: 0;
+}
+/********** MAIN WRAPPER SECTION *************/
+
+#page {
+    width: $body_width;
+    min-height: 400px;
+    border: 1px solid #457800;
+    background: $background_color;
+    background-size:100%;
+	line-height: 1.5;
+	@include content_font;
+	word-wrap: break-word;
+}
+
+#header {
+	clear: both;
+	width: $body_width;
+	border-right: 1px solid #457800;
+    background: $background_color;
+//	@include block_center;
+	overflow: hidden;
+  	margin: 0px auto 0 auto;
+}
+
+#content {
+	clear:both;
+    width: $body-width;
+    border-right: 1px solid #457800;
+	background-color: RGBA(255,255,255,0.8);
+ 	margin: 0;
+    padding: 20px;
+//    overflow: hidden;
+    text-align: justify;
+    text-justify: newspaper;
+}
+
+#footer {
+	clear: both;
+//	border-top: 1px solid #457800;
+//	border-right: 1px solid #457800;
+//	width: $body-width;
+    overflow: hidden; 
+	background: $footer_color;
+//    font-size: 13 pt;
+    text-align: center;
+    padding: 50px 0 20px 0;
+//	@include block_center;
+}
+
+/********** LOGO SECTION *************/
+
+
+#logo{
+    margin: 20px 0 0 0;
+}
+
+#logo img{
+	width: 0.95*$body-width;
+}
+/********** Menu **********/
+ol, ul {
+    margin: 0;
+}
+
+#menu {
+  	padding: 0;
+    list-style: none;
+ //   border-bottom: 1px solid #000;
+    float: left;
+    margin-top: 20px;
+    width: $body-width;
+    font-family:$font_family_menu;
+}
+#menu ul {
+ margin:0;
+ padding:0;
+ list-style-type:none;
+ text-align:center;
+ font-size: 120%;
+ font-variant: small-caps;
+ }
+
+
+#menu li {
+ float:left;
+ margin:auto;
+ padding:0;
+ background-color:black;
+ }
+#menu li a {
+ display:block;
+ min-width:110px;
+ color:white;
+ text-decoration:none;
+ padding:5px;
+ }
+#menu li a:hover {
+ background: #666;
+ }
+
+#menu ul li ul {
+ display:none;
+ }
+#menu ul li:hover ul  {
+ display:block;
+ font-size: 80%;
+ text-align: left; 
+ padding:0;
+ }
+#menu li:hover ul li {
+ float:none;
+ }
+
+
+
+#menu ul li ul li ul li{
+	display:block;
+ 	text-align: left; 
+	}
+#menu ul li ul li ul li a {
+//	font-size: 120%;
+	padding-left: 10px;
+	
+	} 
+
+/********** HEADER RIGHT AREA********/
+
+
+#choisir-langue {
+	clear: right;
+//	display: none;
+     float: right;
+    margin: 10px 25px 0 0;
+}
+
+#connexion {
+	clear: right;
+	display: block;
+    float:right;
+    margin:0 25px 0 0;
+}
+
+
+
+
+/* ------------------ FOOTER AREA------------------ */
+
+
+
+#footer a {
+	color: #356800;
+}
+
+#footer .readmore {
+	background:none;
+}
+
+#footer .subject {
+    display: none;
+}
+
+/******** Mise en forme *******/
+
+div#content div.one-colum div.center-rightbar {
+  width: 95%;
+  margin: 0;
+  padding: 20px;
+  line-height: 1.5em; }
+
+div#content div.two-column div.sidebar-left {
+  float: left;
+  width: 45%;
+  padding: 0 0 0 20px;
+  
+   }
+
+
+div#content div.two-column div.sidebar-right {
+  float: right;
+  width: 45%;
+  padding: 0 20px;
+  line-height: 1.5em; 
+
+   }
+
+div#content div.three-column div.sidebar-left {
+  float: left;
+  width: 24%; }
+
+div#content div.three-column div.sidebar-right {
+  float: right;
+  width: 24%; }
+
+div#content div.three-column div.center-content {
+  float: left;
+  width: 48%;}
+
+
+
+/*****************************/
+/*****************************/
+/****     Admin section    ***/ 
+/*****************************/
+/*****************************/
+#accueil a, #accueil a:hover {
+	color: red;
+	text-decoration: none;
+	font-weight: bold;
+	font-family: $font-family-menu;
+	margin: 0 5px 0 5px;
+	}
+
+
+#accueil a:active{
+	font-size: 140%;
+	}
+
+/******** Product *****/
+.category {
+	float: left;
+	margin: 0 20px;
+	text-align: center;
+}
+
+#product-product {
+	float: left;
+	margin: 0 0 0 50px;
+	}
+
+#product-model {
+	margin: 0 0 0 50px;
+	}
+
+#product-model #select{
+	height: 250px;	
+    width: 300px;
+	}
+
+#series-name{
+	width: 350px;
+	margin-left: -20px;	
+
+	}
+#series-name ul {
+
+	}
+
+#series-name li{
+display:inline-block;	
+ list-style-type:none;
+ float:left;
+}
+
+#product #submit {
+	display:inline-block;
+}
+
+#product #cancel {
+	display:inline-block;
+}
+
+/***** listclient ***/
+
+
+#list_client #liste_contact{
+	padding:0;
+	margin:0 0 0 -5px;
+}
+
+#list_client table {
+	width: 90%;
+}
+
+#list_contact table{
+	width: 90%;
+}
+
+
+// on met un #content devant pour prendre le pas sur les déclarations précédentes
+
+#content .mytable .thead-inverse {
+	background-color:#000;
+	color: #fff;
+}
+
+#content .mytable th {
+	text-align: center;
+}
+
+#content .mytable {
+	
+
+}
+
+#content .mytable tr {
+	  border-spacing: 0;
+      border-collapse: collapse;
+      border: 1px solid #ddd !important; 
+         
+}
+
+#content .mytable td>a,#content .mytable td>a:hover,#content .mytable td>a:link {
+	  font-size: 100%; 
+      font-weight: normal;
+      color: #000;	
+	}
+
+#content .mytable td>a:active {
+	color: #000;
+//	font-size: 8pt;
+}
+
+
+#content .mytable-bordered td{
+ 	border: 1px solid #ddd !important;
+}
+
+#content .mytable-condensed {
+	font-weight: normal;
+	font-stretch: ultra-condensed;
+	font-size: 8pt;
+	}
+
+
+#content .mytable-striped tbody > tr:nth-child(odd) {
+  background-color: #f9f9f9;
+}
+
+#content .mytable-striped tr[class=danger]{
+	background-color: #f2dede;
+	}
+
+#content .mytable-striped tr[class=success] {
+	background-color: #dff0d8;
+	}
+
+#content .mytable-striped tr[class=warning] {
+	background-color: #fcf8e3;
+	}
+
+
+#content .mytable-striped tbody>tr[class=warning]:nth-child(odd){
+	background-color:  #fcf4cb;
+	}
+
+#content .mytable-striped tbody>tr[class=danger]:nth-child(odd){
+	background-color:  #e4d1d1;
+	}
+
+#content .mytable-striped tbody>tr[class=danger]:nth-child(odd):hover{
+	background-color:  #e4b9b9;
+	}
+
+#content .mytable-hover tr[class=active]:hover{
+	background-color: #e8e8e8;
+	}
+
+#content .mytable-hover tr[class=danger]:hover{
+	background-color: #e4b9b9;
+	}
+
+
+#content .mytable-hover tr[class=success]:hover {
+	background-color:  #c1e2b3;	
+	}
+
+#content .mytable-hover tr[class=warning]:hover {
+	background-color:  #f5da81;
+	}
+
+#content .mytable-hover tbody>tr[class=warning]:nth-child(odd):hover{
+	background-color:  #f5da81;
+	}
+
+/*
+#list_client tr:hover td {
+  background-color: #f5f5f5;
+}
+*/
+
+
+.list-image th[class=image]  {
+	font-size: 10px;
+	text-align:center;
+	}
+
+.list-image  th[class=image] img {
+	width:10px;
+	}
+.list-image th[class=image] img:after{
+	color:red;
+	}
+
+.list-image td[class=image] img{
+	width: 20px;
+	margin-right: 5px;
+	}
+
+.list-image td[class=image] img:hover{
+	background: #666;
+	}
+
+
+
+/*****************************/
+/*****************************/
+/****      User section    ***/ 
+/*****************************/
+/*****************************/
+
+/**** contact ****/
+
+#contact {
+	display: inline-block;
+	float: left;
+	margin-left:35%;
+
+}
+
+#contact h1 {
+	 margin: 0 0 0 -80px;
+
+}
+#contact form label {
+	margin-top: 10px;
+//	text-align:center;
+}
+
+#contact input, #contact textarea {
+	width: 300px;
+}
+
+#contact textarea {
+	height: 100px;
+}	
+
+#contact #phone {
+	margin-left: 10%;
+	font-size: 120%;
+
+	
+}
+#contact #contactCaptcha{
+	width:500px;	
+	margin-left: -100px;
+}
+#contact #contactCaptcha label{
+	text-align: center;
+}
+
+
+	
+#map {
+	float:left;
+	margin: 50px 0 0 20%;
+}
+/*** adresse **/
+#client .subtitle {
+	font-size: 120%;
+	font-weight: bold;
+}	
+
+#client legend
+{
+	width: 250px;
+	padding: 0;
+}
+
+#client #client_deliveryAddress_address {
+	width: 350px
+}
+
+#client #client_user_email, #client #client_user_username, #client #client_user_plainPassword_first,#client #client_user_plainPassword_second {
+	width: 300px;
+}
+
+/**** login ***/
+#login #remember {
+	display: block;
+	width:200px;
+	margin-top: 20px;
+}
+#login label[for=remember_me]{
+	display:block;
+	float:left;
+}	
+
+#login #remember_me {
+	display: block;
+	float: left;
+}
+#login #submit {
+	display: block;
+	clear:both;
+}
+
+/****          ****/
+pagination {
+  display: inline-block;
+  padding-left: 0;
+  border-radius: 4px;
+}
+.pagination {
+  display: inline;
+}
+
+.pagination .current {
+	margin-top: 5px;
+	}
+.pagination  .page,
+.pagination .first,
+.pagination .last,
+.pagination .next,
+.pagination .previous,
+.pagination .current	  {
+  position: relative;
+  float: left;
+  font-size: 12px;
+  padding: 0;
+  margin-left: 2px;
+  line-height: 1.42857143;
+  color: #337ab7;
+  text-decoration: none;
+  background-color: #fff;
+  border: 1px solid #ddd;
+}
+
+.pagination .curent,
+.pagination .first a{
+  margin-left: 0;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+.pagination .last a {
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+.pagination a:hover,
+.pagination  a:focus {
+  z-index: 2;
+  color: #23527c;
+  background-color: #eee;
+  border-color: #ddd;
+}
+.pagination  .active  a,
+.pagination  .active  a:hover,
+.pagination  .active  a:focus {
+  z-index: 3;
+  color: #fff;
+  cursor: default;
+  background-color: #337ab7;
+  border-color: #337ab7;
+}
+.pagination  .disabled  a,
+.pagination  .disabled  a:hover,
+.pagination  .disabled  a:focus {
+  color: #777;
+  cursor: not-allowed;
+  background-color: #fff;
+  border-color: #ddd;
+}
+

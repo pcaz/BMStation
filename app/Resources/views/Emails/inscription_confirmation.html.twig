@@ -1,0 +1,37 @@
+{% extends '::layoutEmail.html.twig' %}
+
+{% block subject %}{% endblock %}
+{% block body %}
+{% autoescape false %}
+<img src="{{ url }}" alt="BMStation">
+<p></p>
+<p></p>
+<h3>{{'welcome'|trans}} {{ user.firstName }} {{ user.lastName }} !</h3>
+<p></p>
+<p></p>
+Vous êtes maintenant inscrit sur le site {{ site }}.
+<p></p>
+Votre nom d'utilisateur est : {{ user.user.username }}
+<p></p>
+( vous seul connaissez votre mot de passe )
+<p></p>
+Merci de vous être inscrit, pour pouvoir vous connnecter et commander sur notre site
+<p></p>
+vous devez cliquer sur le lien suivant ou le saisir dans votre navigateur:
+<p></p>
+<a href="{{ urlvalidation }}">{{ urlvalidation }}</a>
+</p></p>
+</p></p>
+
+{{ team }}
+{% endautoescape %}
+{% endblock %}
+
+{% block body_html %}
+{#
+    You can of course render the html directly here.
+    Including a template as done here allows keeping things DRY by using
+    the template inheritance in it
+#}
+{# include 'email/password_resetting.html.twig' #}
+{% endblock %}

@@ -1,0 +1,297 @@
+--
+-- bmstation20170614-084050.sql.gz
+
+
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(180) COLLATE utf8_unicode_ci NOT NULL,
+  `username_canonical` varchar(180) COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(180) COLLATE utf8_unicode_ci NOT NULL,
+  `email_canonical` varchar(180) COLLATE utf8_unicode_ci NOT NULL,
+  `enabled` tinyint(1) NOT NULL,
+  `salt` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `last_login` datetime DEFAULT NULL,
+  `confirmation_token` varchar(180) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `password_requested_at` datetime DEFAULT NULL,
+  `roles` longtext COLLATE utf8_unicode_ci NOT NULL COMMENT '(DC2Type:array)',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UNIQ_8D93D64992FC23A8` (`username_canonical`),
+  UNIQUE KEY `UNIQ_8D93D649A0D96FBF` (`email_canonical`),
+  UNIQUE KEY `UNIQ_8D93D649C05FB297` (`confirmation_token`)
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+INSERT INTO `user` VALUES ('1','pascaz10','pascaz10','pascal.cazabat@presence-web.fr','pascal.cazabat@presence-web.fr','1',NULL,'$2y$13$/EljL.S2Tt6XJBrpzbxUQOaYwikWbVLhoSy1GkF2tuQEjhMgaz8/.','2017-06-14 06:44:20',NULL,NULL,'a:1:{i:0;s:16:"ROLE_SUPER_ADMIN";}');
+INSERT INTO `user` VALUES ('6','jeremy','jeremy','jeremy@bmstation.fr','jeremy@bmstation.fr','1',NULL,'$2y$13$ZKgg06KrWdFzHADUSx7xt.3T9o8.pyoL/LH0UwrUMJIs.H3pGlnAO','2017-06-13 11:57:00',NULL,NULL,'a:1:{i:0;s:10:"ROLE_ADMIN";}');
+INSERT INTO `user` VALUES ('16','pascal','pascal','pascal.cazabat@laposte.net','pascal.cazabat@laposte.net','1',NULL,'$2y$13$oDYa4xck/7eUPvjsm//53.zacNaAqRM6CKOlcrirkDyzhSuhOauW.','2017-06-13 10:45:31',NULL,NULL,'a:0:{}');
+INSERT INTO `user` VALUES ('17','hd','hd','omrouge3@gmail.com','omrouge3@gmail.com','1',NULL,'$2y$13$km.k8YhrEjw93Q0IG1nc9e3tTusd30G.rmfGXTSDvboPXHrChAi/W',NULL,NULL,NULL,'a:0:{}');
+INSERT INTO `user` VALUES ('26','john','john','john@bmstation.fr','john@bmstation.fr','1',NULL,'$2y$13$hJ7gOuThOTIHQj63VkqWf.uMSTTRXtuNgVLT49T49Qp8tv5Z/DkOq','2017-06-13 20:16:07',NULL,NULL,'a:1:{i:0;s:10:"ROLE_ADMIN";}');
+
+
+DROP TABLE IF EXISTS `address`;
+CREATE TABLE `address` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `address` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `country_code` decimal(2,0) DEFAULT NULL,
+  `postal_code` varchar(5) COLLATE utf8_unicode_ci NOT NULL,
+  `city` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `phone` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `email` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=106 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+INSERT INTO `address` VALUES ('104','8, rue de Foresta',NULL,'06300','NICE','06 61 80 55 38','pascal.cazabat@laposte.net');
+INSERT INTO `address` VALUES ('105','14, avenue de Florensac',NULL,'34300','Agde','','omrouge3@gmail.com');
+
+
+DROP TABLE IF EXISTS `client`;
+CREATE TABLE `client` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user` int(11) DEFAULT NULL,
+  `first_name` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `last_name` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `deliveryAddress` int(11) DEFAULT NULL,
+  `billingAddress` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UNIQ_C744045525D14810` (`deliveryAddress`),
+  UNIQUE KEY `UNIQ_C74404557E1A92CE` (`billingAddress`),
+  UNIQUE KEY `UNIQ_C74404558D93D649` (`user`),
+  CONSTRAINT `FK_C744045525D14810` FOREIGN KEY (`deliveryAddress`) REFERENCES `address` (`id`),
+  CONSTRAINT `FK_C74404557E1A92CE` FOREIGN KEY (`billingAddress`) REFERENCES `address` (`id`),
+  CONSTRAINT `FK_C74404558D93D649` FOREIGN KEY (`user`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+INSERT INTO `client` VALUES ('6','16','Pascal','CAZABAT','104',NULL);
+INSERT INTO `client` VALUES ('7','17','Henry','DUNAND','105',NULL);
+
+
+DROP TABLE IF EXISTS `contact`;
+CREATE TABLE `contact` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `subject` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `body` longtext COLLATE utf8_unicode_ci NOT NULL,
+  `date` datetime NOT NULL,
+  `validate` datetime DEFAULT NULL,
+  `phone` varchar(16) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+INSERT INTO `contact` VALUES ('25','Pascal Cazabat','pascal.cazabat@laposte.net','Ennuis','J''ai des tas d''ennuis','2017-06-12 18:26:11','2017-06-12 22:40:16','06 61 80 55 38');
+INSERT INTO `contact` VALUES ('26','Pascal Cazabat','pascal.cazabat@laposte.net','Ennuis','J''ai des tas d''ennuis','2017-06-12 18:28:58','2017-06-12 22:29:40','06 61 80 55 38');
+INSERT INTO `contact` VALUES ('27','Pascal Cazabat','pascal.cazabat@laposte.net','Ennuis','J''ai des tas d''ennuis','2017-06-12 18:30:01','2017-06-12 22:25:51','06 61 80 55 38');
+INSERT INTO `contact` VALUES ('28','Pascal Cazabat','pascal.cazabat@laposte.net','Encore un','Je ne sais pas où je vais aller','2017-06-12 18:32:04','2017-06-12 22:07:09','06 61 80 55 38');
+INSERT INTO `contact` VALUES ('29','Pascal Cazabat','pascal.cazabat@laposte.net','Encore un','Je ne sais pas où je vais aller','2017-06-12 18:38:06','2017-06-12 22:05:29','06 61 80 55 38');
+INSERT INTO `contact` VALUES ('30','Pascal Cazabat','pascal.cazabat@laposte.net','J''ai des emmerdes','La vie commence à devenir dure..et ce n''est qu''un début','2017-06-12 18:43:53','2017-06-12 22:03:53','06 61 80 55 38');
+INSERT INTO `contact` VALUES ('31','Pascal Cazabat','pascal.cazabat@laposte.net','Problèmes','Je vais finir dans le caniveau','2017-06-12 21:43:40','2017-06-12 21:54:25',NULL);
+INSERT INTO `contact` VALUES ('32','Pascal Cazabat','pascal.cazabat@laposte.net','Encore des emmerdes','Le ballon me tue','2017-06-12 21:58:39','2017-06-12 22:00:02',NULL);
+INSERT INTO `contact` VALUES ('33','Pascal Cazabat','pascal.cazabat@laposte.net','Bonjour','Je voudrais savoir si je vais réussir à survivre','2017-06-12 22:45:49','2017-06-12 22:57:52',NULL);
+INSERT INTO `contact` VALUES ('35','John Doe','john@doe.com','fuck you','you are gross bastard','2017-06-13 07:30:26',NULL,NULL);
+INSERT INTO `contact` VALUES ('36','Henry Dunand','omrouge3@gmail.com','Juste un essai','pour tester l''historique','2017-06-13 07:36:30','2017-06-13 07:38:49',NULL);
+INSERT INTO `contact` VALUES ('37','Pascal Cazabat','pascal.cazabat@laposte.net','Un problème','J''en ai marre','2017-06-13 10:46:43','2017-06-13 11:11:21','06 61 80 55 38');
+INSERT INTO `contact` VALUES ('38','Pascal Cazabat','pascal.cazabat@laposte.net','encore','des tas de problème','2017-06-13 11:18:22','2017-06-13 12:24:45',NULL);
+
+
+DROP TABLE IF EXISTS `historic`;
+CREATE TABLE `historic` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `client_id` int(11) NOT NULL,
+  `type` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `eventid` decimal(10,0) NOT NULL,
+  `date` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `IDX_AD52EF5619EB6921` (`client_id`),
+  CONSTRAINT `FK_AD52EF5619EB6921` FOREIGN KEY (`client_id`) REFERENCES `client` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+INSERT INTO `historic` VALUES ('28','6','Inscription','6','2017-06-13 10:42:37');
+INSERT INTO `historic` VALUES ('29','6','Self Validation','6','2017-06-13 10:43:54');
+INSERT INTO `historic` VALUES ('30','6','Contact','37','2017-06-13 10:46:43');
+INSERT INTO `historic` VALUES ('31','6','Close Contact','37','2017-06-13 10:48:25');
+INSERT INTO `historic` VALUES ('32','6','Close Contact','37','2017-06-13 11:11:20');
+INSERT INTO `historic` VALUES ('33','6','Close Contact','37','2017-06-13 11:11:21');
+INSERT INTO `historic` VALUES ('34','6','Contact','38','2017-06-13 11:18:22');
+INSERT INTO `historic` VALUES ('35','6','Close Contact','38','2017-06-13 11:23:09');
+INSERT INTO `historic` VALUES ('36','6','Reopen Contact','38','0000-00-00 00:00:00');
+INSERT INTO `historic` VALUES ('37','6','Close Contact','38','2017-06-13 12:07:51');
+INSERT INTO `historic` VALUES ('38','6','Reopen Contact','38','0000-00-00 00:00:00');
+INSERT INTO `historic` VALUES ('39','6','Close Contact','38','2017-06-13 12:17:22');
+INSERT INTO `historic` VALUES ('40','6','Reopen Contact','38','2017-06-13 12:18:17');
+INSERT INTO `historic` VALUES ('41','6','Close Contact','38','2017-06-13 12:24:45');
+INSERT INTO `historic` VALUES ('42','7','Inscription','7','2017-06-13 12:34:34');
+INSERT INTO `historic` VALUES ('43','7','Self Validation','7','2017-06-13 12:42:56');
+
+
+DROP TABLE IF EXISTS `category`;
+CREATE TABLE `category` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `comment` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `image` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+INSERT INTO `category` VALUES ('1','Moteur','Tout ce qui concerne la motorisation','2f2a5c378355dbb8f652ccfc25a3ff83.jpeg');
+INSERT INTO `category` VALUES ('2','Freins','Le freinage et tout ce qui y est lié.','ab44aefe1d78b1c71384ec3f65469e57.jpeg');
+INSERT INTO `category` VALUES ('25','Partie cycle','Tout ce qui concerne la partie cycle et les pneus','0bcc889804b60bbfc90af52dd1c83493.jpeg');
+INSERT INTO `category` VALUES ('26','Sellerie','Ce qui concerne la sellerie et les accessoires.','76c234d27540f4291672351bf60036b8.jpeg');
+
+
+DROP TABLE IF EXISTS `series`;
+CREATE TABLE `series` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `comment` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+INSERT INTO `series` VALUES ('1','SÃ©rie-K',NULL);
+INSERT INTO `series` VALUES ('2','SÃ©rie-R',NULL);
+INSERT INTO `series` VALUES ('3','SÃ©rie-G',NULL);
+INSERT INTO `series` VALUES ('4','SÃ©rie-F',NULL);
+INSERT INTO `series` VALUES ('5','SÃ©rie-S',NULL);
+INSERT INTO `series` VALUES ('6','SÃ©rie-C',NULL);
+
+
+DROP TABLE IF EXISTS `model`;
+CREATE TABLE `model` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `image` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Series` int(11) DEFAULT NULL,
+  `description` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `comment` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `selected` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `IDX_D79572D93DBC041B` (`Series`),
+  CONSTRAINT `FK_D79572D93DBC041B` FOREIGN KEY (`Series`) REFERENCES `series` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+INSERT INTO `model` VALUES ('2','R100',NULL,'2',NULL,NULL,'0');
+INSERT INTO `model` VALUES ('3','R1100 GS',NULL,'2',NULL,NULL,'0');
+INSERT INTO `model` VALUES ('4','R1150GS',NULL,'2',NULL,NULL,'0');
+INSERT INTO `model` VALUES ('5','R1100GS-Adventure',NULL,'2',NULL,NULL,'0');
+INSERT INTO `model` VALUES ('6','R1150GS-Adventure',NULL,'2',NULL,NULL,'0');
+INSERT INTO `model` VALUES ('7','K1100 LS',NULL,'1',NULL,NULL,'0');
+INSERT INTO `model` VALUES ('8','K1150 LS',NULL,'1',NULL,NULL,'0');
+INSERT INTO `model` VALUES ('9','K1100 RT',NULL,'1',NULL,NULL,'0');
+INSERT INTO `model` VALUES ('10','K1150 RT',NULL,'1',NULL,NULL,'0');
+INSERT INTO `model` VALUES ('11','G650 X',NULL,'3',NULL,NULL,'0');
+INSERT INTO `model` VALUES ('12','G650 GS',NULL,'3',NULL,NULL,'0');
+INSERT INTO `model` VALUES ('13','G310 R',NULL,'3',NULL,NULL,'0');
+INSERT INTO `model` VALUES ('15','F800 S',NULL,'4',NULL,NULL,'0');
+INSERT INTO `model` VALUES ('16','S1100 RR',NULL,'5',NULL,NULL,'0');
+INSERT INTO `model` VALUES ('17','S1000 R',NULL,'5',NULL,NULL,'0');
+INSERT INTO `model` VALUES ('19','C600 Sport',NULL,'6',NULL,NULL,'0');
+
+
+DROP TABLE IF EXISTS `product`;
+CREATE TABLE `product` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `price` decimal(7,2) NOT NULL,
+  `disponibility` tinyint(1) NOT NULL,
+  `category` int(11) NOT NULL,
+  `description` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `comment` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `image` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `IDX_D34A04AD64C19C1` (`category`),
+  CONSTRAINT `FK_D34A04ADFF3A7B97` FOREIGN KEY (`Category`) REFERENCES `category` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=79 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+INSERT INTO `product` VALUES ('37','sghbsf','456.00','0','2',NULL,NULL,NULL);
+INSERT INTO `product` VALUES ('38','sjclk<jwl','4789.00','0','2',NULL,NULL,NULL);
+INSERT INTO `product` VALUES ('39','dfwcxvdf','123.00','0','2','','',NULL);
+INSERT INTO `product` VALUES ('40','gfbhsfgb','123.00','0','25','','',NULL);
+INSERT INTO `product` VALUES ('41','toto','123.00','0','25','','',NULL);
+INSERT INTO `product` VALUES ('42','titi','456.50','0','25','','',NULL);
+INSERT INTO `product` VALUES ('43','tata','471.00','0','25','','',NULL);
+INSERT INTO `product` VALUES ('44','tutu','149.00','0','25','','',NULL);
+INSERT INTO `product` VALUES ('45','v<xdsvxw','123.00','0','2','','',NULL);
+INSERT INTO `product` VALUES ('46','roro','189.00','0','25','','',NULL);
+INSERT INTO `product` VALUES ('47','riri','741.00','0','25','','',NULL);
+INSERT INTO `product` VALUES ('48','zaza','369.00','1','2','','',NULL);
+INSERT INTO `product` VALUES ('49','zozo','148.50','1','26','','',NULL);
+INSERT INTO `product` VALUES ('50','zizi','594.78','1','26','','',NULL);
+INSERT INTO `product` VALUES ('51','azerty','26.50','1','26','','',NULL);
+INSERT INTO `product` VALUES ('52','qfdgdgf','123.50','0','2','','',NULL);
+INSERT INTO `product` VALUES ('53','azer','456.50','1','2',NULL,NULL,NULL);
+INSERT INTO `product` VALUES ('54','dfghe','123.50','1','2',NULL,NULL,NULL);
+INSERT INTO `product` VALUES ('57','dvsdq','22.00','1','2','','',NULL);
+INSERT INTO `product` VALUES ('59','nom','59.99','1','2','description',NULL,NULL);
+INSERT INTO `product` VALUES ('60','sdqfvqs','59.00','1','2',NULL,NULL,NULL);
+INSERT INTO `product` VALUES ('61','surnom','892.55','1','2','','',NULL);
+INSERT INTO `product` VALUES ('62','denom','158.00','1','25','','',NULL);
+INSERT INTO `product` VALUES ('63','efsf','22.00','1','25','','',NULL);
+INSERT INTO `product` VALUES ('64','ghyazsvju','55.00','1','25','','',NULL);
+INSERT INTO `product` VALUES ('65','sd','56.00','1','2','','',NULL);
+INSERT INTO `product` VALUES ('66','QSC','12.00','1','2','','',NULL);
+INSERT INTO `product` VALUES ('67','SCxw','12.00','1','2','','',NULL);
+INSERT INTO `product` VALUES ('68','wbvccx','56.00','1','2','','',NULL);
+INSERT INTO `product` VALUES ('69','dsdwx','12.00','1','2',NULL,NULL,NULL);
+INSERT INTO `product` VALUES ('70','lkjmlkjpmok','25.00','1','2',NULL,NULL,NULL);
+INSERT INTO `product` VALUES ('71','<xw','89.00','1','2','sdfcdsv','fdvfdqbv','6a6a1c3f2450b180b3dea15ae74f278f.jpeg');
+INSERT INTO `product` VALUES ('72','ljlkjlkjlojl','456.00','1','2',NULL,NULL,NULL);
+INSERT INTO `product` VALUES ('73','446','25.00','1','2','Description','Commentaires',NULL);
+INSERT INTO `product` VALUES ('75','azertyuiop','456.00','1','2',NULL,NULL,NULL);
+INSERT INTO `product` VALUES ('76','poiuytreza','741.00','1','2',NULL,NULL,NULL);
+INSERT INTO `product` VALUES ('77','arzetypoi','963.00','1','2',NULL,NULL,NULL);
+INSERT INTO `product` VALUES ('78','jikstgul','159.00','1','2',NULL,NULL,NULL);
+
+
+DROP TABLE IF EXISTS `product_model`;
+CREATE TABLE `product_model` (
+  `product_id` int(11) NOT NULL,
+  `model_id` int(11) NOT NULL,
+  PRIMARY KEY (`product_id`,`model_id`),
+  KEY `IDX_76C909854584665A` (`product_id`),
+  KEY `IDX_76C909857975B7E7` (`model_id`),
+  CONSTRAINT `FK_76C909854584665A` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `FK_76C909857975B7E7` FOREIGN KEY (`model_id`) REFERENCES `model` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+INSERT INTO `product_model` VALUES ('46','5');
+INSERT INTO `product_model` VALUES ('46','6');
+INSERT INTO `product_model` VALUES ('46','7');
+INSERT INTO `product_model` VALUES ('63','4');
+INSERT INTO `product_model` VALUES ('63','5');
+INSERT INTO `product_model` VALUES ('63','6');
+INSERT INTO `product_model` VALUES ('63','7');
+INSERT INTO `product_model` VALUES ('65','3');
+INSERT INTO `product_model` VALUES ('65','4');
+INSERT INTO `product_model` VALUES ('65','5');
+INSERT INTO `product_model` VALUES ('69','2');
+INSERT INTO `product_model` VALUES ('69','3');
+INSERT INTO `product_model` VALUES ('69','4');
+INSERT INTO `product_model` VALUES ('69','5');
+INSERT INTO `product_model` VALUES ('69','6');
+INSERT INTO `product_model` VALUES ('69','7');
+INSERT INTO `product_model` VALUES ('69','8');
+INSERT INTO `product_model` VALUES ('69','9');
+INSERT INTO `product_model` VALUES ('69','10');
+INSERT INTO `product_model` VALUES ('69','11');
+INSERT INTO `product_model` VALUES ('69','12');
+INSERT INTO `product_model` VALUES ('69','13');
+INSERT INTO `product_model` VALUES ('69','15');
+INSERT INTO `product_model` VALUES ('69','16');
+INSERT INTO `product_model` VALUES ('69','17');
+INSERT INTO `product_model` VALUES ('69','19');
+INSERT INTO `product_model` VALUES ('71','3');
+INSERT INTO `product_model` VALUES ('71','4');
+INSERT INTO `product_model` VALUES ('71','5');
+INSERT INTO `product_model` VALUES ('75','2');
+INSERT INTO `product_model` VALUES ('75','3');
+INSERT INTO `product_model` VALUES ('75','4');
+INSERT INTO `product_model` VALUES ('76','2');
+INSERT INTO `product_model` VALUES ('76','3');
+INSERT INTO `product_model` VALUES ('76','4');
+INSERT INTO `product_model` VALUES ('77','2');
+INSERT INTO `product_model` VALUES ('77','3');
+INSERT INTO `product_model` VALUES ('77','4');
+INSERT INTO `product_model` VALUES ('78','7');
+INSERT INTO `product_model` VALUES ('78','8');
+INSERT INTO `product_model` VALUES ('78','9');
+INSERT INTO `product_model` VALUES ('78','10');

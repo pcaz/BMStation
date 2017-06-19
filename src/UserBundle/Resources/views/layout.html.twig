@@ -1,0 +1,30 @@
+{% extends '::layout.html.twig' %}
+{% block appcss%}
+{% block css %}{% endblock css %}
+{% endblock appcss %}
+{% block appscriptheader %}
+ {% block scriptheader %}{% endblock scriptheader %}
+{% endblock appscriptheader%}
+{% block appslideshow %}
+{% block slideshow %}{% endblock slideshow %}
+{% endblock appslideshow%}
+{% block appheader  %}
+    {% include "ClientBundle::connexion.html.twig" %}
+				<div id="choisir-langue">
+		            {{ "choose_langage" | trans}} :
+					<a href="{{ path('userchooseLangage', {'langue' : 'fr'}) }}">FR</a> |
+    				<a href="{{ path('userchooseLangage', {'langue' : 'en'}) }}">EN</a>	
+         		</div> <!-- choisir-langue-->
+{% block header %}{% endblock header %}
+{% endblock appheader %}
+{% block appmenu %}
+{% block menu %}{% endblock menu %}
+{% endblock appmenu%}
+{% block appcontent %}
+{% block content %}{% endblock content %}
+{% endblock appcontent %}
+{% block appfooter %}
+{% block footer %}{% endblock footer %}
+{% endblock appfooter %}
+
+             

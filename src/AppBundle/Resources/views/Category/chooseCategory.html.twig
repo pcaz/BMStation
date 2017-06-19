@@ -1,0 +1,49 @@
+{% for cat in categories %}
+<div class="category">
+ 			<div class="img-small">
+				<img  id="{{ cat.id }}"src="{{ images}}/{{cat.image}}" onclick="selectCategorie('{{ cat.id }}')"></a>
+			</div>
+
+			{{ cat.name }}
+</div>
+	{% else %}
+	<p>{{ 'no_product_category' | trans }}</p>
+	{% endfor %}	
+
+<script>
+
+var selected;
+function selectCategorie(id){
+
+	var DATA;
+	
+	var cat=document.getElementById(id);
+	if(selected){
+		var old=document.getElementById(selected)
+		old.style.border="";
+		}
+	if(id==selected){
+		selected=0;
+		DATA="category=0";
+		}
+	else
+		{
+		cat.style.border="solid 2px red";
+		selected=id;
+		var DATA="category="+id;
+	} 
+	
+	$.ajax({
+        type: "POST",
+        url: "{{ path('product_setcategory')}}",
+        data: DATA,
+        cache: false,
+        success: function(data){
+        return true;
+        }
+    });    
+    return false;
+}
+
+
+</script>

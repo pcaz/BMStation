@@ -1,0 +1,16 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+
+{% block title %}Product{% endblock %}
+
+{% block content %}
+<H1>{{ title | trans }}</H1>
+
+La base a été sauvegardée.
+<p></p>
+<a href="{{ url }}">Vous pouvez la télécharger ici</a>
+
+<p></p>
+
+<a href="{{ path('homepageAdmin') }}">{{ 'rethome'| trans }}</a>
+{% endblock content %}

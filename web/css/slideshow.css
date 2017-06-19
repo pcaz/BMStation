@@ -1,0 +1,27 @@
+.slideshow {
+	
+   width: 900px ;
+   overflow: hidden;
+   border: 3px solid #F2F2F2;
+   margin-top:40px;
+   margin-bottom: 0;
+   margin-left: auto;
+   margin-right: auto;
+}
+
+.slideshow ul {
+    /* 4 images donc 4 x 100% */
+   width: 400%;
+   height: 200px;
+   padding:0; margin:0;
+   list-style: none;
+}
+.slideshow li {
+   list-style-type: none; 
+   float: left;
+}
+
+.slideshow img {
+    width: 300px;
+    height: 200px;
+}
