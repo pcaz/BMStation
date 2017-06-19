@@ -84,18 +84,15 @@ class ProductController extends Controller{
         
 		
 		
-		//si la session est tombée, il faut revenir à la liste des categories
-		// pour eviter une erreur.
-		if($this->container->get('session')->get('category') == null)
-			return new RedirectResponse($this->container->get('router')->generate('product_add'));
-        else		
+		
+		if(!$id)
+			return new RedirectResponse($this->container->get('router')->generate('product_add'));	
 
 	    $val=$this->getParameter('app.images_directory');    
     	$title='modify_product';
-    	$product= new Product();
     	$em = $this->container->get('doctrine')->getManager();
-    	$cat=$this->container->get('session')->get('category');
-    	$category = $em->find('AppBundle:Category',$cat);
+    	$product= $em->find('AppBundle:Product',$id);
+    	$category=$product->getCategory();
     	$series =$em->getRepository('AppBundle:Series')->findAll();
     	$models =$em->getRepository('AppBundle:Model')->findAll();
     	$request=$this->container->get('request');
