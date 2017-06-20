@@ -1,0 +1,122 @@
+{% extends 'ClientBundle::layout.html.twig' %}
+
+{% block title %}Client{% endblock %}
+
+{% block content %}
+<H1> </H1>
+
+
+
+<div id="client">
+
+{% if message %}
+<div class="message">
+{{ message }}
+</div>
+{% endif %}
+{% if errors is defined %}
+<ul>
+{% for error in errors %}
+	{% for err in error %}
+    <li>{{ err.message }}</li>
+    {% endfor %}
+{% endfor %}
+</ul>
+{% endif %}
+<div class="space" style="width:600px; font-style: italic;">
+{{ 'procedure_inscription'| trans }}
+</div>
+<span class="space"></span>
+<form action="{{ path('setclient') }}" method="post" id="client_form">
+
+<table>
+
+<tr>
+<td>
+{{ form_errors(form.firstName)}}
+{{ form_label(form.firstName) }}
+{{ form_widget(form.firstName) }}
+</td>
+<td>
+{{ form_errors(form.lastName)}}
+{{ form_label(form.lastName)}}
+{{ form_widget(form.lastName) }}
+</td>
+</tr>
+
+</table>
+
+<fieldset>
+
+<legend class="subtitle">{{ 'deliveryaddress' | trans}} </legend>
+
+<table>
+<tr>
+    {{ form_errors(form.deliveryAddress.address) }}
+    {{ form_label(form.deliveryAddress.address) }} 
+    {{ form_widget(form.deliveryAddress.address) }}<br/>
+</tr>
+<tr>    
+  <td>  {{ form_errors(form.deliveryAddress.city) }}
+         {{ form_label(form.deliveryAddress.city)}}
+         {{ form_widget(form.deliveryAddress.city)}}
+  
+  </td>
+  <td>  {{ form_errors(form.deliveryAddress.postalCode) }}
+         {{ form_label(form.deliveryAddress.postalCode)}}
+         {{ form_widget(form.deliveryAddress.postalCode)}}
+  </td>
+</tr>
+<tr>   
+  <td>  
+         {{ form_errors(form.deliveryAddress.phone) }}
+         {{ form_label(form.deliveryAddress.phone)}}
+         {{ form_widget(form.deliveryAddress.phone)}}
+   </td>
+ </tr>
+</table>
+</fieldset>  
+{%  block fos_user_content %}	
+<!-- <form method="POST" action="userbundle_user_registration_register" id="userbundle_user_registration_register">-->
+<fieldset>
+<legend class="subtitle">{{ 'user' | trans}} </legend> 
+
+{{ form_errors(form.user.email)}}
+ {{ form_label(form.user.email)}}
+ {{ form_widget(form.user.email)}}
+
+ {{ form_errors(form.user.username)}}
+ {{ form_label(form.user.username)}}
+ {{ form_widget(form.user.username)}}
+ 
+ {{ form_errors(form.user.plainPassword)}}
+ {# form_label(form.user.plainPassword)#}
+ {{ form_widget(form.user.plainPassword)}}
+</fieldset>
+<!-- </form> -->
+{#    include "UserBundle:Registration:register_content.html.twig" #}
+{%endblock %}
+</form>
+         
+
+
+{{ form_rest(form) }}
+<input type="submit" onclick="submitclient()" value="{{ 'record' | trans}}"/>
+
+</div> <!-- client -->
+{% endblock %}
+{% block script %}
+<script>
+$( "#client-menu>a" ).css({ "background":"#666" });
+$( "#client-menu>a" ).css({ "font-weight":"bold" });
+
+function submitclient(){
+	 var token=document.getElementById("client__token");
+	 var form=document.getElementById("client_form");
+	 form.appendChild(token);
+	 document.getElementById("client_form").submit(); 	
+}
+</script>
+{% endblock %}
+
+ 

@@ -1,0 +1,82 @@
+{% extends 'AppBundle::layout.html.twig' %}
+{% block scriptheader %}
+<script type="text/javascript" src="{{ asset('js/image.js')}}"></script>
+{% endblock %}
+{% block header %}
+{% endblock %}
+
+{% block title %}Product{% endblock %}
+
+{% block content %}
+
+
+
+<H1>{{ title }}</H1>
+
+
+
+<div id="category">
+
+{% if id %}
+ <form action="{{ path('category_modify',{'id':id}) }}" method="POST" enctype="multipart/form-data" >
+ {%else%}
+  <form action="{{ path('category_add') }}" method="POST" enctype="multipart/form-data">
+ {% endif %}
+ 
+<div class="error">
+	{{ form_errors(form) }}
+	{{ form_errors(form.image) }}
+</div>
+ 
+<div class="img-thumb">
+ <div id="preview">
+      <img src="{{image}}" id="image">
+ </div> <!-- preview --
+  </div> <!-- img-thumb -->
+ 
+<div class="inline">
+<table>
+<td>{{ form_label(form.name)}}</td>
+<td>{{ form_widget(form.name) }}</td>
+<td>{{ form_label(form.comment) }}</td>
+<td>{{ form_widget(form.comment) }}</td>
+<td>
+ 
+<label for="category_image"style="margin-left:50px;">Image</label>
+<input type="text" id="selectedfile" style="display:none"/>
+<input type="file" id="category_image" name="category[image]" style="display:none" onchange="getvalue('category_image')"/>
+<input type="button" id="category_button" value="{{ 'selectfile' | trans}}" onclick="getfile('category_image')" />
+</td>
+
+<!-- {{ form_row(form.image) }} -->
+ </table>   
+ {{ form_rest(form) }}
+<input type="submit" value="{{ 'record' | trans}}"/>
+</form>
+
+ {% if id %}
+<button   onclick="del('{{path('category_delete',{'id':id}) }}')"> {{ 'delete' | trans}}</button>
+{% endif %}
+
+
+<p class="clear space"></p>
+<a href="{{ path('category_list')}}">{{ 'categories_list' | trans }}</a>
+</div> <!-- category -->
+{% endblock content %}
+{% block script %}
+<script>
+$( "#category-menu a" ).css({ "background":"#666" });
+$( "#category-menu a" ).css({ "font-weight":"bold" });
+
+
+function del(path){
+
+	if(confirm('Etes vous sur de vouloir effacer cette catégorie ?')){
+		document.location.href=path;
+		}
+}
+</script>
+{% endblock script %}	
+
+
+

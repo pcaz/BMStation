@@ -1,0 +1,68 @@
+#
+#Messages of BMStation application
+#
+#
+# Generals
+#
+name:  Name  # Name fields
+comment: Comment # Comment fields
+image: Image # Image fields
+edit: Edit # Edit an item
+record: Record # Record button
+description: Description # Description field
+selectfile: New file
+se_langage: Choose langage  # Label of the 'choose langage' list box. 
+
+#
+# ADMIN FUNCTIONS
+#
+#
+
+# Category
+#
+category: Category # title
+categories_list: Product categories # Title of the list of categories screen 
+no_category: No category found in database # Error message if no category found
+add_category: Add a category # Link to the Add Category screen and Title of this screen
+modify_category: Modify a category # Link to the Modify Category screen and Title of this screen
+existing_category: This Category is already defined  # Error message 
+category_added: Category sussesfuly added # Success message
+category_modified: Category modified # Success message 
+# Series
+#
+series: Series #title
+series_list: Series list # Title of the list of series screen 
+no_series: No series found # Error message if no series found
+add_series: Add a series # Link to the Add Series screen and Title of this screen
+modify_series: Modify a series # Link to the Modify Serie screen and Title of this screen
+existing_series: Series existing  # Error message 
+series_added: Series added # Success message 
+# Model
+#
+model: Model  #title
+model_list: Model List # Title of the list of model screen 
+no_model: No model found in database # Error message if no model found
+add_model: Add a model # Link to the Add model screen and Title of this screen
+modify_model: Modify a model # Link to the Modify Model screen and Title of this screen
+existing_model: Model existing  # Error message 
+model_added: Model added # Success message 
+model: Model # Model field
+model_input: Choose a model # Label of the Model Box 
+# Product
+#
+product: Product  #title
+product_list: Products List # Title of the list of product screen 
+no_product: No product found in database # Error message if no product found
+add_product: Add a product # Link to the Add product screen and Title of this screen
+modify_product: Modify # Link to the Modify Product screen and Title of this screen
+existing_product: Product existing  # Error message 
+product_added: Product added # Success message 
+product: Product # Product field
+product_input: Choose a product # Label of the Product Box 
+product_category_list: Category of products
+no_product_category: You must create categories first
+concerned_models: Models
+# Administration
+nocontact: No contact recorded
+
+

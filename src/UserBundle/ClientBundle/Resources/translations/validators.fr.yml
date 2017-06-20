@@ -1,0 +1,5 @@
+alphanumeric:  Ce champ ne doit contenir que des caractères alphanumériques.
+invalidpostalcode: Le Code Postal "{{ string }}" est invalide.
+invalidcityname: Le code Commune est invalide, nous n'aceptons que les lettres et les caractères '-' et '/'.
+alphanumericaddress: Le champ Adresse n'accepte que les caractères alphanumériques. 
+invalidclientname: Les champs Nom et Prénom n'acceptent que les lettres, les espaces et le caractère '-'  

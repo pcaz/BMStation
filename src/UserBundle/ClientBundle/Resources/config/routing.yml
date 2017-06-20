@@ -1,0 +1,48 @@
+homepage:
+  path: /
+  defaults: { _controller: ClientBundle:Homepage:homepage}
+userchooseLangage:
+  path: /userchooselangage/{langue}
+  defaults: { _controller: ClientBundle:Homepage:chooseLangage} 
+getaddress:
+  path: /getaddress
+  defaults: { _controller: ClientBundle:User:getAddress} 
+setclient:
+  path: /setclient
+  defaults: { _controller: ClientBundle:Client:setClient}
+  requirements :
+    _method: POST
+setclientaddress:
+  path: /setclientaddress
+  defaults: { _controller: ClientBundle:Client:setClientAddress}
+  requirements :
+    _method: POS    
+#
+#  User Functions
+#   
+userchoosecategory:
+  path: /userchoosecategory
+  defaults: { _controller: ClientBundle:Homepage:chooseCategory} 
+usermodelsearch:
+  path: /usermodelsearch
+  defaults: { _controller: ClientBundle:Homepage:modelsearch} 
+userchoosemodel:
+  path: /userchoosemodel/{category}
+  defaults: { _controller: ClientBundle:Homepage:chooseModel} 
+usermodel: 
+   path: /usermodel/
+   defaults: { _controller: ClientBundle:Homepage:model} 
+userbasket:
+  path: /userbasket/  
+  defaults: { _controller: ClientBundle:Homepage:basket} 
+getclient:
+  path: /getclient/
+  defaults: { _controller: ClientBundle:Client:getClient}
+validateclient:
+  path: /validate/{token}
+  defaults: { _controller: ClientBundle:Client:validateClient}
+     
+contact:
+  path: /contact/   
+  defaults: { _controller: ClientBundle:Contact:contact}
+  

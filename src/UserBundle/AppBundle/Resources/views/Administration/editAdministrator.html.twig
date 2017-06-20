@@ -1,0 +1,43 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+
+{% block title %}{% endblock %}
+
+{% block content %}
+<H1>{{ title | trans }}</H1>
+
+{{  form_start(form) }}
+
+{{  form_errors(form.username) }}
+{{  form_label(form.username) }}
+{{  form_widget(form.username) }}
+
+{{  form_errors(form.email) }}
+{{  form_label(form.email) }}
+{{  form_widget(form.email) }}
+
+{{  form_errors(form.lastLogin) }}
+{{  form_label(form.lastLogin) }}
+{{  form_widget(form.lastLogin) }}
+<p></p>
+<div style="display:inline-block;">
+{{  form_errors(form.enabled) }}
+{{  form_label(form.enabled) }}
+{{  form_widget(form.enabled) }}
+</div>
+<br/>
+<input type="submit" value="{{ 'record' | trans }}"/>
+{{ form_end(form) }}
+<p></p>
+<p class="space"></p>
+<a href="{{ path('homepageAdmin') }}">{{ 'rethome'| trans }}</a>
+{% endblock content %}
+
+
+
+{% block script%}
+<script>
+$( "#administration-menu a" ).css({ "background":"#666" });
+$( "#administration-menu a" ).css({ "font-weight":"bold" });
+</script>
+{% endblock %}

@@ -1,0 +1,122 @@
+#
+# Messages de l'application BMStation
+#
+#
+# Generals
+#
+name:  Nom  # Name fields
+comment: Commentaires # Comment fields
+image: Image # Image fields
+edit: Éditer # Edit an item
+record: Enregistrer # Record button
+description: Description # Description field
+selectfile: Nouveau fichier
+all: Tout
+register: Inscrivez vous
+modify: Modifier
+delete: Effacer
+record_done: Enregistrement effectué.
+cancel: Annuler
+rethome: Retour à l'accueil
+enabled: Autorisé
+return: Retour à la page précédente
+#
+# ADMIN FUNCTIONS
+#
+#
+deconnect: La déconnexion renvoie sur le site client
+# Category
+#
+category: Catégorie # title
+categories_list: Catégories de produits # Title of the list of categories screen 
+no_category: Il n'y a pas de catégorie dans la base # Error message if no category found
+add_category: Ajouter une catégorie # Link to the Add Category screen and Title of this screen
+modify_category: Modifier une catégorie # Link to the Modify Category screen and Title of this screen
+existing_category: Cette catégorie existe déjà  # Error message 
+category_added: Catégorie ajoutée avec succès # Success message 
+category_modified: Catégorie modifiée # Success message
+bad_format: Mauvais format de fichier, les formats supportés sont 'jpg', 'gif' et 'png'. 
+existing_products: Nous ne pouvons pas détruire une catégorie qui contient encore des produits !
+# Series
+#
+series: Série #title
+series_list: Liste des séries # Title of the list of series screen 
+no_series: Il n'y a pas de série dans la base # Error message if no series found
+add_series: Ajouter une série # Link to the Add series screen and Title of this screen
+modify_series: Modifier une série # Link to the Modify Series screen and Title of this screen
+existing_series: Cette série existe déjà  # Error message 
+series_added: Série ajoutée avec succès # Success message 
+model_existant: Vous ne pouvez pas effacer une série pour laquelle il existe encore des modèles.
+# Model
+#
+model:  Modèle # title
+keyword: Recherche par mot clé
+model_list: Liste des modèles # Title of the list of model screen 
+no_model: Il n'y a pas de modèle dans la base # Error message if no model found
+add_model: Ajouter un modèle # Link to the Add model screen and Title of this screen
+modify_model: Modifier un modèle # Link to the Modify Product screen and Title of this screen
+existing_model: Ce modèle existe déjà  # Error message 
+model_added: Modèle ajoutée avec succès # Success message 
+model: Modèle # Series field
+model_input: Choisir un modèle # Label of the Series Box 
+# Product
+#
+product: Produit  #title
+product_list: Liste des produits # Title of the list of product screen 
+no_product: Aucun produit trouvé # Error message if no product found
+add_product: Ajouter un produit # Link to the Add product screen and Title of this screen
+modify_product: Modifier # Link to the Modify Product screen and Title of this screen
+existing_product: Produit déja existant  # Error message 
+product_added: Produit ajouté # Success message 
+product: Produit # Product field
+product_input: Choisir un produit # Label of the Product Box 
+product_category_list: Categories de produits
+no_product_category: Vous devez d'abord créer des catégories
+concerned_models: Modèles
+price: Prix
+disponibility: Disponibilité
+modification_done: Modification effectuée.
+selectallmodels: Selectionner tous les modèles
+returnlist: Revenir à la liste
+deleteclient: Effacer le client
+nocontact: Auncun contact enregistré
+editcontact: Editer un contact
+client: Client
+administration: Administration
+administrator: Administrateurs 
+product_result: Résultat de la recherche
+list_client:
+  firstname: Prénom
+  lastname: Nom
+  address: Adresse
+  city: Ville
+  postalcode: C.P.
+  deliveryaddress: Adresse de livraison
+  phone: Téléphone
+  email: Email
+  username: User
+  lastlogin: Connecté
+  never: Jamais
+
+security:
+  passwordnotprovided: Le mot de passe n'est pas fourni et doit être changé par l'utilisateur
+  enabled: Autorisé
+  last_login: Connection
+  city: Ville
+historic:
+  type: Type
+  id: Événement
+  date: Date
+list_admin:
+  username: User
+  email: Email
+  lastlogin: Connecté
+savebase: Sauvegarde de la base
+createadmin: Création d'un administrateur
+editadmin: Éditer un administrateur
+
+
+
+
+  
+  

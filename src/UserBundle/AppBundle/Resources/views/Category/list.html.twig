@@ -1,0 +1,43 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block title %}Product{% endblock %}
+{% block scriptheader %}
+{% endblock scriptheader %}
+{% block content %}
+<div id="product">
+<h1>{{ 'categories_list'|trans}}</h1>
+<table>
+	<tr> 
+		<th>{{'name' | trans}}</th>
+		<th>{{ 'comment' | trans }}</th>
+		<th>{{ 'image' | trans }}</th>
+	</tr>
+	{% for cat in categories %}
+	<tr>
+		<td>{{ cat.name}}	</td>
+    	<td>{{ cat.comment}} </td>	
+	
+		<td>
+			<div class="img-thumb">
+				<img  src="{{ directory}}/{{cat.image}}">
+			</div>
+		</td>
+		<td>
+			<a href="{{ path('category_get', { 'id': cat.id })}}">{{ 'edit' | trans }}</a>
+		</td>
+	</tr>
+	
+	{% else %}
+	<p>{{ 'no_category' | trans  }}</p>
+	{% endfor %}	
+	</table>
+<p><a href="{{ path('category_get', {'id':'0' })}}">{{ 'add_category' | trans }}</a></p>
+</div> <!-- product -->
+{% endblock %}	
+{%  block script %}
+<script>
+$( "#category-menu a" ).css({ "background":"#666" });
+$( "#category-menu a" ).css({ "font-weight":"bold" });
+</script>
+{% endblock script %}	
+	

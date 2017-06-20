@@ -1,0 +1,28 @@
+{% extends 'ClientBundle::layout.html.twig' %}
+
+{% block title %}Categories{% endblock %}
+
+{% block content %}
+
+<h2>{{ 'userchoosecategory' | trans }}</h2>
+
+	{% for cat in categories %}
+<div class="category">
+			<div class="img-small">
+				<a href="{{path('userchoosemodel',{category:cat.id})}}"><img  src="{{ images}}/{{cat.image}}"></a>
+			</div>
+			{{ cat.comment }}
+</div>
+	{% else %}
+	<p>{{ 'no_product_category' | trans }}</p>
+	{% endfor %}	
+
+
+{% endblock %}		
+{% block script %}
+<script>
+$( "#category-menu a" ).css({ "background":"#666" });
+$( "#category-menu a" ).css({ "font-weight":"bold" });
+
+</script>
+{% endblock script %}	
