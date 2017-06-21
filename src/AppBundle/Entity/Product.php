@@ -59,7 +59,7 @@ class Product
 	 private $price;
 	 
 	 /**
-	  * @ORM\Column(type="boolean")
+	  * @ORM\Column(type="decimal")
 	  * 
 	  */
 	 

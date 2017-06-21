@@ -175,7 +175,8 @@ class ProductController extends Controller{
     		if($product->getName()) $newProduct->setName($product->getName());
     		if($product->getComment()) $newProduct->setComment($product->getComment());
     		if($product->getPrice()) $newProduct->setPrice($product->getPrice());
-    		$newProduct->setDisponibility($product->getDisponibility());
+    		if($product->getDisponibility() !== null) $newProduct->setDisponibility($product->getDisponibility());
+    		else $newProduct->setDisponibility($oldProduct->getDisponibility());
 	    
 	    	if ($product->getImage()){
 	    			$getImage=$this->container->get("app.image");
