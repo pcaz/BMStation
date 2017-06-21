@@ -18,7 +18,7 @@ services:
          class: AppBundle\Validator\Product\ValidateProduct
   
   app.image:
-        class: AppBundle\DependencyInjection\Image
+        class: AppBundle\Service\Image
         arguments:
             $targetDir: '%app.images_directory%'  
         tags:

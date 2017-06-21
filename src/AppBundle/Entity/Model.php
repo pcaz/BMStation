@@ -3,6 +3,8 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 
 /**
@@ -81,6 +83,11 @@ class Model
     public function getId()
     {
         return $this->id;
+    }
+    
+    public function __construct()
+    {
+    	$this->product = new ArrayCollection();
     }
 
     /**
@@ -222,13 +229,6 @@ class Model
     {
         return $this->selected;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->product = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
      * Add product
@@ -253,6 +253,7 @@ class Model
         $this->product->removeElement($product);
     }
 
+    
     /**
      * Get product
      *

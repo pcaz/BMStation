@@ -59,6 +59,7 @@ existing_model: Ce modèle existe déjà  # Error message
 model_added: Modèle ajoutée avec succès # Success message 
 model: Modèle # Series field
 model_input: Choisir un modèle # Label of the Series Box 
+disponibility: Disp.
 # Product
 #
 product: Produit  #title

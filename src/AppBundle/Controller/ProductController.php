@@ -6,12 +6,12 @@ use AppBundle\Entity\Category;
 use AppBundle\Entity\Model;
 use AppBundle\Form\ProductForm;
 use AppBundle\Form\Common\SeriesModelForm;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use AppBundle\AppBundle;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use AppBundle\Form\ChoiceForm;
+use Symfony\Component\Console\Output\ConsoleOutput;
+use Symfony\Component\Console\Application;
 
 
 class ProductController extends Controller{
@@ -63,15 +63,14 @@ class ProductController extends Controller{
 		$em= $this->container->get('doctrine')->getManager();
 		$products = $em->getRepository('AppBundle:Product')->findByCategory($id);
 
-		$cat = $em->find('AppBundle:Category',$id);
-		$this->container->get('session')->set('category', $id);
+		$category=$this->get('session')->get('category');
 		$images=$this->container->getParameter('app.images_URL');
 		$products = $this->get('knp_paginator')->paginate($products,$this->get('request')->query->get('page', 1),20);
 		//.'/'.$cat->getImage();;
 		return $this->container->get('templating')->renderResponse(
 				'AppBundle:Product:list.html.twig',
 				array(	'images' => $images,
-						'category' => $cat,
+						'category' => $category,
 						'products' => $products,
 				));
 		
@@ -79,53 +78,46 @@ class ProductController extends Controller{
 		
 
 	public function modifyAction($id=null) {
-		$message='';
         
-        
-		
 		
 		
 		if(!$id)
+			// anormal, on repart sur un add
 			return new RedirectResponse($this->container->get('router')->generate('product_add'));	
-
-	    $val=$this->getParameter('app.images_directory');    
-    	$title='modify_product';
+   
     	$em = $this->container->get('doctrine')->getManager();
-    	$product= $em->find('AppBundle:Product',$id);
-    	$category=$product->getCategory();
-    	$series =$em->getRepository('AppBundle:Series')->findAll();
-    	$models =$em->getRepository('AppBundle:Model')->findAll();
-    	$request=$this->container->get('request');
+       	$request=$this->container->get('request');
     	$flashbag=$request->getSession()->getFlashBag();
     	
-		
-
+    	// on stocke un dois pour toute l'ensemble des séries
+    	$series =$em->getRepository('AppBundle:Series')->findAll();
+		// et la catégorie du produit
 
 		if ($request->getMethod() == 'GET'){
-			$title='modify_product';
+			// d'abord, on récupère le produit
 			$product=$em->find('AppBundle:Product',$id);
 			$form=$this->container->get('form.factory')->create(new ProductForm(),$product);
-			$mods=$product->getModel();
-			$model=$mods->getValues();
-			// on commence par oter les modeles précédemment sélectionnés
+			// puis ses modèles
+			$count=$product->countModel();
+			
+			$models=$product->getModel()->unwrap()->toArray();
+			// on stocke les modèles dans la session
+			
 			$this->get('session')->remove('models');
-			// puis on ajoute les modèles actuels
-			$this->get('session')->set('models',$model);
-			$models =$em->getRepository('AppBundle:Model')->findAll();
-//			$series =$em->getRepository('AppBundle:Series')->findAll();
-			//model est un tableau de models sélectionnés
-			// on est en get, on affiche le produit actuel
-			$models=$this->getDoctrine()->getManager()->getRepository('AppBundle:Model')->getSelected($model,$models);
-			
-//			$this->container->get('session')->set('models',$model);
+			$this->container->get('session')->set('models',$models);
+			// enfin, on va selectionner les modèles du produit 
+			$allModels =$em->getRepository('AppBundle:Model')->findAll();
+			$models=$this->getDoctrine()->getManager()->getRepository('AppBundle:Model')->getSelected($models,$allModels);
+			// et om met à jour les dernières variables
 			$images=$this->container->getParameter('app.images_URL');
-			
+		
+			$category=$product->getCategory();
+			// et on affiche l'écran		
 			return $this->container->get('templating')->renderResponse(
 					'AppBundle:Product:edit.html.twig',
 					array(
 							'form' => $form->createView(),
-							'message' => $message,
-							'title' => $title,
+							'title' => 'modify_product',
 							'images' => $images,
 							'series' => $series,
 							'models'=> $models,
@@ -133,162 +125,138 @@ class ProductController extends Controller{
 							'product'=>$product,
 					));
 		}
-		// on est en modification et on a enregistré un nouveau produit
-		$form=$this->container->get('form.factory')->create(new ProductForm(),$product);
+		
+		// on est en POST
+		// et on a enregistré un nouveau produit
+	
+		$oldProduct=$em->find('AppBundle:Product',$id);
+	    $product=new Product();
+		$form=$this->get('form.factory')->create(new ProductForm(),$product);
         $form->handleRequest($request);  
-        $var=$this->getErrorMessages($form);
+        $this->getErrorMessages($form);
     	if ($form->isValid()){
 				// on est en modification
+   
+    	// l'utilisateur a modifié le contexte
+    	$models=$this->get('session')->get('models');
     	
-    	
-      
-    	$models1=$this->get('session')->get('models');
-    	$mods=$product->getModel();
-    	$models=$mods->getValues();
-    
     	// on test d'abord si on a eu un reset
     	// si il n'y a pas de models présent, le tableau est vide
-    	if(count($models1)!=0 && $models1[0]->getId()==0){
-    
-    	$product=$em->find('AppBundle:Product',$id);
-    	$models=$product->getModel();
-    	$models=$models->toArray();
-    	$val=$em->getRepository('AppBundle:Model')->findAll();	
-    	$val=$this->getDoctrine()->getManager()->getRepository('AppBundle:Model')->getSelected($models,$val);
+    	if( $models=="0"){
+    	// alors, on réinitialise les valeurs aux valeurs initiales
+    			$form = $this->container->get('form.factory')->create(new ProductForm(), $oldproduct);
+    			$models=$product->getModel();
+    			$models=$models->toArray();
+    			$allModels=$em->getRepository('AppBundle:Model')->findAll();	
+    			$models=$this->getDoctrine()->getManager()->getRepository('AppBundle:Model')->getSelected($models,$allModels);
     		
- //   	$this->get('session')->set('models',$models);
-    	$images=$this->getParameter('app.images_URL');
-    	$form = $this->container->get('form.factory')->create(new ProductForm(), $product);
     	
-    	return $this->container->get('templating')->renderResponse(
+    			$category=$product->getCategory();
+    			$images=$this->getParameter('app.images_URL');
+    			return $this->container->get('templating')->renderResponse(
     				'AppBundle:Product:edit.html.twig',
     				array(
     						'form' => $form->createView(),
-    						'message' => $message,
-    						'title' => $title,
+    						'title' => 'modify_product',
     						'images' => $images,
     						'series' => $series,
-    						'models'=> $val,
+    						'models'=> $models,
     						'category' => $category,
-    						'product'=>$product,
+    						'product'=>$oldproduct,
     				));
     		}
+		
+    
+        // bon, cette fois ci, on modifie pour de bon	
 				
-    		if(!$em->find('AppBundle:Product',$id)) {
-						$flashbag->add($this->container->get('translator')->trans('no_product'));
-			    } 		
-		else{
-			// on est en modification
-		$title='modify_product';
-				
-		// on gère l'image qui a déja été uploadée
-	    if ($product->getImage()){
-	    	$getImage=$this->container->get("app.image");
-	    	$oldImage=$em->find('AppBundle:Product',$id)->getImage();
-	    	if($oldImage) {$getImage->removeImage($oldImage);
-	    }
-		
-		$val=$getImage->uploadImage($product->getImage());
-		$product->setImage($val);
-	    }
+		// on gère l'image qui a été uploadée et on efface éventuellement l'ancienne
+		// c'est peut la même mais à ce stade, on n'en sait rien
+    		$newProduct=$oldProduct=$em->find('AppBundle:Product',$id);
+    		if($product->getName()) $newProduct->setName($product->getName());
+    		if($product->getComment()) $newProduct->setComment($product->getComment());
+    		if($product->getPrice()) $newProduct->setPrice($product->getPrice());
+    		$newProduct->setDisponibility($product->getDisponibility());
+	    
+	    	if ($product->getImage()){
+	    			$getImage=$this->container->get("app.image");
+	    			$oldImage=$oldProduct->getImage();
+	    			if($oldImage) $getImage->removeImage($oldImage);
+		    		$image=$getImage->uploadImage($product->getImage());
+		    		$newProduct->setImage($image);
+	    	}
 		
 		
-//		$em->persist($product->getCategory());
-// on s'occupe des modèles
-// product->getModel() contient les models actuellement stockés dans l'entité
-// $this->get('session')->get('models') contient les modèles nouvellement choisit (merci modelsetAction)
 
-
-// $product vient avec des modèles erronés, on chosit de repartir propre avec
-// un nouveau produit $prod
-		$models1=$this->get('session')->get('models');
-	    $prod=$em->find('AppBundle:Product',$id);
-	    $models=$prod->getModel();
-		$models=$models->toArray();
-		$prod=$em->find('AppBundle:Product',$id);
-		$prod->setName($product->getName());
-		$prod->setDescription($product->getDescription());
-		$prod->setComment($product->getComment());
-		$prod->setPrice($product->getPrice());
-		$prod->setDisponibility($product->getDisponibility());
-		$cat=$this->container->get('session')->get('category');
-		$prod->setCategory($em->find('AppBundle:Category',$cat));
-		// si on a modifié l'image, on la stocke
-		if($product->getImage()){
-		$prod->setImage($product->getImage());
-		}
-		$prods=$em->find('AppBundle:Product',$id);
-		$mod=$prods->getModel();
-		$mods=$mod->toArray();
-		for($i=0;$i<count($mods);$i++){
-			$prod->addModel($mods[$i]);
-		}
-		$models=$prod->getModel();
-		$models=$models->toArray();
+			// on s'occupe des modèles
 		
-		$product=null;			
-		//d'abord, on regarde si on a entré des modèles ou si il en avait déja
-		if(count($models)<>0) {
-		// on commence va d'abord retirer tous les ancien modeles
- 			for($i=0;$i<count($models);$i++){
-				$prod->removeModel($models[$i]);
-			}
-	
+				$mod=$oldProduct->getModel();
+				$oldModels=$mod->toArray();
+		
+			// on récupère les nouveaux modèles
+			$models=$this->get('session')->get('models');
+
+				// si oui, on commence va d'abord retirer tous les ancien modeles
 			
-			$em->flush();
-		}
-		if(count($models1)<>0){
-		// puis on ajoute les nouveaux(peut être les mêmes)
-			for($i=0;$i<count($models1);$i++) {
-				$val=$em->find('AppBundle:Model',$models1[$i]);
-				$prod->addModel($val);
+				$newProduct->removeAllModels();
+				
+				// et on flush pour éviter les collisions
+				
+//	    	$em->flush();
+
+		
+			// puis on ajoute les nouveaux
+			for($i=0;$i<count($models);$i++) {
+					if ($models[$i] instanceof \AppBundle\Entity\Model) 
+					{  
+						$model=$em->find('AppBundle:Model',$models[$i]->getId());
+						$newProduct->getModel()->add($model);
+					}
 			}
 
-
-		}
-
+		// bon, à présent, on peut sauvegarder le produit
 		
-		$em->persist($prod);
+		$em->persist($newProduct);
 		$em->flush();
-		
+	
 		$flashbag->add('success', $this->container->get('translator')->trans('modification_done'));
-		$title=$this->get('translator')->trans($title);
-		$images=$this->getParameter('app.images_URL');
-		$cat=$this->get('session')->get('category');
-		$category=$em->find('AppBundle:Category',$cat);
-    	$model=$this->get('session')->get('models');
-//		$series=$this->get('session')->get('serie');
-    	$series =$em->getRepository('AppBundle:Series')->findAll();
-		}
-		$models=$em->getRepository('AppBundle:Model')->findAll();
-		if($model){
-		$models=$this->getDoctrine()->getManager()->getRepository('AppBundle:Model')->getSelected($model,$models);
-		}
 		
+		
+		
+		// on sélectionne les modeles acquis
+		
+	
+		$allModels=$em->getRepository('AppBundle:Model')->findAll();
+		$this->container->get('session')->remove('models');
+		$this->container->get('session')->set('models',$models);
+		if($models){
+		$models=$this->getDoctrine()->getManager()->getRepository('AppBundle:Model')->getSelected($models,$allModels);
+		}
+	
+		$category=$newProduct->getCategory();
+		$images=$this->getParameter('app.images_URL');
 		return $this->container->get('templating')->renderResponse(
 				'AppBundle:Product:edit.html.twig',
 				array(
 						'form' => $form->createView(),
-						'message' => $message,
-						'title' => $title,
+						'title' => 'modify_product',
 						'images' => $images,
 						'series' => $series,
 						'models'=> $models,
 						'category' => $category,
-						'product'=>$prod,
+						'product'=>$newProduct,
 				));
 		}
-// la form postée n'est pas valide (contraintes)
+	// la form postée n'est pas valide (contraintes)
 		
 		
-		
+		$models=$this->get('session')->get('models');
+		$category=$this->get('session')->get('category');
 		 $images=$this->container->getParameter('app.images_URL');
 		return $this->container->get('templating')->renderResponse(
 				'AppBundle:Product:edit.html.twig',
 				array(
 						'form' => $form->createView(),
-						'message' => $message,
-						'title' => $title,
+						'title' => 'modify_product',
 						'images' => $images,
 						'series' => $series,
 						'models'=> $models,
@@ -296,67 +264,75 @@ class ProductController extends Controller{
 						'product'=>$product,
 				));
 		
-		
-
-		
-		
 	}
 	
 	public function addAction(){
-		
-		
-		$message="";
 				
-		$request = $this->container->get('request');
+		
+		$request = $this->get('request');
 		$flashbag=$request->getSession()->getFlashBag();
-		$em=$this->container->get('doctrine')->getManager();
-		$form=$this->container->get('form.factory')->create(new ProductForm());
-			
+		$em = $this->get('doctrine')->getManager();
+		$product=new Product();
+		$form=$this->get('form.factory')->create(new ProductForm(),$product);
+		$series =$em->getRepository('AppBundle:Series')->findAll();
+		$models =$em->getRepository('AppBundle:Model')->findAll();
+		
+		
 		if ($request->getMethod() == 'GET'){
-			$title=$this->container->get('translator')->trans('add_product');
+			if (($category=$this->get('session')->get('category'))==null){			
+			$categories=$em->getRepository("AppBundle:Category")->findAll();
 			$images=$this->container->getParameter('app.images_URL');
-			$cat=$this->container->get('session')->get('category');
-			$category = $em->find('AppBundle:Category',$cat);
-			$series =$em->getRepository('AppBundle:Series')->findAll();
-			$models =$em->getRepository('AppBundle:Model')->findAll();
-			$product=new Product();
 			return $this->container->get('templating')->renderResponse(
-					'AppBundle:Product:edit.html.twig',
+					'AppBundle:Category:chooseCategoryFrame.html.twig',
 					array(
 							'form' => $form->createView(),
-							'message' => $message,
-							'title' => $title,
+							'title' => 'add_product',
 							'images' => $images,
-							'series' => $series,
-							'category' => $category,
-							'models' => $models,
-							'product'=>$product,
+							'categories'=>$categories,
 							
 					));
-		}
-		
-		$form->handleRequest($request);
-		if($form->isValid()){
-			// on verifie d'abord si ce n'est pas un res->et
-			$mod=$this->get('session')->get('models')[0];
-			if( ($mod == null) || ($mod instanceof \AppBundle\Entity\Model) && $mod->getId()==0){
-			
-				$product=new Product;;
-				
-				$this->get('session')->remove('models');
+			}
+			else{
+				$form = $this->get('form.factory')->create(new ProductForm(), $product);
+				$models=$em->getRepository('AppBundle:Model')->findAll();
 				$images=$this->getParameter('app.images_URL');
-				$form = $this->container->get('form.factory')->create(new ProductForm(), $product);
-				$models =$em->getRepository('AppBundle:Model')->findAll();
-				$series=$series =$em->getRepository('AppBundle:Series')->findAll();
 				$cat=$this->get('session')->get('category');
-				$category=$em->getRepository('AppBundle:Category')->find($cat);
-				$title="addproduct";
+				$category=$em->find('AppBundle:Category',$cat);
 				return $this->container->get('templating')->renderResponse(
 						'AppBundle:Product:edit.html.twig',
 						array(
 								'form' => $form->createView(),
-								'message' => $message,
-								'title' => $title,
+								'title' => 'modify_product',
+								'images' => $images,
+								'series' => $series,
+								'models'=> $models,
+								'category' => $category,
+								'product'=>$product,
+						));
+			}
+			
+			}
+		
+		// bon, on est en POST, on ajoute un produit
+		
+		$form->handleRequest($request);
+		$this->getErrorMessages($form);
+		if($form->isValid()){
+			
+			// on verifie d'abord si ce n'est pas un reset
+			$mod=$this->get('session')->get('models');
+			
+			if( $mod == "0") {
+			
+				$product=new Product;
+				$form = $this->container->get('form.factory')->create(new ProductForm(), $product);
+				$category=$this->get('session')->get('category');
+				$images=$this->getParameter('app.images_URL');
+				return $this->container->get('templating')->renderResponse(
+						'AppBundle:Product:edit.html.twig',
+						array(
+								'form' => $form->createView(),
+								'title' => 'add_product',
 								'images' => $images,
 								'series' => $series,
 								'models'=> $models,
@@ -366,72 +342,75 @@ class ProductController extends Controller{
 			}
 			
 			
-			$prod = $form->getData();
-			
 			$validator=$this->container->get('validator');
-			if(!$this->container->get('app.validate_product')->validate($validator,$prod, $flashbag))
+			if(!$this->container->get('app.validate_product')->validate($validator,$product->toArray(), $flashbag))
 			{
-				$category=$this->container->get('session')->get('category');
-				$models=$this->container->get('session')->get('models');
-				$serie=$this->container->get('session')->get('serie');
-				$title=$this->container->get('translator')->trans('add_product');
-				$images=$this->container->getParameter('app.images_URL');
-				return $this->container->get('templating')->renderResponse(
+				$category=$this->get('session')->get('category');
+				$images=$this->getParameter('app.images_URL');
+				return $this->get('templating')->renderResponse(
 						'AppBundle:Product:edit.html.twig',
 						array(
 								'form' => $form->createView(),
-								'message' => $message,
-								'title' => $title,
+								'title' => 'add_product',
 								'images' => $images,
 								'series' => $serie,
 								'models'=> $models,
 								'category' => $category,
-								'product'=>$prod,
+								'product'=>$product,
 						));
 						
 			}
 				
-			// tout va bien, la form est valide et validée
+			// tout va bien, la form est validée
 			// on vérifie que le nom du produit n'existe pas encore
-			if($em->getRepository('AppBundle:Product')->findByName($prod['name'])){
-				$flashbag->add($this->get('translator')->trans('existing_product'));
-				$category=$this->container->get('session')->get('category');
-				$models=$this->container->get('session')->get('models');
-				$serie=$this->container->get('session')->get('serie');
-				$title=$this->container->get('translator')->trans('add_product');
-				$images=$this->container->getParameter('app.images_URL');
+			
+			if($em->getRepository('AppBundle:Product')->findByName($product->getName())){
+				$flashbag->add('error',$this->get('translator')->trans('existing_product'));
+				$models=$em->getRepository("AppBundle:Model")->findAll();
+				$serie=$em->getRepository("AppBundle:Series")->findAll();
+				$category=$this->get('session')->get('category');
+				
+				$images=$this->getParameter('app.images_URL');
 				return $this->container->get('templating')->renderResponse(
 						'AppBundle:Product:edit.html.twig',
 						array(
 								'form' => $form->createView(),
-								'message' => $message,
-								'title' => $title,
+								'title' => 'add_product',
 								'images' => $images,
 								'series' => $serie,
 								'models'=> $models,
 								'category' => $category,
-								'product'=>$prod,
+								'product'=>$product,
 						));
 			}
-						
-			$product=new Product;
-			$product->setName($prod['name']);
-			$product->setDescription($prod['description']);
-			$product->setComment($prod['comment']);
-			$product->setPrice($prod['price']);
-			$product->setDisponibility($prod['disponibility']);
-			$cat=$em->find('AppBundle:Category',$this->get('session')->get('category'));
-			$product->setCategory($cat);
+			
+			
+			$newProduct=new Product();
+			$newProduct->setName($product->getName());
+			$category=$this->get('session')->get('category');
+			// on informe doctctrine
+			$category=$em->find("AppBundle:Category", $category->getId());
+			$newProduct->setCategory($category);
+			$newProduct->setDescription($product->getDescription());
+			$newProduct->setComment($product->getComment());
+			$newProduct->setDisponibility($product->getDisponibility());
+			$newProduct->setPrice($product->getPrice());
+			
+			// on s'occupe de l'image
+			if ($product->getImage()){
+				$getImage=$this->container->get("app.image");
+				$image=$getImage->uploadImage($product->getImage());
+				$newProduct->setImage($image);
+			}
+			
 			// on s'occupe des modèles
-			// $this->get('session')->get('models') contient les modèles nouvellement choisit (merci modelsetAction)
+						
+			$models=$this->get('session')->get('models');
 			
-			$models1=$this->get('session')->get('models');
-			
-			if(count($models1)<>0){
-				// puis on ajoute les nouveaux(peut être les mêmes)
-				for($i=0;$i<count($models1);$i++) {
-					$val=$em->find('AppBundle:Model',$models1[$i]);
-					$product->addModel($val);
+			if(count($models)<>0){
+				for($i=0;$i<count($models);$i++) {
+					$model=$em->find('AppBundle:Model', $models[$i]->getId());
+					$newProduct->getModel()->add($model);
 				}
 			
 			
@@ -439,21 +418,23 @@ class ProductController extends Controller{
 			
 			
 			// ok, on enregistre
-				$em->persist($product);
-				$em->flush();
+				$output=new OutputConsole();
+				$output->writeln('je suis là');
+			
+				// et on sort
 				$flashbag->add('succes', $this->get('translator')->trans('record_done'));
 				$models=$em->getRepository('AppBundle:Model')->findAll();
-				$models=$this->getDoctrine()->getManager()->getRepository('AppBundle:Model')->getSelected($models1,$models);
-                $category=$product->getCategory();	
-                $serie=$this->container->get('session')->get('serie');
-				$title=$this->container->get('translator')->trans('add_product');
-				$images=$this->container->getParameter('app.images_URL');
-				return $this->container->get('templating')->renderResponse(
+				$category=$this->get('session')->get('category');
+                $serie=$em->getRepository('AppBundle:Category')->findAll();
+                $product=new Product();
+                $form=$this->get('form.factory')->create(new ProductForm(),$product);
+				$title=$this->get('translator')->trans('add_product');
+				$images=$this->getParameter('app.images_URL');
+				return $this->get('templating')->renderResponse(
 						'AppBundle:Product:edit.html.twig',
 						array(
 								'form' => $form->createView(),
-								'message' => $message,
-								'title' => $title,
+								'title' => 'add_product',
 								'images' => $images,
 								'series' => $serie,
 								'models'=> $models,
@@ -462,19 +443,17 @@ class ProductController extends Controller{
 						));
 				
 		} 
-				//erreur 
-				$cat=$this->container->get('session')->get('category');
-				$category = $em->find('AppBundle:Category',$cat);
-				$models=$this->container->get('session')->get('models');
-				$serie=$this->container->get('session')->get('serie');
-				$title=$this->container->get('translator')->trans('add_product');
+				//erreur.. la form est invalide
+				
+				$models=$this->get('session')->get('models');
+				$serie=$this->get('session')->get('serie');
+				$category=$this->get('session')->get('category');
 				$images=$this->container->getParameter('app.images_URL');
 				return $this->container->get('templating')->renderResponse(
 						'AppBundle:Product:edit.html.twig',
 						array(
 								'form' => $form->createView(),
-								'message' => $message,
-								'title' => $title,
+								'title' => 'add_product',
 								'images' => $images,
 								'series' => $serie,
 								'models'=> $models,
@@ -482,6 +461,7 @@ class ProductController extends Controller{
 								'product'=>$product,
 						));
 	}
+	
 	
 	
 	public function deleteAction($id){
@@ -496,8 +476,8 @@ class ProductController extends Controller{
 		$em->remove($product);
 		$em->flush();
 	
-		$cat=$this->get('session')->get('category');
-		return new RedirectResponse($this->get('router')->generate('product_list', array('id' => $cat)));
+		$category=$this->get('session')->get('category');
+		return new RedirectResponse($this->get('router')->generate('product_list', array('id' => $category->getId())));
 	}
 	
 	
@@ -556,8 +536,19 @@ class ProductController extends Controller{
 		$models = '';
 		$models = $request->request->get('models');
 	    $mod=array();
-	if($models<>""){
-		
+	// on regarde d'abord si on a reçu quelque chose    
+	if($models==""){
+		$this->get('session')->set('models',array());
+		return;
+	}
+	// on teste le reset	
+	if($models=="0"){	
+		$this->get('session')->set('models',"0");
+		return;
+	}	
+	
+	// bon, on est dans le cas normal et on doit interpréter la chaîne [x,x,x...]
+	
 		for($i=0;strstr($models,',',true)<>false;$i++) {
 			$str=strstr($models,',',true);
 			$mods[$i]=$str;
@@ -577,7 +568,7 @@ class ProductController extends Controller{
 				}
 		
 		}
-	}
+
 //	    $this->get('session')->remove('models');
 		$this->get('session')->set('models', $mod);
 		$mod=$this->getDoctrine()->getManager()->getRepository('AppBundle:Model')->getSelected($mod,$mod);
@@ -598,17 +589,11 @@ class ProductController extends Controller{
 		$request = $this->get('request');
 		$category = $request->request->get('category');
 		
-		if($category<>null){
-			if($category== 0){
-				$this->get('session')->remove('category');
-				
-			}
-		    else {
-		    	$cat=$em->find('AppBundle:Category',$category);
-		    	$this->get('session')->set('category',$cat);
-		    }
-		}
 		
+		$cat=$em->find('AppBundle:Category',$category);
+		$this->get('session')->set('category',$cat);
+		
+				
 		$models =$em->getRepository('AppBundle:Model')->findAll();
 		return $this->container->get('templating')->renderResponse(
 				'AppBundle:Common:SeriesModel.html.twig', array(
@@ -620,7 +605,9 @@ class ProductController extends Controller{
 		
 		$resultCategory=array();
 		$resultModel = array();
-		$result=array();		
+		$result=array();
+		$cat=false;
+		$mod=false;
 		
 		$em = $this->container->get('doctrine')->getEntityManager();
 		$category=$this->get('session')->get('category');
@@ -628,13 +615,15 @@ class ProductController extends Controller{
 		
 		if($category!=null){
 			$resultCategory=$em->getRepository('AppBundle:Product')->findByCategory($category->getId());
+			$cat=true;
 		}
 		if($model!=null){
 			$Models=$em->getRepository('AppBundle:Model')->find($model[0]->getId());
 			$resultModel=$Models->getProduct()->toArray();
+			$mod=true;
 		}
 		
-		if(count($resultCategory)==0 && count($resultModel)==0)
+		if(!$cat && !$mod)
 			$result=$em->getRepository('AppBundle:Product')->findAll();
 		else{
 			if(count($resultModel)==0)
@@ -658,21 +647,21 @@ class ProductController extends Controller{
 		 
 		     
 		     if($category==null)
-		     	$cat='tous';
+		     	$catResult='tous';
 		     else
-		     	$cat=$category->getName();
+		     	$catResult=$category->getName();
 		     if($model==null)
-		     	$mod='tous';
+		     	$modResult='tous';
 		     else
-		     	$mod=$model[0]->getName();
+		     	$modResult=$model[0]->getName();
 		     				
 		    $images=$this->container->getParameter('app.images_URL');
 		     
 		    return $this->get('templating')->renderResponse(
 		     		'AppBundle:Product:result.html.twig', array(
 		     				'images'=>$images,
-		     				'category'=>$cat,
-		     				'model'=>$mod,
+		     				'category'=>$catResult,
+		     				'model'=>$modResult,
 		     				'count'=>count($result),
 		     				'products'=>$result,
 		     		));

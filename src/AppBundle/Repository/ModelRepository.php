@@ -74,8 +74,10 @@ class ModelRepository extends EntityRepository
  * @param array $domain
  * @return unknown
  */
-	public function getSelected(array $selected, array $domain){
+	public function getSelected($selected, $domain){
 
+		if($selected==null) return $domain;
+		
 		for($i=0;$i<count($domain);$i++) {
 			for($j=0;$j<count($selected);$j++){
 				if(($selected[$j] instanceof \AppBundle\Entity\Model)

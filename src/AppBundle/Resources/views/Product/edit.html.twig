@@ -2,7 +2,6 @@
 
 {% block title %}Model{% endblock %}
 {% block css %}
-  <link rel="stylesheet" href="{{ asset('css/image.css') }}" type="text/css" media="all" />
 {% endblock %}
 {% block scriptheader %}
 	<script type="text/javascript" src="{{ asset('js/image.js')}}"></script>
@@ -37,33 +36,24 @@ $(document).ready(function(){
 <div class="sidebar-right">
 
 {% if product.id == 0 %}
-<form  action={{ path('product_add') }} method="post" id="product"  enctype="multipart/form-data">
+<form  action={{ path('product_add') }} method="post" id="product" enctype="multipart/form-data">
 {% else%}
-<form  action={{ path('product_modify',{'id': product.id}) }} method="post" id="product"  enctype="multipart/form-data">
+<form  action={{ path('product_modify',{'id': product.id}) }} method="post" id="product" enctype="multipart/form-data">
 {% endif %}
 <div id="product-model">
 <div id="series-name" onclick="selectSeries()">
 {% if series is defined %}
-<ul>
-<li>
-<label for "userSeriesModel_name_0">{{ 'all'|trans }}</label>
-<input type="radio" id="userSeriesModel_name_0" name="userSeriesModel[name]" required="required" value="0" checked="checked" />
-</li>
+<input type="radio" id="userSeriesModel_name_0" name="userSeriesModel[name]" required="required" value="0" checked="checked" />{{ 'all'|trans }}
 {% for ss in series %}   
-<li>
-<label for "userSeriesModel_name_{{loop.index}}">{{ ss.name }}</label>
-	<input type="radio" id="userSeriesModel_name_{{loop.index}}" name="userSeriesModel[name]" required="required" value="{{ ss.id }}"/>
-</li>
+	<input type="radio" id="userSeriesModel_name_{{loop.index}}" name="userSeriesModel[name]" required="required" value="{{ ss.id }}"/>{{ ss.name }}
 {% endfor %}
-</ul>
 {% endif %}
-
 </div> <!--  series-name -->
 <div class='hidden'>
 {{ form_row(form.model.nameSeries) }}
 {{ form_row(form.model.nameModel) }}
-{# form_row(form.category) #}
 </div> <!-- hidden -->
+
 {% autoescape false %}
 <div id="resultats_recherche">
 <select id="select" multiple="true">
@@ -115,21 +105,16 @@ $(document).ready(function(){
 <label for="product_image"style="margin-left:50px;">Image</label>
 <div class="img-thumb">
  <div id="preview"> 
-      {% if product.image %}
       <img  id="image" style="margin: 0 0 0 30px" src="{{ images}}/{{product.image}}">
-      {% else%}
-      <img  id="image" style="margin: 0 0 0 30px" src="{{ images}}/blank.png"> 
-      {% endif %}
  </div> <!-- preview -->
   </div> <!-- img-thumb -->
-
  <div>
-<input type="file" id="product_form_image" name="product_form[image]"style="display:none" onchange="getvalue('product_form_image')"/>
-<input type="text" id="selectedfile" style="display:none"/>
-<input type="button" style="margin:5px 0 0 0;" "id="product_button" value="{{   'selectfile' | trans }}" onclick="getfile('product_form_image')" />
-</div>
 
-<!-- {{ form_row(form.image) }} -->
+<input type="file" id="product_image" name="product[image]"style="display:none" onchange="getvalue('product_image')"/>
+<input type="text" id="selectedfile" style="display:none"/>
+<input type="button" style="margin:5px 0 0 0;" "id="product_button" value="{{ 'selectfile' | trans}}" onclick="getfile('product_image')" />
+</div> 
+<!--   {{ form_row(form.image) }} -->
 
 </tr>
 </table>
@@ -163,19 +148,20 @@ $(document).ready(function(){
 </div> <!-- two column -->
 
 <p class="clear space"></p>
- <a  href="#" onClick="javascript:history.back();">{{ 'return' | trans }}</a> 
+
+ <a  href="{{ path('product_list',{'id':category.id}) }}" >{{ 'product_list'| trans }}</a> 
 
 
 
-{% endblock content %}
+
+{% endblock %}
 {% block script%}
 <script>
 
-$( "#product-menu a" ).css({ "background":"#666" });
-$( "#product-menu a" ).css({ "font-weight":"bold" });
-
 
 var model=[];
+
+
 
 
 function getModels() {
@@ -236,8 +222,10 @@ function submit(){
     $(".loading").show();
     $(".wait").show();
 	 getModels();
-	 DATA="models="+model;
+	 var DATA="models="+model;
+	 $.ajaxSetup({async: false});
 		ajaxSet(DATA);
+		$.ajaxSetup({async: true});	
 	 $(".wait").hide();	
 	 $(".loading").hide();
 	return false;
@@ -266,5 +254,6 @@ function selectAll(){
 }	
 
 </script>
+
 
 {% endblock %}

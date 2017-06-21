@@ -17,19 +17,30 @@
 
 {%  include 'AppBundle:Model:chooseModel.html.twig' %}
 
+
 <div onclick="submit()">
 <button >{{ 'record'|trans }}</button>
 </div>
 </form>
+<div onclick="addProduct()">
+<button >{{ 'Ajouter un produit'|trans }}</button>
+</div>
 {% endblock content %}		
 {% block script %}
 <script>
 $( "#product-menu a" ).css({ "background":"#666" });
 $( "#product-menu a" ).css({ "font-weight":"bold" });
 
+
 function submit(){
 
 	document.location.replace="{{ path('product_set')}}";
+	return false;
+}
+
+function addProduct(){
+
+	document.location.href="{{ path('product_add')}}";
 	return false;
 }
 </script>

@@ -66,10 +66,10 @@ class CategoryController extends Controller
 			else{
 				$category=new Category();
 			}
-			$image=$this->container->getParameter('app.images_URL').'/'.$category->getImage();
-			$form = $this->container->get('form.factory')->create(new CategoryForm(), $category);			
+			$image=$this->getParameter('app.images_URL').'/'.$category->getImage();
+			$form = $this->get('form.factory')->create(new CategoryForm(), $category);			
 			// et on envioie l'écran de saisie
-			return $this->container->get('templating')->renderResponse(
+			return $this->get('templating')->renderResponse(
 					'AppBundle:Category:edit.html.twig',
 					array( 'form' => $form->createView(),
 							'title' => $title,
@@ -179,7 +179,7 @@ class CategoryController extends Controller
          else{
          	
          			
-         	return $this->container->get('templating')->renderResponse(
+         	return $this->get('templating')->renderResponse(
          			'AppBundle:Category:edit.html.twig',
          			array(
          					'form' => $form->createView(),
@@ -192,7 +192,7 @@ class CategoryController extends Controller
 		// Ok, finit ou la form est invalid  les enregistrement, maintenant, il faut penser à rediriger l'utilisateur:
 		if($id) {
 			$category=$em->find('AppBundle:Category',$id);
-			$image=$this->container->getParameter('app.images_URL').'/'.$category->getImage();
+			$image=$this->getParameter('app.images_URL').'/'.$category->getImage();
 			
 		}
 			return $this->get('templating')->renderResponse(
@@ -244,81 +244,4 @@ class CategoryController extends Controller
 			return new RedirectResponse($this->get('router')->generate('category_list'));
 		}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	public function annotationAction() {
-		$annotationReader = new AnnotationReader();
-		
-		$string=file_get_contents('/var/www/bmstation/src/AppBundle/Entity/Category.php');
-		var_dump($string);
-		$i=0;
-		$val = array();
-			while($string=strstr($string,'private')){
-			$i++;
-			$string =strstr($string,'$');
-			$string=ltrim($string, '$');
-			$val[$i] = strstr($string,';',true);
-			$string=strstr($string, ';');
-			
-		}
-		
-		var_dump($val);
-		
-		
-		
-		//Get class annotation
-		$reflectionClass = new \ReflectionClass('AppBundle\Entity\Category');
-		$classAnnotations = $annotationReader->getClassAnnotations($reflectionClass);
-		
-		echo "========= CLASS ANNOTATIONS =========" . PHP_EOL;
-		var_dump($classAnnotations);
-		
-		// You can also pass ReflectionObject to the same method to read annotations in runtime
-		$annotationDemoObject = new Category();
-		$reflectionObject = new \ReflectionObject($annotationDemoObject);
-		
-		$objectAnnotations = $annotationReader->getClassAnnotations($reflectionObject);
-		
-		echo "========= OBJECT ANNOTATIONS =========" . PHP_EOL;
-		var_dump($objectAnnotations);
-		echo "======================================" . PHP_EOL;
-		
-		//Property Annotations
-		foreach($val as $v)
-		{	
-		$reflectionProperty = new \ReflectionProperty('AppBundle\Entity\Category', $v);
-		$propertyAnnotations = $annotationReader->getPropertyAnnotations($reflectionProperty);
-		
-//		echo "=========   PROPERTY ANNOTATIONS =========" . PHP_EOL;
-		var_dump($v.':');
-		var_dump($propertyAnnotations[0]);
-		echo"------------------------------------------------". PHP_EOL;
-		
-		}
-		
-		
-		// Method Annotations
-		$reflectionMethod = new \ReflectionMethod('AppBundle\Entity\Category', 'getName');
-		$methodAnnotations = $annotationReader->getMethodAnnotations($reflectionMethod);
-		
-		
-		echo "=========   Method ANNOTATIONS =========" . PHP_EOL;
-		var_dump($methodAnnotations);
-	}
 }

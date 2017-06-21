@@ -3,6 +3,9 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+
 
 
 /**
@@ -74,12 +77,18 @@ class Product
 	 private $image;
 	 
 	 /**
-	 * @ORM\ManyToMany(targetEntity="Model",inversedBy="product", cascade={"all"})
+	 * @ORM\ManyToMany(targetEntity="Model",inversedBy="product")
 	 * @ORM\JoinColumn(name="Model", referencedColumnName="id", nullable=true)
 	 */
 	private $model;
 	
-	
+	/**
+	 * Constructor
+	 */
+	public function __construct()
+	{
+		$this->model = new ArrayCollection();
+	}
 
     /**
      * Get id
@@ -182,13 +191,7 @@ class Product
     {
         return $this->description;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->model = new \Doctrine\Common\Collections\ArrayCollection();
-    }
+    
 
     /**
      * Add model
@@ -222,7 +225,11 @@ class Product
     {
         return $this->model;
     }
-
+    
+    public function countModel()
+    {
+    	return $this->model->count();
+    }
     /**
      * Set price
      *
@@ -317,6 +324,20 @@ class Product
     }
     
     public function removeAllModels(){
-    	$this->model=null;
+    	$this->model=new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    public function toArray(){
+    	$result=array(
+    			'category'=>$this->category,
+    			'name'=>$this->name,
+    			'description'=>$this->description,
+    			'comment'=>$this->comment,
+    			'price'=>$this->price,
+    			'disponibility'=>$this->disponibility,
+    			'image'=>$this->image,
+    			'model'=>$this->model->toArray(),
+    			);
+    	return $result;
     }
 }

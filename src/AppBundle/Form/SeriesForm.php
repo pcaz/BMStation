@@ -12,7 +12,8 @@ class SeriesForm extends AbstractType
 		->add('name', 'text', array(
 				'label'=>'name'))
 		->add('comment','textarea',array(
-				'label'=>'comment'
+				'label'=>'comment',
+				'required'=>false,
 		));
 	}
 		public function getName()
