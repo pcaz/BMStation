@@ -1,0 +1,25 @@
+services:
+#    app.example:
+#        class: AppBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
+  AppBundle.LocaleListener:
+        class: AppBundle\Listener\LocaleListener
+        arguments: ['%kernel.default_locale%']
+        tags:
+            - { name: kernel.event_subscriber }
+#            
+  app.contains_alphanumeric_validator:
+        class: AppBundle\Validator\Constraints\ContainsAlphanumericValidator
+        tags:
+            - { name: validator.constraint_validator }
+  app.service.utilities:
+        class: AppBundle\Service\Utilities
+  app.validate_product:
+         class: AppBundle\Validator\Product\ValidateProduct
+  
+  app.image:
+        class: AppBundle\Service\Image
+        arguments:
+            $targetDir: '%app.images_directory%'  
+        tags:
+          - { name: extension }

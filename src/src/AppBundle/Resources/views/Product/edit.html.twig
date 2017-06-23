@@ -1,0 +1,259 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block title %}Model{% endblock %}
+{% block css %}
+{% endblock %}
+{% block scriptheader %}
+	<script type="text/javascript" src="{{ asset('js/image.js')}}"></script>
+<script>
+$(document).ready(function(){
+	$(".loading").hide();
+	$(".wait").hide();
+    });
+</script>
+{% endblock %}
+{% block content %}
+
+
+
+<H1>{{title | trans}} </H1>
+ 
+<div class="center">
+<div class="img-small">
+		<img  src="{{ images}}/{{category.image}}">
+</div> <!--  img-small -->
+{{'category' | trans}} {{ category.name }}<br/>
+{{ category.comment }}<br/>
+</div> <!--  center -->
+<p class="space"></p>
+
+<div class="error">
+	{{ form_errors(form) }}
+	{{ form_errors(form.image) }}
+</div>
+<div class="two-column">
+
+<div class="sidebar-right">
+
+{% if product.id == 0 %}
+<form  action={{ path('product_add') }} method="post" id="product" enctype="multipart/form-data">
+{% else%}
+<form  action={{ path('product_modify',{'id': product.id}) }} method="post" id="product" enctype="multipart/form-data">
+{% endif %}
+<div id="product-model">
+<div id="series-name" onclick="selectSeries()">
+{% if series is defined %}
+<input type="radio" id="userSeriesModel_name_0" name="userSeriesModel[name]" required="required" value="0" checked="checked" />{{ 'all'|trans }}
+{% for ss in series %}   
+	<input type="radio" id="userSeriesModel_name_{{loop.index}}" name="userSeriesModel[name]" required="required" value="{{ ss.id }}"/>{{ ss.name }}
+{% endfor %}
+{% endif %}
+</div> <!--  series-name -->
+<div class='hidden'>
+{{ form_row(form.model.nameSeries) }}
+{{ form_row(form.model.nameModel) }}
+</div> <!-- hidden -->
+
+{% autoescape false %}
+<div id="resultats_recherche">
+<select id="select" multiple="true">
+{% if models is defined %}    
+  {% for mods in models %}
+    	{% if mods.selected==true %}
+		 <option value={{ mods.id}} id="{{mods.id}}" selected="selected">  {{ mods.name }} </option> 
+         {% else %}
+    	 <option value={{ mods.id}} id="{{mods.id}}" >  {{ mods.name }} </option> 
+    	  {% endif%}
+    {% endfor %}
+{% endif %}
+</select>
+</div> <!--  resultats_recherche -->
+</div> <!--  product-model --> 
+</div> <!-- sidebar-right -->
+{% endautoescape %}
+<div class='sidebar-left'>
+<div id="product-product">
+
+<table>
+<tr>
+{{ form_label(form.name)}}
+{{ form_errors(form.name) }}
+{{ form_widget(form.name) }}<br/>
+</tr>
+<tr>
+{{ form_errors(form.description) }}
+{{ form_label(form.description)}}
+{{ form_widget(form.description) }}<br/>
+</tr>
+<tr>
+{{ form_errors(form.comment) }}
+{{ form_label(form.comment)}}
+{{ form_widget(form.comment) }}</br>
+</tr>
+<tr>
+{{ form_errors(form.price) }}
+{{ form_label(form.price)}}
+{{ form_widget(form.price) }}</br>
+</tr>
+<tr>
+{{ form_errors(form.disponibility) }}
+{{ form_label(form.disponibility)}}
+{{ form_widget(form.disponibility , { 'attr': {'style': 'width:40px; text-align: right;'} } ) }}</br>
+</tr>
+<tr>
+
+<label for="product_image"style="margin-left:50px;">Image</label>
+<div class="img-thumb">
+ <div id="preview"> 
+      <img  id="image" style="margin: 0 0 0 30px" src="{{ images}}/{{product.image}}">
+ </div> <!-- preview -->
+  </div> <!-- img-thumb -->
+ <div>
+
+<input type="file" id="product_image" name="product[image]"style="display:none" onchange="getvalue('product_image')"/>
+<input type="text" id="selectedfile" style="display:none"/>
+<input type="button" style="margin:5px 0 0 0;" "id="product_button" value="{{ 'selectfile' | trans}}" onclick="getfile('product_image')" />
+</div> 
+<!--   {{ form_row(form.image) }} -->
+
+</tr>
+</table>
+{{ form_rest(form) }}
+
+
+
+</div> <!-- sidebar-left  -->
+
+</div> <!-- product-product -->
+<div class="center clear space">
+
+
+<div class="loading"></div>
+<div class="wait">{{ 'wait'| trans }}</div>
+
+<div id="submit" onclick="submit()">
+<input type="submit" style="display:inline-block;"value="{{ 'record' | trans}}" />
+</div> <!-- submit -->
+<div type="cancel" id="cancel" onclick="reset()">
+<button >{{ 'cancel' | trans}}</button>
+</div> <!-- cancel -->
+</form>
+<button onclick="selectAll()">{{ 'selectallmodels' | trans }}</button>
+
+
+</div> <!-- center -->
+
+
+
+</div> <!-- two column -->
+
+<p class="clear space"></p>
+
+ <a  href="{{ path('product_list',{'id':category.id}) }}" >{{ 'product_list'| trans }}</a> 
+
+
+
+
+{% endblock %}
+{% block script%}
+<script>
+
+
+var model=[];
+
+
+
+
+function getModels() {
+    
+	var opt;    
+    var sel = document.getElementById("select");   
+    // loop through options in select list
+    
+    for (var i=0, len=sel.options.length; i<len; i++) {
+        opt = sel.options[i];
+        
+        // check if selected
+        if ( opt.selected ) {
+            // add to array of option elements to return from this function
+            model.push(opt.value);
+            
+
+        }
+        
+    }
+	return false;
+}
+
+function reset() {
+	var DATA="models=["+0+"]";
+	ajaxSet(DATA);
+	return false;
+}
+
+
+function selectSeries(){
+	 var serie=getCheckedRadioValue('userSeriesModel[name]');
+	 var DATA= 'serie='+serie;
+
+	 $.ajax({
+	        type: "POST",
+	        url: "{{ path('product_modelsearch')}}",
+	        data: DATA,
+	        cache: false,
+	        success: function(data){
+	            $('#resultats_recherche').html(data);
+        	 }
+      });  
+
+	 return false;
+    	 
+  }    
+
+function getCheckedRadioValue(name) {
+    var elements = document.getElementsByName(name);
+
+    for (var i=0, len=elements.length; i<len; ++i)
+        if (elements[i].checked) return elements[i].value;
+}
+
+
+function submit(){
+    $(".loading").show();
+    $(".wait").show();
+	 getModels();
+	 var DATA="models="+model;
+$.ajaxSetup({async: false});
+		ajaxSet(DATA);
+$.ajaxSetup({async: true});	
+	 $(".wait").hide();	
+	 $(".loading").hide();
+	return false;
+}
+
+function ajaxSet(DATA){
+	 $.ajax({
+	    	type: "POST",
+	    	url: "{{ path('product_modelset')}}",
+	    	data: DATA,
+	    	cache: false,
+	    	success: function(data){
+//	    	    $('#resultats_recherche').html(data);	     
+	     	        }
+		});		
+}  
+
+function selectAll(){
+	var opt;    
+    var sel = document.getElementById("select");
+    // loop through options in select list
+    for (var i=0; i < sel.options.length; i++) {
+        opt = sel.options[i];
+    	opt.selected="selected";    
+       }	
+}	
+
+</script>
+
+
+{% endblock %}

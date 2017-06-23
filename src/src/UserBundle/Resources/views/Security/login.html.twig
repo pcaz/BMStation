@@ -1,0 +1,7 @@
+{%   extends "UserBundle::layout.html.twig" %}
+{% block content %}
+{% block fos_user_content %}
+    {{ include('@FOSUser/Security/login_content.html.twig') }}
+{% endblock fos_user_content %}
+<a href="{{ path('homepage')}}">{{'comeback'|trans}}&nbsp;{{ "homepage"|trans}}</a>
+{% endblock content%}

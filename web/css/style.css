@@ -59,9 +59,6 @@ body {
   display: inline;
   width: 70px; }
 
-label {
-  display: block; }
-
 .loading {
   background: url(../images/loading.gif) no-repeat top left;
   width: 36px;
@@ -140,9 +137,6 @@ legend {
 
 #footer {
   clear: both;
-  border-top: 1px solid #457800;
-  border-right: 1px solid #457800;
-  width: 960px;
   overflow: hidden;
   background: #ffffff;
   text-align: center;
@@ -222,6 +216,11 @@ ol, ul {
   float: right;
   margin: 0 25px 0 0; }
 
+#panier {
+  float: right;
+  clear: right;
+  margin: 10px 30px 0 0; }
+
 /* ------------------ FOOTER AREA------------------ */
 #footer a {
   color: #356800; }
@@ -295,7 +294,13 @@ div#content div.three-column div.center-content {
   width: 300px; }
 
 #series-name {
-  width: 300px; }
+  width: 350px;
+  margin-left: -20px; }
+
+#series-name li {
+  display: inline-block;
+  list-style-type: none;
+  float: left; }
 
 #product #submit {
   display: inline-block; }
@@ -383,6 +388,23 @@ div#content div.three-column div.center-content {
   background-color: #f5f5f5;
 }
 */
+.list-image th[class=image] {
+  font-size: 10px;
+  text-align: center; }
+
+.list-image th[class=image] img {
+  width: 10px; }
+
+.list-image th[class=image] img:after {
+  color: red; }
+
+.list-image td[class=image] img {
+  width: 20px;
+  margin-right: 5px; }
+
+.list-image td[class=image] img:hover {
+  background: #666; }
+
 /*****************************/
 /*****************************/
 /****      User section    ***/
@@ -393,6 +415,9 @@ div#content div.three-column div.center-content {
   display: inline-block;
   float: left;
   margin-left: 35%; }
+
+#contact label {
+  display: block; }
 
 #contact h1 {
   margin: 0 0 0 -80px; }
@@ -426,6 +451,9 @@ div#content div.three-column div.center-content {
   font-size: 120%;
   font-weight: bold; }
 
+#client label {
+  display: block; }
+
 #client legend {
   width: 250px;
   padding: 0; }
@@ -436,6 +464,7 @@ div#content div.three-column div.center-content {
 #client #client_user_email, #client #client_user_username, #client #client_user_plainPassword_first, #client #client_user_plainPassword_second {
   width: 300px; }
 
+/*** inscription **/
 /**** login ***/
 #login #remember {
   display: block;
@@ -475,7 +504,7 @@ pagination {
   position: relative;
   float: left;
   font-size: 12px;
-  padding: 3px 6px;
+  padding: 0;
   margin-left: 2px;
   line-height: 1.42857143;
   color: #337ab7;

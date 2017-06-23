@@ -1,0 +1,82 @@
+#
+# Messages de l'application BMStation
+#
+#
+# Generals
+#
+name:  Nom  # Name fields
+comment: Commentaires # Comment fields
+image: Image # Image fields
+edit: Éditer # Edit an item
+record: Enregistrer # Record button
+description: Description # Description field
+selectfile: Nouveau fichier
+all: Tout
+register: Inscrivez vous
+modify: Modifier
+delete: Effacer
+record_done: Enregistrement effectué.
+welcome: Bienvenue
+all_fields_required: Tous les champs sont obligatoires
+send: Envoyer
+leave: Garder une copie par mail.
+wait: Attendez un instant
+comeback: Retour à 
+#
+# Main
+#
+homepage: Accueil  # Homepage title
+choose_langage: Choix de la langue  # Label of the 'choose langage' list box.  
+choose_product: Produits
+inscript: S'inscrire
+contact: Contactez nous
+blog: Achat/Vente
+command: Commander
+shop: Magasin
+
+
+#
+# USER FUNCTIONS
+#
+#
+
+userchoosecategory: Choisissez le type de produit que vous recherchez
+userchoosemodel: Modèle
+firstname: Prénom
+lastname: Nom
+address: Adresse
+city: Commune
+postalcode: Code postal
+deliveryaddress: Adresse de livraison
+phone: Téléphone
+email: Email
+user: Utilisateur
+lost_password: Mot de passe oublié
+new_password: Nouveau mot de passe.
+username: Utilisateur
+lastlogin: Connecté
+never: Jamais
+required: (Tous les champs sont obligatoires)
+command: pour commander
+user_existant: Un utilisateur existe déjà avec le même email 
+procedure_inscription: Vous allez vous inscrire. Un message de confirmation vous sera envoyé dans votre boîte aux lettre. Vous ne pourrez vous connecter qu'après avoir validé votre inscription.  Si vous avez le moindre problème, n'hésitez pas à nous contacter.
+product_homepage: Nos Produits
+#
+# contact
+#
+subject: Sujet
+body: Message
+captcha_text: Le code ne comprend que des lettres minusules et des chiffres. Si vous n'arrivez pas à le décoder, renouvelez l'écran.
+list_contact:
+  name: Nom
+  email: Email
+  phone: Téléphone
+  subject: Sujet
+  date: Date de dépot
+  reply: Date de réponse 
+  
+
+home:
+    welcome: Bienvenue sur le site BMStation.
+    presentation: Nous vous proposons un ensemble de services qui vous seront utiles à vous, passionné de moto et afficionados des BMW.  BMstation est installé depuis près de vingt-ans sur le port de NICE. Spécialiste BMW, nous vous proposons l'entretien et la réparation de vos motos.
+    explication: Vous pourrez consulter nos produits diponibles à la vente sur ce site et les commander. 

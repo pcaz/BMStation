@@ -1,0 +1,58 @@
+{% extends 'ClientBundle::layout.html.twig' %}
+
+{% block title %}Model{% endblock %}
+
+{% block content %}
+<H1>{{  'choose_model' | trans }} </H1>
+
+
+{% if message %}
+<div class="message">
+{{ message }}
+</div>
+{% endif %}
+
+<div id="userSeriesModel_name" onclick="selectSeries()">
+<input type="radio" id="userSeriesModel_name_0" name="userSeriesModel[name]" required="required" value="0" checked="checked" />{{ 'all'|trans }}
+{% for ss in series %}
+	<input type="radio" id="userSeriesModel_name_{{loop.index}}" name="userSeriesModel[name]" required="required" value="{{ ss.id }}"/>{{ ss.name }}
+{% endfor %}
+</div>
+<div id="resultats_recherche">  
+{% include 'ClientBundle:Vitrine:userModel.html.twig' %}
+</div>
+{% endblock content  %}
+{% block script %}
+<script>
+$( "#model-menu a" ).css({ "background":"#666" });
+$( "#model-menu a" ).css({ "font-weight":"bold" });
+
+
+	
+
+function selectSeries(){
+	 var serie=getCheckedRadioValue('userSeriesModel[name]');
+	 var DATA= 'serie='+serie;
+	 $.ajax({
+	        type: "POST",
+	        url: "{{ path('usermodelsearch')}}",
+	        data: DATA,
+	        cache: false,
+	        success: function(data){
+	            $('#resultats_recherche').html(data);
+	         	        }
+	 });  
+    return false;
+    	 
+  }    
+
+function getCheckedRadioValue(name) {
+    var elements = document.getElementsByName(name);
+
+    for (var i=0, len=elements.length; i<len; ++i)
+        if (elements[i].checked) return elements[i].value;
+}
+
+</script> 
+  	
+{% endblock script %}

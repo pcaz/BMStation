@@ -1,0 +1,27 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block title %}Product{% endblock %}
+{% block scriptheader %}
+{% endblock scriptheader %}
+{% block content %}
+<H1>{{ title }}</H1>
+<p/>
+<p>Vous devez tout d'abord saisir une catégorie</p>
+<p/>
+<p class="space"></p>
+
+{% include 'AppBundle:Category:chooseCategory.html.twig' %}
+<p id="space"/>
+<div onclick="submit()">
+<button >{{ 'record'|trans }}</button>
+</div>
+{% endblock content %}
+{% block script %}
+<script>
+function submit(){
+
+	document.location.href="{{ path('product_add')}}";
+	return false;
+}
+</script>
+{% endblock script%}

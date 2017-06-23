@@ -138,9 +138,6 @@ legend {
 }
 #footer {
   clear: both;
-  border-top: 1px solid #457800;
-  border-right: 1px solid #457800;
-  width: 960px;
   overflow: hidden;
   background: #ffffff;
   text-align: center;
@@ -295,7 +292,7 @@ div#content div.three-column div.center-content {
   width: 300px;
 }
 #series-name {
-  width: 300px;
+  width: 400px;
 }
 #product #submit {
   display: inline-block;
@@ -385,6 +382,23 @@ div#content div.three-column div.center-content {
   background-color: #f5f5f5;
 }
 */
+.list-image th[class=image] {
+  font-size: 10px;
+  text-align: center;
+}
+.list-image th[class=image] img {
+  width: 10px;
+}
+.list-image th[class=image] img:after {
+  color: red;
+}
+.list-image td[class=image] img {
+  width: 20px;
+  margin-right: 5px;
+}
+.list-image td[class=image] img:hover {
+  background: #666;
+}
 /*****************************/
 /*****************************/
 /****      User section    ***/
@@ -481,7 +495,7 @@ pagination {
   position: relative;
   float: left;
   font-size: 12px;
-  padding: 3px 6px;
+  padding: 0;
   margin-left: 2px;
   line-height: 1.42857143;
   color: #337ab7;

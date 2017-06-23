@@ -127,7 +127,7 @@ body
 
 label{
 	 //margin-top:10px;
- 	display:block;
+ // 	display:block;
  	//text-align: center;
 
 }
@@ -234,9 +234,9 @@ legend {
 
 #footer {
 	clear: both;
-	border-top: 1px solid #457800;
-	border-right: 1px solid #457800;
-	width: $body-width;
+//	border-top: 1px solid #457800;
+//	border-right: 1px solid #457800;
+//	width: $body-width;
     overflow: hidden; 
 	background: $footer_color;
 //    font-size: 13 pt;
@@ -339,7 +339,14 @@ ol, ul {
 }
 
 
-
+#panier {
+	float: right;
+	clear: right;
+	margin: 10px 30px 0 0;
+	}
+#panier img{
+	
+	}
 
 /* ------------------ FOOTER AREA------------------ */
 
@@ -435,9 +442,19 @@ div#content div.three-column div.center-content {
 	}
 
 #series-name{
-	width: 300px;
+	width: 350px;
+	margin-left: -20px;	
+
+	}
+#series-name ul {
+
 	}
 
+#series-name li{
+display:inline-block;	
+ list-style-type:none;
+ float:left;
+}
 
 #product #submit {
 	display:inline-block;
@@ -567,6 +584,28 @@ div#content div.three-column div.center-content {
 */
 
 
+.list-image th[class=image]  {
+	font-size: 10px;
+	text-align:center;
+	}
+
+.list-image  th[class=image] img {
+	width:10px;
+	}
+.list-image th[class=image] img:after{
+	color:red;
+	}
+
+.list-image td[class=image] img{
+	width: 20px;
+	margin-right: 5px;
+	}
+
+.list-image td[class=image] img:hover{
+	background: #666;
+	}
+
+
 
 /*****************************/
 /*****************************/
@@ -582,6 +621,9 @@ div#content div.three-column div.center-content {
 	margin-left:35%;
 
 }
+#contact label{
+	display: block;
+	}
 
 #contact h1 {
 	 margin: 0 0 0 -80px;
@@ -626,6 +668,9 @@ div#content div.three-column div.center-content {
 	font-weight: bold;
 }	
 
+#client label{
+	display: block;
+	} 
 #client legend
 {
 	width: 250px;
@@ -639,6 +684,9 @@ div#content div.three-column div.center-content {
 #client #client_user_email, #client #client_user_username, #client #client_user_plainPassword_first,#client #client_user_plainPassword_second {
 	width: 300px;
 }
+
+/*** inscription **/
+
 
 /**** login ***/
 #login #remember {
@@ -682,7 +730,7 @@ pagination {
   position: relative;
   float: left;
   font-size: 12px;
-  padding: 3px 6px;
+  padding: 0;
   margin-left: 2px;
   line-height: 1.42857143;
   color: #337ab7;
