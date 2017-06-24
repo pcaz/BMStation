@@ -92,9 +92,18 @@ class AdministrationController extends Controller{
 		 		}
 		 		else{
 		 			
-		 		
+		 		if($password=$form->getData()->getPassword()){
+		 			$username=$em->find('UserBundle:User',$id)->getUserName();
+		 			$manipulator = $this->get('fos_user.util.user_manipulator');
+		 			$manipulator->changePassword($username, $password);
+		 			
+		 		}
+		 			
+		 			
 		 		$em->persist($user);
 		 		$em->flush();
+		 		
+		 		
 		 		$return=$this->listAdmin();
 		 		
 		 		$return = $this->get('knp_paginator')->paginate($return,$this->get('request')->query->get('page', 1),10);
@@ -111,20 +120,41 @@ class AdministrationController extends Controller{
 		   		'AppBundle:Administration:editAdministrator.html.twig', array(
 		   				'form'=>$form->createView(),
 		   				'title'=>'editadmin',
+		   				'id'=>$id,
 		   		));
 		 }
 		 else {
 		 	
+		 	// c'est un get
 		 	return $this->container->get('templating')->renderResponse(
 		 			'AppBundle:Administration:editAdministrator.html.twig', array(
 		 					'form'=>$form->createView(),
 		 					'title'=>'editadmin',
+		 					'id'=>$id,
 		 			));
 		 }
 		 
 		 
 		
 	
+	}
+	
+	public function deleteAdminAction($id=null){
+		
+		$em=$this->get('doctrine')->getManager();
+		
+		if($user=$em->find('UserBundle:User',$id))
+		{
+			$em->remove($user);
+			$em->flush();
+		}
+		
+		$return=$this->listAdmin();
+		$return = $this->get('knp_paginator')->paginate($return,$this->get('request')->query->get('page', 1),10);
+		return $this->container->get('templating')->renderResponse(
+				'AppBundle:Administration:listAdministrators.html.twig', array(
+						'admins'=>$return,
+				));
 	}
 	
 	public function saveBaseAction(){

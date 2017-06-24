@@ -223,9 +223,9 @@ function submit(){
     $(".wait").show();
 	 getModels();
 	 var DATA="models="+model;
-	 $.ajaxSetup({async: false});
+$.ajaxSetup({async: false});
 		ajaxSet(DATA);
-		$.ajaxSetup({async: true});	
+$.ajaxSetup({async: true});	
 	 $(".wait").hide();	
 	 $(".loading").hide();
 	return false;

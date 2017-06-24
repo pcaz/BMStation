@@ -12,3 +12,5 @@ parameters:
     mailer_password: 4uDk8grv@
     secret: 92e5079c78d11000d36a4681906dc6ecadc14dbe
     mailer_auth: login
+
+    appURL: http://www.bmstation.fr

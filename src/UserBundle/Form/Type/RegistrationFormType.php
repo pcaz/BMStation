@@ -15,6 +15,7 @@ use FOS\UserBundle\Util\LegacyFormHelper;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class RegistrationFormType extends AbstractType
 {
@@ -44,8 +45,10 @@ class RegistrationFormType extends AbstractType
                 'options' => array('translation_domain' => 'FOSUserBundle'),
                 'first_options' => array('label' => 'form.password'),
                 'second_options' => array('label' => 'form.password_confirmation'),
-                'invalid_message' => 'fos_user.password.mismatch',
-            ))
+            		'invalid_message' => 'fos_user.password.mismatch',))
+/* a ajouter si besoin            ->add('question',TextType::class, array('label'=>'question'))
+            ->add('answer',TextType::class, array('label'=>'answer'))
+*/
         ;
     }
 

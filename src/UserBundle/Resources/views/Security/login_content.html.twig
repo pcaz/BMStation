@@ -24,6 +24,6 @@
 </div>    
 </form>
 </div>
-<a href="#"> {{ 'security.login.forget_password' | trans([],'UserBundle')}}</a>
+<a href="{{ path('lostPassword') }}"> {{ 'security.login.forget_password' | trans([],'UserBundle')}}</a>
 <p></p>
  {% endblock content %}'

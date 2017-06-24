@@ -11,8 +11,8 @@ imports:
 parameters:
     locale: fr
     app.images_directory: '%kernel.root_dir%/../web/uploads/images'
-#    app.URL: '%appURL%'
-#    app.images_URL: '%app.URL%/web/uploads/images'
+    app.URL: '%appURL%'
+    app.images_URL: '%app.URL%/web/uploads/images'
     app.uploads: '%kernel.root_dir%/../web/uploads/'
 
 framework:

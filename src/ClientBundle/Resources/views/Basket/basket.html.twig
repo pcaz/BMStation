@@ -1,0 +1,40 @@
+{% extends 'ClientBundle::layout.html.twig' %}
+
+{% block title %}Denied{% endblock %}
+
+{% block content %}
+
+<p>Bonjour {{ client.firstName }} {{ client.lastName }}</p>
+
+{%  if not baskets %}
+<p> Vous n'avez actuellement pas de panier </p>
+{%  else %}
+<p> Vos paniers en cours </p>
+	<table style="width:300px;">
+	<thead>
+	<th>{{ 'name'|trans }}</th>
+	<th>{{ 'date'| trans }}</th>
+	</thead>
+	<tbody>
+	{% for basket in baskets %}
+ 	
+	<td style="width:30%;"><a href="{{ path('user_basket_get', {'id':basket.id}) }}"> {{ basket.name }}</a></td>
+	<td style="width:70%;"><a href="{{ path('user_basket_get', {'id':basket.id}) }}">{{ basket.date | localizeddate }}</a></td>
+	</a>
+	{% endfor %}
+	</tbody>
+	</table>
+{% endif %}
+<p class="space"></p>
+<a  href="{{path('user_basket_present',{'id': client.id})}}">
+<img src="{{ asset('images/panier.png') }}"/>
+<p>Poursuivre votre commande</a></p>
+
+
+{% endblock content %}
+{% block script %}
+<script>
+$( "#command-menu a" ).css({ "background":"#666" });
+$( "#command-menu a" ).css({ "font-weight":"bold" });
+</script>
+{% endblock script %}

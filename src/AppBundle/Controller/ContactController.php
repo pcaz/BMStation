@@ -19,7 +19,7 @@ class ContactController extends Controller{
 
 public function listContactAction() {
 	$list=array();
-	//		$pseudoContact = $this->container->get('app.pseudocontact');
+	
 	$em=$this->get('doctrine')->getManager();
 	$contacts=$em->getRepository('ClientBundle:Contact')->findInOrder();
 

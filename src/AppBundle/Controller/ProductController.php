@@ -10,8 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use AppBundle\AppBundle;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Console\Output\ConsoleOutput;
-use Symfony\Component\Console\Application;
+
 
 
 class ProductController extends Controller{
@@ -179,7 +178,7 @@ class ProductController extends Controller{
     		else $newProduct->setDisponibility($oldProduct->getDisponibility());
 	    
 	    	if ($product->getImage()){
-	    			$getImage=$this->container->get("app.image");
+	    			$getImage=$this->get("app.image");
 	    			$oldImage=$oldProduct->getImage();
 	    			if($oldImage) $getImage->removeImage($oldImage);
 		    		$image=$getImage->uploadImage($product->getImage());
@@ -627,10 +626,10 @@ class ProductController extends Controller{
 		if(!$cat && !$mod)
 			$result=$em->getRepository('AppBundle:Product')->findAll();
 		else{
-			if(count($resultModel)==0)
+			if(!mod)
 				$result=$resultCategory;
 			else{
-				if(count($resultCategory)==0)
+				if(!cat)
 					$result=$resultModel;
 				else 
 				for($i=0, $j=0; $i<count($resultModel); $i++){

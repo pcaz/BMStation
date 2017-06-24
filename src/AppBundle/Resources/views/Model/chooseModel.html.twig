@@ -52,7 +52,7 @@ function selectModel(id){
 function selectSeries(){
 	 var serie=getCheckedRadioValue('userSeriesModel[name]');
 	 var DATA= 'serie='+serie;
-
+	 $.ajaxSetup({async: false});
 	 $.ajax({
 	        type: "POST",
 	        url: "{{ path('product_modelsearch')}}",
@@ -62,7 +62,7 @@ function selectSeries(){
 	            $('#resultats_recherche').html(data);
         	 }
       });  
-
+	 $.ajaxSetup({async: true});
 	 return false;
     	 
   }    

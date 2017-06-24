@@ -4,6 +4,9 @@ homepage:
 userchooseLangage:
   path: /userchooselangage/{langue}
   defaults: { _controller: ClientBundle:Homepage:chooseLangage} 
+shop:
+  path: /shop
+  defaults: { _controller: ClientBundle:Shop:shop}   
 getaddress:
   path: /getaddress
   defaults: { _controller: ClientBundle:User:getAddress} 
@@ -17,6 +20,12 @@ setclientaddress:
   defaults: { _controller: ClientBundle:Client:setClientAddress}
   requirements :
     _method: POS    
+
+#
+
+facture:
+  path: /facture
+  defaults: { _controller: ClientBundle:Facturation:facture}    
 #
 #  User Functions
 #   
@@ -41,8 +50,51 @@ getclient:
 validateclient:
   path: /validate/{token}
   defaults: { _controller: ClientBundle:Client:validateClient}
-     
+lostPassword:
+  path: /lostpassword/
+  defaults: { _controller: ClientBundle:Client:lostPassword}
+passwordclient:
+  path: /password/{token}
+  defaults: { _controller: ClientBundle:Client:passwordClient}    
 contact:
   path: /contact/   
   defaults: { _controller: ClientBundle:Contact:contact}
   
+user_product_homepage:
+  path: /user_product_homepage
+  defaults: { _controller: ClientBundle:Product:choice} 
+user_product_modelsearch:
+  path: /user_product_modelsearch
+  defaults: { _controller: ClientBundle:Product:modelSearch}
+user_product_modelset:
+  path: /user_product_modelset
+  defaults: { _controller: ClientBundle:Product:setModel}
+user_product_setcategory:
+  path: /user_product_setcategory
+  defaults: { _controller: ClientBundle:Product:setCategory} 
+  requirements:
+     _method: POST  
+user_product_set:
+  path: /user_product_set
+  defaults: { _controller: ClientBundle:Product:set}        
+####
+user_basket:
+  path: /user_basket
+  defaults: { _controller: ClientBundle:Basket:home}      
+user_basket_list:
+  path: /user_basket_list
+  defaults: { _controller: ClientBundle:Basket:setList} 
+user_basket_present:
+  path: /user_basket_present
+  defaults: { _controller: ClientBundle:Basket:present}
+user_basket_set:
+  path: /user_basket_set
+  defaults: { _controller: ClientBundle:Basket:basketSet}   
+  requirements:
+     _method: POST 
+user_basket_name:
+  path: /user_basket_name/{id}
+  defaults: { _controller: ClientBundle:Basket:name}     
+user_basket_get:
+  path: /user_basket_get/{id}
+  defaults: { _controller: ClientBundle:Basket:basketGet}  

@@ -10,7 +10,9 @@ services:
         class: ClientBundle\Validator\Address\ContainsPostalCodeValidator
         tags:
             - { name: validator.constraint_validator } 
-  app.pseudocontact:
-        class:     AppBundle\PseudoClasses\PseudoContact
-        arguments: []
+  app.product:
+       class:     ClientBundle\Service\Product 
+          
+  app.html2pdf:
+       class:     ClientBundle\Service\HtmlToPDF           
          

@@ -7,14 +7,22 @@
 <H1>{{ title | trans }}</H1>
 
 {{  form_start(form) }}
-
+<p>
 {{  form_errors(form.username) }}
 {{  form_label(form.username) }}
 {{  form_widget(form.username) }}
-
+</p>
+<p>
 {{  form_errors(form.email) }}
 {{  form_label(form.email) }}
 {{  form_widget(form.email) }}
+</p>
+<p>
+{{  form_errors(form.password) }}
+{{  form_label(form.password) }}
+{{  form_widget(form.password) }}
+</p>
+<p>
 
 {{  form_errors(form.lastLogin) }}
 {{  form_label(form.lastLogin) }}
@@ -25,10 +33,16 @@
 {{  form_label(form.enabled) }}
 {{  form_widget(form.enabled) }}
 </div>
-<br/>
+<p>
 <input type="submit" value="{{ 'record' | trans }}"/>
 {{ form_end(form) }}
-<p></p>
+</p>
+<p>
+
+<button   onclick="del('{{path('admindelete',{'id':id}) }}')"> {{ 'delete' | trans}}</button>
+
+
+</p>
 <p class="space"></p>
 <a href="{{ path('homepageAdmin') }}">{{ 'rethome'| trans }}</a>
 {% endblock content %}
@@ -39,5 +53,12 @@
 <script>
 $( "#administration-menu a" ).css({ "background":"#666" });
 $( "#administration-menu a" ).css({ "font-weight":"bold" });
+
+function del(path){
+
+	if(confirm('Etes vous sur de vouloir effacer cette administrateur ?')){
+		document.location.href=path;
+		}
+}
 </script>
 {% endblock %}

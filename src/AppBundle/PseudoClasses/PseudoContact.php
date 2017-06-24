@@ -3,15 +3,7 @@ namespace AppBundle\PseudoClasses;
 
 use ClientBundle\Entity\Contact;
 
-class PseudoContact{
-	private $id;
-	private $name;
-	private $email;
-	private $phone;
-	private $subject;
-	private $body;
-	private $date;
-	private $validate;
+class PseudoContact extends Contact{
 	private $client;
 	private $old;
 	private $today;
@@ -30,6 +22,7 @@ class PseudoContact{
 		$this->validate=$contact->getValidate();
 		$this->today=new \DateTime();
 		
+		
 		if($em->getRepository("UserBundle:User")->findByEmail($this->email))
 			$this->client=true;
 		else 
@@ -41,37 +34,6 @@ class PseudoContact{
 	    return $this;
 	}
 	
-	public function getId(){
-		return $this->id;
-	}
-	
-	public function getName(){
-		return $this->name;
-	}
-	
-	public function getEmail(){
-		return $this->email;
-	}
-	
-	public function getPhone(){
-		return $this->phone;
-	}
-	
-	public function getSubject(){
-		return $this->subject;
-	}
-	
-	public function getBody(){
-		return $this->body;
-	}
-	
-	public function getDate(){
-		return $this->date;
-	}
-	
-	public function getValidate(){
-		return $this->validate;
-	}
 	
 	public function getClient(){
 		return $this->client;

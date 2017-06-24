@@ -4,11 +4,14 @@ namespace ClientBundle\Controller;
 
 use ClientBundle\Entity\Client;
 use ClientBundle\Form\ClientForm;
+use ClientBundle\Form\LostPasswordForm;
+use ClientBundle\Form\PasswordForm;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 use ClientBundle\Entity\Address;
+use ClientBundle\Entity\Token;
 use Symfony\Component\Process\Exception\InvalidArgumentException;
 use Symfony\Component\Security\Core\User\User;
 use ClientBundle\Entity\Historic;
@@ -33,7 +36,7 @@ class ClientController extends Controller
 	}
 	
 	public function setClientAction(){
-		$message="";
+	
 		$Address=array();
 		$client=array();
 		$user=new Client();
@@ -272,6 +275,140 @@ class ClientController extends Controller
 		
 		
 	}
+	
+	public function lostPasswordAction(){
+		
+		$request = $this->get('request');
+		$form = $this->createForm(new LostPasswordForm());
+		if($request->getMethod()=='POST'){
+		
+		$form->handlerequest($request);
+		if($form->isValid()){
+			
+			$mailer = $this->get('mailer');
+			$message = new \Swift_Message();
+			$urlSite=$this->getParameter('app.URL');
+			//		$imgUrl = $message->attach(\Swift_Attachment::fromPath('http://www.bm.usrestation.fr/images/logo.png'));
+			$imgUrl = $urlSite.'/images/logo.png';
+			
+			$token=md5(uniqid());
+			$email=$form->getData()['email'];
+			$urlValidation=$this->get('router')->generate('passwordclient',array('token' => $token));
+			$urlValidation=$urlSite.$urlValidation;
+			$message->setFrom('no_reply@bmstation.fr')
+			->setTo($email)
+			->setSubject("Mot de passe perdu sur BMSTation")
+			->setContentType('text/html')
+			->setBody(
+					$this->renderView('Emails/password_resetting.html.twig',
+							array(
+									'url'=>$imgUrl,
+									'team'=>'BMStation',
+									'site'=>$urlSite,
+									'urlvalidation'=>$urlValidation,
+							)
+							));
+			$mailer->send($message);
+			
+			$em=$this->get('doctrine')->getManager();
+			$base=new Token();
+			$base->setToken($token);
+			$base->setEmail($email);
+			
+			$em->persist($base);
+			$em->flush();
+			
+			
+			return new RedirectResponse($this->get('router')->generate('homepage'));
+			
+			}
+			// la form est invalide...email incohérent !
+			return $this->container->get('templating')->renderResponse(
+					'ClientBundle:Client:lostPassword.html.twig', array(
+							'form'=> $form->createView(),
+					));
+							
+		}
+		else{
+		
+			return $this->container->get('templating')->renderResponse(
+					'ClientBundle:Client:lostPassword.html.twig', array(
+							'form'=> $form->createView(),
+							
+							
+					));
+		}
+	}
+	
+	public function passwordClientAction($token=null){
+		
+		
+		
+
+		$form = $this->createForm(new PasswordForm());
+		$request = $this->get('request');
+		
+		if($request->getMethod()=='POST'){
+			$form->handleRequest($request);
+			if($form->isValid()){
+				// on regarde d'abord si le token existe
+				$em=$this->get('doctrine')->getManager();
+				if(!$em->getRepository('ClientBundle:Token')->findByToken($token))
+				{
+					return $this->get('templating')->renderResponse(
+							'ClientBundle::error.html.twig');
+				}
+				
+				$data=$form->getData();
+				
+				$username=$data['username'];
+                $password=$data['plainPassword'];					
+                $user=$em->getRepository("UserBundle:User")->findOneByUsername($username);
+                $oldToken=$em->getRepository('ClientBundle:Token')->findOneByToken($token);
+				if(!$oldToken || !$user){
+					
+					return $this->get('templating')->renderResponse(
+							'ClientBundle::error.html.twig');
+				}
+                
+				$manipulator = $this->get('fos_user.util.user_manipulator');
+				$manipulator->changePassword($username, $password);
+				
+				// on retire l'ancien token
+			
+				$em->remove($oldToken);
+				$em->flush();
+			    
+			    // et on tiens à jour le user
+			    
+				$user->setPasswordRequestedAt(new \DateTime());
+				$em->persist($user);
+				$em->flush();
+				
+			
+				return $this->container->get('templating')->renderResponse(
+						'ClientBundle::success.html.twig', array(
+								'username'=>$username));
+				
+			}
+			else {
+			// form invalide
+				return $this->container->get('templating')->renderResponse(
+						'ClientBundle:Client:password.html.twig', array(
+								'form'=> $form->createView(),
+								'token'=>$token,));
+			}
+			
+		}
+		else { 
+		// c'est un get	
+		return $this->container->get('templating')->renderResponse(
+				'ClientBundle:Client:password.html.twig', array(
+						'form'=> $form->createView(),
+						'token'=>$token,));
+		} 
+	}
+	
 	
 	
 }

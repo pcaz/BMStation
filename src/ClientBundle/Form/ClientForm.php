@@ -20,6 +20,7 @@ class ClientForm extends AbstractType
 				->add('lastName','text',array('label'=>'lastname'))
 				->add('deliveryAddress', new AddressForm(),array('label'=>'deliveryaddress'))
 				->add('user', new RegistrationFormType('UserBundle\Entity\User'))
+		
 					 ;
 		
 				

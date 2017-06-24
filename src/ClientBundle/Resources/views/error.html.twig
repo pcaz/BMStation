@@ -1,0 +1,17 @@
+{% extends 'ClientBundle::layout.html.twig' %}
+
+{% block title %}error{% endblock %}
+
+{% block content %}
+<H1>{{ 'error'|trans }} </H1>
+
+<form action="{{ path('homepage')}}">
+<h3>Quelque chose d'anormal s'est produit.</h3>
+
+ 
+
+<input TYPE="submit"VALUE="{{ 'send'|trans }}">
+</form>
+
+
+{% endblock content %}

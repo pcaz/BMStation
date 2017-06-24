@@ -1,0 +1,21 @@
+{% extends 'ClientBundle::layout.html.twig' %}
+
+{% block title %}Denied{% endblock %}
+
+{% block content %}
+
+
+<p>Bonjour</p>
+<p>Pour pouvoir commander sur ce site, vous devez tout d'abord vous inscrire<p>
+<p>L'inscription est totalement gratuite et ne vous engage à rien</p>
+<p>Je vous invite à le faire des maintenant</p>
+<p>
+<p>Si vous êtes déja inscrit, il faut vous connecter</p>
+
+{% endblock content %}
+{% block script %}
+<script>
+$( "#command-menu a" ).css({ "background":"#666" });
+$( "#command-menu a" ).css({ "font-weight":"bold" });
+</script>
+{% endblock script %}

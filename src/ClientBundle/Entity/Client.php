@@ -44,7 +44,12 @@ class Client
 	 */
 	
 	private $billingAddress;
-	 
+	/**
+	 * @ORM\ManyToOne(targetEntity="\AppBundle\Entity\Model")
+	 * @ORM\JoinColumn(name="model", referencedColumnName="id", nullable=true)
+	 */
+	
+	private $model;
 	 /**
 	  * @ORM\OneToOne(targetEntity="\UserBundle\Entity\User")
 	  * @ORM\JoinColumn(name="user", referencedColumnName="id", nullable=true)
@@ -280,5 +285,29 @@ class Client
     public function getHistoric()
     {
         return $this->historic;
+    }
+
+    /**
+     * Set model
+     *
+     * @param \AppBundle\Entity\Model $model
+     *
+     * @return Client
+     */
+    public function setModel(\AppBundle\Entity\Model $model = null)
+    {
+        $this->model = $model;
+
+        return $this;
+    }
+
+    /**
+     * Get model
+     *
+     * @return \AppBundle\Entity\Model
+     */
+    public function getModel()
+    {
+        return $this->model;
     }
 }
