@@ -1,2 +1,0 @@
-imports:
-    - { resource: "@UserBundle/Resources/config/security.yml" }

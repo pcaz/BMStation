@@ -137,6 +137,7 @@ legend {
 
 #footer {
   clear: both;
+  display: block;
   overflow: hidden;
   background: #ffffff;
   text-align: center;
@@ -221,16 +222,6 @@ ol, ul {
   clear: right;
   margin: 10px 30px 0 0; }
 
-/* ------------------ FOOTER AREA------------------ */
-#footer a {
-  color: #356800; }
-
-#footer .readmore {
-  background: none; }
-
-#footer .subject {
-  display: none; }
-
 /******** Mise en forme *******/
 div#content div.one-colum div.center-rightbar {
   width: 95%;
@@ -249,15 +240,33 @@ div#content div.two-column div.sidebar-right {
   padding: 0 20px;
   line-height: 1.5em; }
 
-div#content div.three-column div.sidebar-left {
+/* ------------------ FOOTER AREA------------------ */
+#footer a {
+  color: blue;
+  text-decoration: none; }
+
+#footer a:hover, #footer a:active {
+  font-size: 120%; }
+
+#footer .two-column .sidebar-right {
+  float: right;
+  width: 45%;
+  padding: 0 20px;
+  line-height: 1.5em; }
+
+#footer .three-column {
+  clear: both;
+  width: 100%; }
+
+#footer .three-column .sidebar-left {
   float: left;
   width: 24%; }
 
-div#content div.three-column div.sidebar-right {
+#footer .three-column .sidebar-right {
   float: right;
   width: 24%; }
 
-div#content div.three-column div.center-content {
+#footer .three-column .center-content {
   float: left;
   width: 48%; }
 
@@ -545,5 +554,10 @@ pagination {
   cursor: not-allowed;
   background-color: #fff;
   border-color: #ddd; }
+
+/****** order2 ******/
+.order2 img {
+  width: 100px;
+  margin-left: 100px; }
 
 /*# sourceMappingURL=style.css.map */
