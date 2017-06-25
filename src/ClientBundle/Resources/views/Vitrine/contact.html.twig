@@ -53,36 +53,11 @@
 <div class="space center">
 </div>
 </div> <!-- contact -->
-<!-- 
-<script src='https://maps.googleapis.com/maps/api/js?v=3.exp'></script>
-<div id='map' style='overflow:hidden;height:400px;width:600px;'>
-<div id='gmap_canvas' style='height:400px;width:600px;'>
-</div>
-</div>
--->
-
-
-
-<div><small><a href="http://embedgooglemaps.com">google maps carte</a></small></div>
-<style>#gmap_canvas img{max-width:none!important;background:none!important}</style>
-
 
 {% endblock content%}
 {% block script %}
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAhvyRc-T_JUckKXK15Ap1vVT6PY16Nbe4&callback=init_map"
-	  type="text/javascript"></script>
 
 
-<script type='text/javascript'>
-function init_map(){
-	var myOptions = {zoom:17,center:new google.maps.LatLng(43.69615680401557,7.286712613526561),mapTypeId: google.maps.MapTypeId.ROADMAP};
-	map = new google.maps.Map(document.getElementById('gmap_canvas'), myOptions);
-	marker = new google.maps.Marker({map: map,position: new google.maps.LatLng(43.69615680401557,7.286712613526561)});
-	infowindow = new google.maps.InfoWindow({content:'<strong>BMStation</strong><br>46, Bard de Stalingrad, Nice, France<br>'});
-google.maps.event.addListener(marker, 'click', function(){infowindow.open(map,marker);});
-infowindow.open(map,marker);}google.maps.event.addDomListener(window, 'load', init_map);
-}
-</script>
 
 <script>
 $( "#contact-menu a" ).css({ "background":"#666" });

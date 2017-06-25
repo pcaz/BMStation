@@ -35,7 +35,7 @@ class BasketController extends Controller
 			{
 				$res=array();
 				$res['id']=$basket->getId();
-				$res['name']=$basket->getName();
+				$res['name']=$basket->getName()?$basket->getName():" ";
 				$res['date']=$basket->getDateCreated();
 				\array_push($result,$res);				
 			}
@@ -190,9 +190,9 @@ class BasketController extends Controller
 	
 	}
 	
-	public function basketGetAction(Request $request,$id=null){
+	public function basketGetAction($id=null){
 		
-		
+		$request = $this->get('request');
 		$em=$this->get('doctrine')->getManager();
 		$basket=$em->getRepository('ClientBundle\Entity\Basket')->find($id);
 		$lineOrders=$em->getRepository('ClientBundle\Entity\LineOrder')->findByBasket($id);
@@ -200,7 +200,8 @@ class BasketController extends Controller
 		
 		foreach($lineOrders as $id=>$lineOrder) {
 			$em->getRepository('AppBundle\Entity\Product')->find($lineOrder->getProduct()->getId());
-			$products[$id]=new \ClientBundle\PseudoClasses\PseudoProduct($lineOrder->getProduct(),$em);		
+			$products[$id]=new \ClientBundle\PseudoClasses\PseudoProduct($lineOrder->getProduct(),$em);	
+			$products[$id]->setCommand($lineOrder->getNumber());
 		}
 		
 		

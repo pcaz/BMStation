@@ -17,10 +17,10 @@
 	</thead>
 	<tbody>
 	{% for basket in baskets %}
- 	
+ 	<tr>
 	<td style="width:30%;"><a href="{{ path('user_basket_get', {'id':basket.id}) }}"> {{ basket.name }}</a></td>
-	<td style="width:70%;"><a href="{{ path('user_basket_get', {'id':basket.id}) }}">{{ basket.date | localizeddate }}</a></td>
-	</a>
+	<td style="width:70%;"><a href="{{ path('user_basket_get', {'id':basket.id}) }}">{{ basket.date | localizeddate('short','none') }}</a></td>
+	</tr>
 	{% endfor %}
 	</tbody>
 	</table>

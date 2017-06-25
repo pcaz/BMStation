@@ -135,7 +135,6 @@ class ClientController extends Controller
 	    if($error<>0)
 	    	return $this->container->get('templating')->renderResponse(
 	    			'ClientBundle:Client:getClient.html.twig', array(
-	    					'message'=>$message,
 	    					'form'=> $form->createView(),
 	    					'errors'=>"",
 	    			));
@@ -164,6 +163,7 @@ class ClientController extends Controller
 		
 		$functions['user']=$usr;
 // enfin le client
+		$user->setGender($client['gender']);
         $user->setfirstname(ucfirst( strtolower($client['firstName'])));
         $user->setLastname(strtoupper($client['lastName']));
 		$user->setDeliveryAddress($address);
@@ -236,7 +236,6 @@ class ClientController extends Controller
 	$val=$form->getErrors() ;
 	return $this->container->get('templating')->renderResponse(
 			'ClientBundle:Client:getClient.html.twig', array(
-					'message'=>$message,
 					'form'=> $form->createView(),
 					'errors'=>$val,
 			));

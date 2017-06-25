@@ -18,6 +18,11 @@ class Client
 	 */
 	private $id;
 	/**
+	 * 
+	 * @ORM\Column(type="boolean", nullable=false) 
+	 */
+	private $gender;
+	/**
 	 * @ORM\Column(type="string",length=128, nullable=false)
 	 *
 	 */
@@ -61,6 +66,10 @@ class Client
 	  *
 	  * @return integer
 	  */
+	
+	public function  __construct(){
+		$this->gender=false;
+	}
 	 public function getId()
 	 {
 	 	return $this->id;
@@ -192,6 +201,7 @@ class Client
 	 	//foreach($user as $item=>$val){
 	 	//	$this->$item=$val;
 	 	//}
+	 	if (isset($user['gender'])) $this->firstName=$user['gender'];
 	 	if (isset($user['firstName'])) $this->firstName=$user['firstName'];
 	 	if(isset($user['lastName'])) $this->lastName=$user['lastName'];
 	 	if(isset($user['deliveryAddress'])) $this->deliveryAddress=$user['deliveryAddress']; 
@@ -309,5 +319,29 @@ class Client
     public function getModel()
     {
         return $this->model;
+    }
+
+    /**
+     * Set gender
+     *
+     * @param boolean $gender
+     *
+     * @return Client
+     */
+    public function setGender($gender)
+    {
+        $this->gender = $gender;
+
+        return $this;
+    }
+
+    /**
+     * Get gender
+     *
+     * @return boolean
+     */
+    public function getGender()
+    {
+        return $this->gender;
     }
 }

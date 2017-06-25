@@ -626,7 +626,7 @@ class ProductController extends Controller{
 		if(!$cat && !$mod)
 			$result=$em->getRepository('AppBundle:Product')->findAll();
 		else{
-			if(!mod)
+			if(!$mod)
 				$result=$resultCategory;
 			else{
 				if(!cat)

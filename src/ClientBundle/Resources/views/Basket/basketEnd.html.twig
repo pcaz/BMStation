@@ -45,6 +45,9 @@
 
 </form>
 <p class="space"></p>
+<form action="{{ path('user_order_summary',{'id':basket.id}) }}">
+<input type="submit" value="{{ 'order.toorder' | trans }}" />
+</form>
 <form action="{{ path('user_basket_name',{'id':basket.id})}}">
 <input type="submit" value="{{ 'basket_name' | trans }}" />
 </form>
@@ -58,7 +61,7 @@
 {% endblock content %}		
 {% block script %}
 <script>
-$( "#product-menu a" ).css({ "background":"#666" });
-$( "#product-menu a" ).css({ "font-weight":"bold" });
+$( "#command-menu a" ).css({ "background":"#666" });
+$( "#command-menu a" ).css({ "font-weight":"bold" });
 </script>
 {% endblock script %}	

@@ -97,4 +97,13 @@ user_basket_name:
   defaults: { _controller: ClientBundle:Basket:name}     
 user_basket_get:
   path: /user_basket_get/{id}
-  defaults: { _controller: ClientBundle:Basket:basketGet}  
+  defaults: { _controller: ClientBundle:Basket:basketGet}
+user_order_summary:
+  path: /user_order_summary/{id}
+  defaults: { _controller: ClientBundle:Order:summary} 
+user_order_payment:
+  path: /user_order_payment/{id}
+  defaults: { _controller: ClientBundle:Order:payment}
+user_order_bill:
+  path: /user_order_bill/{id}
+  defaults: { _controller: ClientBundle:Order:bill}           

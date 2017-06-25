@@ -16,6 +16,7 @@ class ClientForm extends AbstractType
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
 		$builder
+		
 		->add('firstName', 'text', array('label'=>'firstname'))
 		->add('lastName','text',array('label'=>'lastname'))
 		->add('deliveryAddress', new ClientAddressForm(),array('label'=>'deliveryaddress'))

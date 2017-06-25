@@ -27,11 +27,13 @@
     				<a href="{{ path('userchooseLangage', {'langue' : 'en'}) }}">EN</a>	
          		</div> <!-- choisir-langue-->
          		<div id="panier">
+         		<a href="{{ path('user_basket') }}">
          		{% if is_granted('ROLE_USER') %}
          		<img href="{{ path('user_basket') }}" src="{{ asset('images/panier-actif.png') }}"></img>
          		{% else %}
          		<img href="{{ path('user_basket') }}" src="{{ asset('images/panier.png') }}"></img>
          		{% endif %}
+         		</a>
          		</div>
 {% block header %}{% endblock %}
 {% endblock %}
@@ -53,7 +55,21 @@
 {% block content %}{% endblock %}
 {% endblock %}
 {% block appfooter %}
-{% block footer %}{% endblock %}
+{% block footer %}
+<div id="footer">
+<div class="three-column">
+<div class="sidebar-left">
+<a href="#">Mentions légales</a>
+</div>
+<div class="center-content">
+<a href="#">CGV</a>
+</div>
+<div class="sidebar-right">
+<a hef="#">Qui sommes nous</a>
+</div>
+</div> <!-- three-column -->
+</div> <!-- footer -->
+{% endblock %}
 {% endblock %}
 {% block appscript%}
 {% block script%}{% endblock %}

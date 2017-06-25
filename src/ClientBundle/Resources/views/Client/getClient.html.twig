@@ -9,20 +9,8 @@
 
 <div id="client">
 
-{% if message %}
-<div class="message">
-{{ message }}
-</div>
-{% endif %}
-{% if errors is defined %}
-<ul>
-{% for error in errors %}
-	{% for err in error %}
-    <li>{{ err.message }}</li>
-    {% endfor %}
-{% endfor %}
-</ul>
-{% endif %}
+
+
 <div class="space" style="width:600px; font-style: italic;">
 {{ 'procedure_inscription'| trans }}
 </div>
@@ -33,6 +21,13 @@
 
 <tr>
 <td>
+
+{{ form_errors(form.gender)}}
+{{ form_label(form.gender) }}
+{{ form_widget(form.gender) }}
+</td>
+<td>
+
 {{ form_errors(form.firstName)}}
 {{ form_label(form.firstName) }}
 {{ form_widget(form.firstName) }}
@@ -104,13 +99,13 @@
 <!-- </form> -->
 {#    include "UserBundle:Registration:register_content.html.twig" #}
 {%endblock %}
-</form>
+
          
 
 
 {{ form_rest(form) }}
 <input type="submit" onclick="submitclient()" value="{{ 'record' | trans}}"/>
-
+</form>
 </div> <!-- client -->
 {% endblock %}
 {% block script %}
