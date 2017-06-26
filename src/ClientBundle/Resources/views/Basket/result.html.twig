@@ -36,7 +36,7 @@ Modèle: {{ model }}
 	<td style="width:20%; padding-left: 30px;"> {% if type.disponibility > 0 %}en stock{% else %}a commander{% endif %}
 	
 	<td class="img-thumb" style="width:15%; padding-left: 30px;">
-<a href="{{ images }}/{{ type.image }}">	
+<a href="{{ images }}/{{ type.image }}" target="_blank">	
 	{% if type.image %}
 	<img src="{{ images }}/{{ type.image }}"/>
 	{% else %}

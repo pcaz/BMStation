@@ -3,4 +3,4 @@ app/logs/*
 .settings/*
 .project
 .buildpath
-web/uploads/bases
+web/uploads/bases/*

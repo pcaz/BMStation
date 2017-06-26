@@ -1,6 +1,6 @@
 homepage:
   path: /
-  defaults: { _controller: ClientBundle:Homepage:homepage}
+  defaults: { _controller: ClientBundle:NewHomepage:homepage}
 userchooseLangage:
   path: /userchooselangage/{langue}
   defaults: { _controller: ClientBundle:Homepage:chooseLangage} 
