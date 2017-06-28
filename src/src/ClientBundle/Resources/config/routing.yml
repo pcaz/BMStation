@@ -76,13 +76,7 @@ user_product_setcategory:
      _method: POST  
 user_product_set:
   path: /user_product_set
-  defaults: { _controller: ClientBundle:Product:set}   
-user_home_product_set:
-  path: /user_home_product_set
-  defaults: { _controller: ClientBundle:NewHomepage:setProduct}
-user_home_basket_set:
-  path: /user_home_basket_set
-  defaults: { _controller: ClientBundle:NewHomepage:basket}             
+  defaults: { _controller: ClientBundle:Product:set}        
 ####
 user_basket:
   path: /user_basket

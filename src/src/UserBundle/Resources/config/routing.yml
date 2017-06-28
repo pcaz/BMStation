@@ -1,0 +1,7 @@
+userbundle_registration_register:
+  path: /registration-register
+  defaults: { _controller: UserBundle:Registration:register}
+userbundle_user_registration_register:
+  path: /user_registration_register
+  defaults: { _controller: UserBundle:Registration:register}  
+   

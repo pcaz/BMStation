@@ -3,8 +3,6 @@
 {% block title %}homepage{% endblock %}
 
 {% block content %}
-<form action="{{ path('user_home_basket_set') }}" id="product_set">
-
 <table style="width:100%">
 <thead>
 <th></th>
@@ -14,7 +12,6 @@
 <th style="text-align:center;">{{ 'command' | trans }}</th>
 </thead>
 <tbody>
-
 {% for product in products %}
 <tr>
 
@@ -33,70 +30,21 @@
 {{ product.price }}
 </td>
 <td>
-<div onclick="select('{{ product.id }}')">
-<input  onclick="select('{{ product.id }}')" id="{{ product.id }}" style="margin-left: 40px;" type='checkbox'/>
-</div>
+<input id="{{ product.id }}"style="margin-left: 40px;" type='checkbox'/>
 </td>
 </tr>
 {% endfor %}
-
 </tbody>
 </table>
-
-</form>
-<div onclick="submit()">
-<button onclick="submit()">{{ 'command'|trans }}</button>
-</div>
 <p class="space"></p>
-
-
-
 <button onclick='document.location.href="{{ path('homepage') }}"'>{{ 'return' | trans }}</button>
+<button onclick="submit()">{{ 'command'|trans }}</button>
+
 {% endblock %}		
 {% block script %}
 <script>
 $( "#home-menu a" ).css({ "background":"#666" });
 $( "#home-menu a" ).css({ "font-weight":"bold" });
 
-var products=[];
-
-function select(path) {
-
-    var val=document.getElementById(path);
-
-    if(val.checked){
-		products.push(path);
-        }
-    else{
-        for (i=0;i>products.lenghth;i++){
-             if(products[i]==path){
-                  delete products[i]
-                 }
-                 
-            }
-        }
-	
-}
-function submit(){
-    $(".loading").show();
-    $(".wait").show();
-	 var DATA="products="+products;
-$.ajaxSetup({async: false});
-$.ajax({
-	type: "POST",
-	url: "{{ path('user_home_product_set')}}",
-	data: DATA,
-	cache: false,
-	success: function(data){
- 	        }
-});		
-$.ajaxSetup({async: true});	
-	 $(".wait").hide();	
-	 $(".loading").hide();
-	 document.location.href="{{ path('user_home_basket_set') }}";
-	return false;
-}
-
-        
 </script>
 {% endblock script %}

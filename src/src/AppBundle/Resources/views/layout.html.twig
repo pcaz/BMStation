@@ -1,0 +1,78 @@
+{% extends '::layout.html.twig' %} 
+
+{% block appcss%}
+{% block css %}{% endblock %}
+{% endblock %}
+{% block appscriptheader %}
+{% block scriptheader %}{% endblock %}
+{% endblock %}
+{% block appslideshow %}
+{% block slideshow %}{% endblock %}
+{% endblock %}
+{% block appheader  %}
+         		 
+	                 {% include "UserBundle::connexion.html.twig" %}
+         		
+
+		 		<div id="choisir-langue">
+		            {{ "choose_langage" | trans}} :
+					<a href="{{ path('chooseLangage', {'langue' : 'fr'}) }}">FR</a> |
+    				<a href="{{ path('chooseLangage', {'langue' : 'en'}) }}">EN</a>	
+         		</div> <!-- choisir-langue-->
+
+{% block header %}{% endblock %}
+{% endblock %}
+{% block appmenu %}
+{% block menu %}
+	<div id="admin-menu">
+	 			<ul>
+		      			{% if is_granted('ROLE_ADMIN') %}
+		    			<li id="homepage-menu"><a href="{{ path('homepageAdmin')}}">{{ "homepage"|trans}}</a></li>
+		    			{% endif %}
+		 			    {% if is_granted('ROLE_ADMIN') %}
+		    			<li id="category-menu"><a href="{{ path('category_list') }}">{{"category"| trans}}</a></li>
+		    			{% endif %}
+		    			{% if is_granted('ROLE_ADMIN') %}
+		    			<li id="series-menu"><a href="{{ path('series_list') }}">{{ "series" | trans}}</a></li>
+		    			{% endif %}
+		    			{% if is_granted('ROLE_ADMIN') %}
+		    			<li id="model-menu"><a href="{{ path('model_list')}}">{{ "model" | trans}}</a></li>
+						{% endif %}
+						{% if is_granted('ROLE_ADMIN') %}
+		    			<li id="product-menu"><a href="{{ path('product_category')}}">{{ "product" | trans}}</a></li>
+						{% endif %}
+						{% if is_granted('ROLE_ADMIN') %}
+		    			<li id="client-menu"><a href="{{ path('listclient')}}">{{ "client" | trans}}</a></li>
+						{% endif %}
+						{% if is_granted('ROLE_ADMIN') %}
+		    			<li id="contact-menu"><a href="{{ path('listcontact')}}">{{ "Contacts" | trans}}</a></li>
+						{% endif %}
+						{% if is_granted('ROLE_SUPER_ADMIN') %}
+						    <li><a>{{ "administration" | trans}}</a>
+		    					<ul>
+		    						<li><a>{{ "administrator" | trans }}</a>
+		    							<ul>
+		    							    <li><a href="{{ path('adminlist')}}">Lister les administrateur</a></li>
+		    								<li><a href="{{ path('admincreate')}}">Créer un administrateur</a></li>
+		    							</ul>
+		    						</li>
+		    						<li><a href="{{ path('adminsavebase')}}">sauvegarder la base</a></li>
+		    					</ul>
+		    				</li>
+						{% endif %}
+						
+		 			</ul> 			
+		</div> <!-- admin-menu -->
+{% endblock %}
+{% endblock %}
+{% block appcontent %}
+{% block content %}{% endblock %}
+{% endblock %}
+{% block appfooter %}
+{% block footer %}{% endblock %}
+{% endblock %}
+{% block appscript%}
+{% block script%}{% endblock %}
+{% endblock %}
+   
+   

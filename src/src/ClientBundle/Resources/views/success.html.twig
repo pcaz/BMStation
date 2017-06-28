@@ -1,0 +1,17 @@
+{% extends 'ClientBundle::layout.html.twig' %}
+
+{% block title %}success{% endblock %}
+
+{% block content %}
+<H1>{{ 'success'|trans }} </H1>
+
+<form action="{{ path('homepage')}}">
+<h3>L'opération s'est effectuée avec succes.</h3>
+
+ 
+
+<input TYPE="submit"VALUE="{{ 'send'|trans }}">
+</form>
+
+
+{% endblock content %}
