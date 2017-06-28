@@ -94,7 +94,7 @@ class NewHomepageController extends Controller
 		for($i=0;strstr($products,',',true)<>false;$i++) {
 			$str=strstr($products,',',true);
 			$prods[$i]=$str;
-			$prods=strstr($prods,',',false);
+			$products=strstr($products,',',false);
 			$products=substr($products,1);
 		}
 		//le derner item

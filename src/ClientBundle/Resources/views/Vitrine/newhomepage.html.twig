@@ -3,7 +3,6 @@
 {% block title %}homepage{% endblock %}
 
 {% block content %}
-<form action="{{ path('user_home_basket_set') }}" id="product_set">
 
 <table style="width:100%">
 <thead>
@@ -42,10 +41,8 @@
 
 </tbody>
 </table>
-
-</form>
 <div onclick="submit()">
-<button onclick="submit()">{{ 'command'|trans }}</button>
+<button >{{ 'command'|trans }}</button>
 </div>
 <p class="space"></p>
 
@@ -68,9 +65,9 @@ function select(path) {
 		products.push(path);
         }
     else{
-        for (i=0;i>products.lenghth;i++){
+        for (i=0, len=products.length; i<len;i++){
              if(products[i]==path){
-                  delete products[i]
+                  products.splice(i,1);
                  }
                  
             }
