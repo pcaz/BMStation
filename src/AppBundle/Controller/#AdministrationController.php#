@@ -4,14 +4,11 @@ namespace AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use AppBundle\Form\AdministratorForm;
-use AppBundle\Form\AddSlideshowForm;
 use Symfony\Component\HttpFoundation\Request;
 use UserBundle\Entity\User;
 use AppBundle\Service\BackupMySQL;
 use Symfony\Component\Process\Process;
 use AppBundle\Form\EditAdministratorForm;
-use AppBundle\Form\SlideshowForm;
-use AppBundle\PseudoClasses\Slideshow;
 
 
 
@@ -26,7 +23,7 @@ class AdministrationController extends Controller{
 		$user=new User();
 		$form=$this->get('form.factory')->create(new AdministratorForm(), $user);;
 		$request = $this->get('request');
-		                  
+		
 		if($request->getMethod()=='POST'){
 			$form->handlerequest($request);
 			if($form->isValid()){
@@ -43,7 +40,7 @@ class AdministrationController extends Controller{
 								'title'=>'createadmin',
 						));
 				
-			 }
+			}
 			else {
 				// la form est invalide
 				return $this->container->get('templating')->renderResponse(
@@ -217,10 +214,10 @@ class AdministrationController extends Controller{
 	public function editSlideshowAction()
 	{
 		$images=array();
-		$source='/var/www/bmstation/src/ClientBundle/Resources/views/slideshow.html.twig';
 		
+		$val=$this->getParameter('app.images_directory');
 		
-		$file=fopen($source,'r');
+		$file=fopen('/var/www/bmstation/src/ClientBundle/Resources/views/slideshow.html.twig','r');
 		
         while($line=fgets($file)){
         
@@ -233,6 +230,7 @@ class AdministrationController extends Controller{
         	array_push($images,$str);
         }
         
+        $dir='/uploads/slideshow/';
         return $this->container->get('templating')->renderResponse(
         		'AppBundle:Administration:editSlideshow.html.twig', array(
         				'title'=>'editslideshow',
@@ -246,7 +244,6 @@ class AdministrationController extends Controller{
 	{
 		
 		$lines=array();
-		$images=array();
 		$source='/var/www/bmstation/src/ClientBundle/Resources/views/slideshow.html.twig';
 		$dest='/tmp/newfile.php';
 		
@@ -262,12 +259,6 @@ class AdministrationController extends Controller{
 		while($line=fgets($file)){
 	        $count++;		
 			array_push($lines,$line);
-			$str=strstr($line,'src="');
-			$str=substr($str,5);
-			$str=strstr($str,'"',true);
-			$len=strlen($str);
-			$str=substr($str,0,$len);
-			array_push($images,$str);
 		}
 	
 		
@@ -281,21 +272,22 @@ class AdministrationController extends Controller{
 		{	
 		
 		//d'abord, on efface l'image.
-			$root=$this->getParameter('app.root');
-			unlink($root.$images[$id]);
+			$str=strstr($line[$i],'src="');
+			$str=substr($str,5);
+			$str=strstr($str,'"',true);
+			$len=strlen($str);
+			$str=substr($str,0,$len);
+			
+			unlink($str);
 			
        // on copie le fichier moins la ligne
-			array_splice($lines, $id,1);
-			array_splice($images,$id,1);
+			$lines=array_splice($line, $id);
 			
 			fclose($file);
 			
-			$file=fopen($dest,'w');
+			$file=fopen("$dest",'w');
 			
-			for($i=0;$i<count($lines);$i++)
-			{
-				fputs($file,$lines[$i]);
-			}
+			for($i=0;$i<count($lines);$i++) fputs($file,$lines[$i]);
 			
 			
 			fclose($file);
@@ -303,142 +295,7 @@ class AdministrationController extends Controller{
 			unlink ($source);
 			rename($dest,$source);
 			
-		}
-		return $this->container->get('templating')->renderResponse(
-				'AppBundle:Administration:editSlideshow.html.twig', array(
-						'title'=>'editslideshow',
-						'images'=>$images,
-				));
-  }
-  
-  public function addSlideshowAction()
-  {
-  	$lines=array();
-  	$images=array();
-  	$source='/var/www/bmstation/src/ClientBundle/Resources/views/slideshow.html.twig';
-  	$dest='/tmp/newfile.php';
-  	
-  	$image='';
-  	$format=array('jpeg', 'png', 'gif');
-  	
-  	      
-  	$request = $this->get('request');
-  	$flashbag=$request->getSession()->getFlashBag();
-  	$slideshow=new Slideshow();
-  	$form=$this->get('form.factory')->create(new AddSlideshowForm(), $slideshow);
-  	if($request->getMethod()=='POST')
-  	{
-  		$form->handleRequest($request);
-  		if($form->isValid())
-  		{
-  			$rang=$slideshow->getRang();
-  			$file=fopen($source,'r');
-  			$count=0;
-  			// on compte les entrées
-  			while($line=fgets($file)){
-  				$count++;
-  				array_push($lines,$line);
-  				$str=strstr($line,'src="');
-  				$str=substr($str,5);
-  				$str=strstr($str,'"',true);
-  				$len=strlen($str);
-  				$str=substr($str,0,$len);
-  				array_push($images,$str);
-  			}
-  		
-  		  // on ne peut pas rentrer plus de dix mages
-  		  if($count==10){
-  		  	$flashbag->add('error','nomore10');
-  		  	return $this->container->get('templating')->renderResponse(
-  		  			'AppBundle:Administration:editSlideshow.html.twig', array(
-  		  					'title'=>'editslideshow',
-  		  					'images'=>$images,
-  		  			));
-  		  }
-  			
-  			
-   		    $image=$slideshow->getImage();
-   		    
-  			// On vérifie l'extension du fichier (à partir du type mime)
-  			if(in_array($image->guessExtension(), $format)){
-  				// On génère un nom unique avant de sauvegarder le fichier
-  				$fileName = md5(uniqid()).'.'.$image->guessExtension();
-   				// On déplace le fichier vers le répertoire Uploads
-  				$destDir= $this->container->getParameter('app.root').'/uploads /slideshow/'; 
-   				$image->move(
-  						  $destDir,
-  						$fileName
-  						);
-  				// Il faut effacer le fichier de l'image precedente	
-  			}
-  			else{
-  				// le format n'est pas accepté
-  				$flashbag->add('error',$this->container->get('translator')->trans('bad_format'));
-  				return $this->container->get('templating')->renderResponse(
-  						'AppBundle:Administration:editSlideshow.html.twig', array(
-  								'title'=>'editslideshow',
-  								'images'=>$images,
-  						));
-  			} 
-  			
-  			$line='<li><img src="/uploads/slideshow/'.$fileName.'" alt=""/></li>';
-  			$file=fopen($dest,'w');
-  			
-  			for($i=0;$i<$rang-1;$i++)
-  			{
-  				fputs($file,$lines[$i]);
-  			}
-  			fputs($file,$line);
-  			for($i=$rang-1;$i<count($lines);$i++)
-  			{
-  				fputs($file,$lines[$i]);
-  			}
-  			
-  			fclose($file);
-  			
-  			unlink ($source);
-  			rename($dest,$source);
-  			
-  		
-  		}
-  		else 
-  		{// le format est invalide
-  			
- 
-   	    }
-  	}
-     else
-     { // on est en get
-   //  	$csrf=$this->get('security.csrf.token_manager');
-   //  	$token=$csrf->refreshToken('slideshow');
-     	return $this->container->get('templating')->renderResponse(
-     			'AppBundle:Administration:addSlideshow.html.twig', array(
-     					'form'=>$form->createView(), 
-     					'title'=>'addlideshow',
-     // 					'token'=>$token,
-     			));
-     }
-     
-  }
-  
-  privatbe function getErrorMessages(\Symfony\Component\Form\Form $form) {
-  	$errors = array();
-  	
-  	foreach ($form->getErrors() as $error) {
-  		if ($form->isRoot()) {
-  			$errors['#'][] = $error->getMessage();
-  		} else {
-  			$errors[] = $error->getMessage();
-  		}
-  	}
-  	
-  	foreach ($form->all() as $child) {
-  		if (!$child->isValid()) {
-  			$errors[$child->getName()] = $this->getErrorMessages($child);
-  		}
-  	}
-  	
-  	return $errors;
-  }
-  
+		
+		
+	}
 }

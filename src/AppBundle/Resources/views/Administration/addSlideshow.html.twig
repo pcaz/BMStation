@@ -1,0 +1,56 @@
+{% extends 'AppBundle::layout.html.twig' %}
+{% block scriptheader %}
+<script type="text/javascript" src="{{ asset('js/image.js')}}"></script>
+{% endblock %}
+{% block header %}
+{% endblock %}
+
+{% block title %}Product{% endblock %}
+
+{% block content %}
+
+
+
+<H1>{{ title }}</H1>
+
+
+
+<div id="input_slideshow">
+
+ 
+<div class="img-thumb">
+ <div id="preview">
+      <img  id="image">
+ </div> <!-- preview --
+  </div> <!-- img-thumb -->
+ 
+<!-- <form action="{{ path('add_slideshow') }}" method="POST" enctype="multipart/form-data"> -->
+{{ form_start(form, {'action': path('add_slideshow'), 'method': 'POST', 'enctype':'multipart/form-data'}) }} 
+
+<label for="slideshow_image"style="margin-left:50px;">Image</label>
+<input type="text" id="selectedfile" style="display:none"/>
+<input type="file" id="slideshow_image" name="slideshow[image]" style="display:none" onchange="getvalue('slideshow_image')"/>
+<input type="button" id="slideshow_button" value="{{ 'selectfile' | trans}}" onclick="getfile('slideshow_image')" />
+
+<!-- {{ form_row(form.image) }} -->
+<!-- <input type="hidden" id="client__token" name="client[_token]" value={# token#}" /> -->
+{{ form_rest(form) }} 
+<input type="submit" value="{{ 'record' | trans}}"/>
+{{ form_end(form) }}
+
+
+<p class="clear space"></p>
+<a href="{{ path('homepageAdmin')}}">{{ 'homepage' | trans }}</a>
+</div> <!-- category -->
+{% endblock content %}
+{% block script %}
+<script>
+$( "#administration-menu a" ).css({ "background":"#666" });
+$( "#administration-menu a" ).css({ "font-weight":"bold" });
+
+
+</script>
+{% endblock script %}	
+
+
+

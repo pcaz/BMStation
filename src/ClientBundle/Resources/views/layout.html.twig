@@ -11,10 +11,7 @@
 {% block slideshow %}
 	<div class="slideshow">
 	<ul>
-		<li><img src="{{ asset('images/slideshow/moto1.jpg')}}" alt="" /></li>
-		<li><img src="{{ asset('images/slideshow/moto2.jpg')}}" alt="" /></li>
-		<li><img src="{{ asset('images/slideshow/moto3.jpg')}}" alt="" /></li>
-		<li><img src="{{ asset('images/slideshow/moto4.jpg')}}" alt="" /></li>
+	{% include 'ClientBundle::slideshow.html.twig' %}
 	</ul>
 	</div>
 {% endblock %}

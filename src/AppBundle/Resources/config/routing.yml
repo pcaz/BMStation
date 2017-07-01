@@ -153,6 +153,16 @@ admindelete:
 adminsavebase:
   path: /superadmin/adminsavebase
   defaults: { _controller: AppBundle:Administration:saveBase}  
+edit_slideshow:
+  path: /admin/edit_slideshow/
+  defaults: { _controller: AppBundle:Administration:editSlideshow}
+delete_slideshow:
+  path: /admin/delete_slideshow/{id}
+  defaults: { _controller: AppBundle:Administration:deleteSlideshow}
+add_slideshow:
+  path: /admin/add_slideshow/
+  defaults: { _controller: AppBundle:Administration:addSlideshow}
+
  #
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"

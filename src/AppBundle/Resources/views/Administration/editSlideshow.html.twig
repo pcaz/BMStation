@@ -1,0 +1,42 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+
+{% block title %}{% endblock %}
+
+{% block content %}
+<H1>{{ title | trans }}</H1>
+
+<table>
+{% for image in images %}
+<tr>
+<td style="width:20%;">{{ loop.index }}</td>
+
+<td style="width:80%;"><div class="img-small"><img src="{{image }}"/></div></td>
+	<td class="image" ><img src={{ asset('images/delete.png') }}  onclick="del('{{ path('delete_slideshow', { 'id': loop.index }) }}')"/></td>
+</tr>
+{% else %}
+Pas d'images disponibles
+
+{% endfor%}
+</table>
+
+<p class="space"></p>
+
+<input type="submit" value="{{ 'record' | trans }}"/>
+
+<a href="{{ path('homepageAdmin') }}">{{ 'rethome'| trans }}</a>
+{% endblock content %}
+{% block script%}
+<script>
+$( "#administration-menu a" ).css({ "background":"#666" });
+$( "#administration-menu a" ).css({ "font-weight":"bold" });
+
+function del(path){
+
+	if(confirm('Etes vous sur de vouloir effacer cette image ?')){
+		document.location.href=path
+		}
+
+}
+</script>
+{% endblock %}

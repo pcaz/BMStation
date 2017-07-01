@@ -14,6 +14,8 @@ parameters:
     app.URL: '%appURL%'
     app.images_URL: '%app.URL%/web/uploads/images'
     app.uploads: '%kernel.root_dir%/../web/uploads/'
+    app.root: '%kernel.root_dir%/../web'
+    
 
 framework:
     #esi: ~
@@ -42,6 +44,9 @@ gregwar_captcha: ~
 twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
+    auto_reload: true
+    globals:
+        slideshow: 'web/uploads/slideshow'
     form_themes:
         - 'form/fields.html.twig'
 
