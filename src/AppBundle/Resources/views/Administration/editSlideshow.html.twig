@@ -22,8 +22,9 @@ Pas d'images disponibles
 
 <p class="space"></p>
 
-<input type="submit" value="{{ 'record' | trans }}"/>
-
+<form action="{{ path('add_slideshow') }}">
+<input type="submit" value="{{ 'add' | trans }}"/>
+</form>
 <a href="{{ path('homepageAdmin') }}">{{ 'rethome'| trans }}</a>
 {% endblock content %}
 {% block script%}

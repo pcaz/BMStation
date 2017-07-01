@@ -15,6 +15,7 @@ parameters:
     app.images_URL: '%app.URL%/web/uploads/images'
     app.uploads: '%kernel.root_dir%/../web/uploads/'
     app.root: '%kernel.root_dir%/../web'
+    app.base: '%kernel.root_dir%/..'
     
 
 framework:
