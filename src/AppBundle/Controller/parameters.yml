@@ -1,10 +1,10 @@
 # This file is auto-generated during the composer install
 parameters:
-    database_host: localhost
+    database_host: hostingmysql290.amen.fr
     database_port: null
     database_name: bmstation
-    database_user: symfony
-    database_password: spleen
+    database_user: BMSTATION
+    database_password: 4uDk8grv@
     mailer_transport: smtp
     mailer_host: smtp.presence-web.fr
     mailer_port: 587
@@ -13,5 +13,5 @@ parameters:
     secret: 92e5079c78d11000d36a4681906dc6ecadc14dbe
     mailer_auth: login
 #
-    appURL: http://www.bmstation.fr/
+    appURL: http://cazabat.org/bmstation
     

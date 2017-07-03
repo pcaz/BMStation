@@ -63,10 +63,7 @@ class Model
 		
 	 private $image;
 
-	 /**
-	  * @ORM\Column(type="boolean", nullable=true)
-	  *
-	  */
+	 
 	 
 	 private $selected;
 	 /**

@@ -1,3 +1,5 @@
+@import "http://fonts.googleapis.com/css?family=Alice";
+@import "http://fonts.googleapis.com/css?family=Oswald";
 /**
  * @package BM2
  * @version 1.0
@@ -6,8 +8,6 @@
  * @license 
  */
 /********** IMPORT SECTION *************/
-@import "http://fonts.googleapis.com/css?family=Alice";
-@import "http://fonts.googleapis.com/css?family=Oswald";
 /********** MACRO SECTION *************/
 /***** COLOR *****/
 /**** SIZE *****/
@@ -19,6 +19,8 @@ body {
   padding: 0;
   border: 0;
   outline: 0;
+  background-image: url("../images/background.jpeg");
+  background-repeat: repeat-y;
   display: block;
   width: 960px;
   margin: 0 auto;
@@ -108,8 +110,9 @@ legend {
   width: 960px;
   min-height: 400px;
   border: 1px solid #457800;
-  background: #ffffff;
+  background: white;
   background-size: 100%;
+  opacity: 0.98;
   line-height: 1.5;
   font-family: Alice, serif;
   font-size: 15px;
@@ -121,7 +124,7 @@ legend {
   clear: both;
   width: 960px;
   border-right: 1px solid #457800;
-  background: #ffffff;
+  background: white;
   overflow: hidden;
   margin: 0px auto 0 auto; }
 
@@ -139,7 +142,7 @@ legend {
   clear: both;
   display: block;
   overflow: hidden;
-  background: #ffffff;
+  background: white;
   text-align: center;
   padding: 50px 0 20px 0; }
 
@@ -303,7 +306,7 @@ div#content div.two-column div.sidebar-right {
   width: 300px; }
 
 #series-name {
-  width: 350px;
+  width: 300px;
   margin-left: -20px; }
 
 #series-name li {
@@ -559,5 +562,3 @@ pagination {
 .order2 img {
   width: 100px;
   margin-left: 100px; }
-
-/*# sourceMappingURL=style.css.map */

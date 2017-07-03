@@ -284,7 +284,7 @@ class AdministrationController extends Controller{
 		
 		//d'abord, on efface l'image.
 			$root=$this->getParameter('app.root');
-			unlink($root.$images[$id]);
+			if(is_file($root.$images[$id]))	unlink($root.$images[$id]);
 			
        // on copie le fichier moins la ligne
 			array_splice($lines, $id,1);
@@ -389,7 +389,7 @@ class AdministrationController extends Controller{
   						));
   			} 
   			$longFileName='/uploads/slideshow/'.$fileName;
-  			$line='<li><img src="'.$longFileName.'" alt=""/></li>';
+  			$line='<li><img src="'.$longFileName.'" alt=""/></li>'."\n";
   			$file=fopen($dest,'w');
   			
   			for($i=0;$i<$rang-1;$i++)

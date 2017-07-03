@@ -234,7 +234,6 @@ legend {
 
 #footer {
 	clear: both;
-	display:block;
 //	border-top: 1px solid #457800;
 //	border-right: 1px solid #457800;
 //	width: $body-width;
@@ -349,12 +348,21 @@ ol, ul {
 	
 	}
 
+/* ------------------ FOOTER AREA------------------ */
 
 
 
+#footer a {
+	color: #356800;
+}
 
+#footer .readmore {
+	background:none;
+}
 
-
+#footer .subject {
+    display: none;
+}
 
 /******** Mise en forme *******/
 
@@ -380,35 +388,15 @@ div#content div.two-column div.sidebar-right {
 
    }
 
-/* ------------------ FOOTER AREA------------------ */
-#footer a {
-	color: blue;
-	text-decoration:none;
-}
-#footer a:hover , #footer a:active{
-	font-size: 120%;
-	}
-
-#footer .two-column .sidebar-right {
-  float: right;
-  width: 45%;
-  padding: 0 20px;
-  line-height: 1.5em; 
-
-   }
-#footer .three-column{
-	clear: both;
-	width:100%;
-	}
-#footer .three-column .sidebar-left {
+div#content div.three-column div.sidebar-left {
   float: left;
   width: 24%; }
 
-#footer .three-column .sidebar-right {
+div#content div.three-column div.sidebar-right {
   float: right;
   width: 24%; }
 
-#footer .three-column .center-content {
+div#content div.three-column div.center-content {
   float: left;
   width: 48%;}
 
@@ -786,10 +774,3 @@ pagination {
   border-color: #ddd;
 }
 
-/****** order2 ******/
-
-.order2 img{
-	
-	width: 100px;
-	margin-left: 100px;
-	}

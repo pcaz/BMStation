@@ -45,37 +45,6 @@ INSERT INTO `address` VALUES (104,'8, rue de Foresta',NULL,'06300','NICE','06 61
 UNLOCK TABLES;
 
 --
--- Table structure for table `basket`
---
-
-DROP TABLE IF EXISTS `basket`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `basket` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `client_id` int(11) NOT NULL,
-  `date_created` datetime NOT NULL,
-  `active` tinyint(1) NOT NULL,
-  `date_ordered` datetime DEFAULT NULL,
-  `facture` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `name` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `IDX_2246507B19EB6921` (`client_id`),
-  CONSTRAINT `FK_2246507B19EB6921` FOREIGN KEY (`client_id`) REFERENCES `client` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `basket`
---
-
-LOCK TABLES `basket` WRITE;
-/*!40000 ALTER TABLE `basket` DISABLE KEYS */;
-INSERT INTO `basket` VALUES (46,6,'2017-06-24 13:25:34',0,NULL,NULL,'Toto');
-/*!40000 ALTER TABLE `basket` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `category`
 --
 
@@ -205,14 +174,12 @@ DROP TABLE IF EXISTS `line_order`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `line_order` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `product_id` int(11) NOT NULL,
   `number` decimal(10,0) NOT NULL,
-  `price` decimal(7,2) DEFAULT NULL,
-  `basket_id` int(11) NOT NULL,
-  PRIMARY KEY (`basket_id`,`product_id`),
+  `price` decimal(7,2) NOT NULL,
+  PRIMARY KEY (`id`),
   KEY `IDX_AADB41B4584665A` (`product_id`),
-  KEY `IDX_AADB41B1BE1FB52` (`basket_id`),
-  CONSTRAINT `FK_AADB41B1BE1FB52` FOREIGN KEY (`basket_id`) REFERENCES `basket` (`id`),
   CONSTRAINT `FK_AADB41B4584665A` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -223,7 +190,6 @@ CREATE TABLE `line_order` (
 
 LOCK TABLES `line_order` WRITE;
 /*!40000 ALTER TABLE `line_order` DISABLE KEYS */;
-INSERT INTO `line_order` VALUES (90,1,NULL,46);
 /*!40000 ALTER TABLE `line_order` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -256,6 +222,33 @@ LOCK TABLES `model` WRITE;
 /*!40000 ALTER TABLE `model` DISABLE KEYS */;
 INSERT INTO `model` VALUES (3,'R1100 GS',NULL,2,NULL,NULL,0),(4,'R1150GS',NULL,2,NULL,NULL,0),(5,'R1100GS-Adventure',NULL,2,NULL,NULL,0),(6,'R1150GS-Adventure',NULL,2,NULL,NULL,0),(7,'K1100 LS',NULL,1,NULL,NULL,0),(8,'K1150 LS',NULL,1,NULL,NULL,0),(9,'K1100 RT',NULL,1,NULL,NULL,0),(10,'K1150 RT',NULL,1,NULL,NULL,0),(11,'G650 X',NULL,3,NULL,NULL,0),(12,'G650 GS',NULL,3,NULL,NULL,0),(13,'G310 R',NULL,3,NULL,NULL,0),(15,'F800 S',NULL,4,NULL,NULL,0),(16,'S1100 RR',NULL,5,NULL,NULL,0),(17,'S1000 R',NULL,5,NULL,NULL,0),(19,'C600 Sport',NULL,6,NULL,NULL,0);
 /*!40000 ALTER TABLE `model` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `order`
+--
+
+DROP TABLE IF EXISTS `order`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `order` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `client_id` int(11) NOT NULL,
+  `date` datetime NOT NULL,
+  `facture` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `IDX_F529939819EB6921` (`client_id`),
+  CONSTRAINT `FK_F529939819EB6921` FOREIGN KEY (`client_id`) REFERENCES `client` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `order`
+--
+
+LOCK TABLES `order` WRITE;
+/*!40000 ALTER TABLE `order` DISABLE KEYS */;
+/*!40000 ALTER TABLE `order` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -356,7 +349,7 @@ CREATE TABLE `token` (
   `date` datetime NOT NULL,
   `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -404,7 +397,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'pascaz10','pascaz10','pascal.cazabat@presence-web.fr','pascal.cazabat@presence-web.fr',1,NULL,'$2y$13$/EljL.S2Tt6XJBrpzbxUQOaYwikWbVLhoSy1GkF2tuQEjhMgaz8/.','2017-06-24 06:28:27',NULL,NULL,'a:1:{i:0;s:16:\"ROLE_SUPER_ADMIN\";}',NULL,NULL,NULL),(6,'jeremy','jeremy','jeremy@bmstation.fr','jeremy@bmstation.fr',1,NULL,'$2y$13$ZKgg06KrWdFzHADUSx7xt.3T9o8.pyoL/LH0UwrUMJIs.H3pGlnAO','2017-06-22 17:09:50',NULL,NULL,'a:2:{i:0;s:10:\"ROLE_ADMIN\";i:1;s:16:\"ROLE_SUPER_ADMIN\";}',NULL,NULL,NULL),(16,'pascal','pascal','pascal.cazabat@laposte.net','pascal.cazabat@laposte.net',1,NULL,'$2y$13$UlVZ9SbauQPCbwiC7B1d2u6UVBGcc7ctv9UPZaaFP4WCgwPUp8o8.','2017-06-24 14:07:33',NULL,'2017-06-23 07:51:12','a:0:{}',NULL,NULL,NULL),(17,'hd','hd','omrouge3@gmail.com','omrouge3@gmail.com',1,NULL,'$2y$13$km.k8YhrEjw93Q0IG1nc9e3tTusd30G.rmfGXTSDvboPXHrChAi/W',NULL,NULL,NULL,'a:0:{}',NULL,NULL,NULL),(27,'john','john','john@bmstation.fr','john@bmstation.fr',1,NULL,'$2y$13$da/MeAO0A0bG5dW0vZVPTO1bbRXVfG44MOgOAkJmaO6MN69BuEDP6','2017-06-22 17:21:17',NULL,NULL,'a:1:{i:0;s:10:\"ROLE_ADMIN\";}',NULL,NULL,NULL);
+INSERT INTO `user` VALUES (1,'pascaz10','pascaz10','pascal.cazabat@presence-web.fr','pascal.cazabat@presence-web.fr',1,NULL,'$2y$13$/EljL.S2Tt6XJBrpzbxUQOaYwikWbVLhoSy1GkF2tuQEjhMgaz8/.','2017-06-22 16:45:09',NULL,NULL,'a:1:{i:0;s:16:\"ROLE_SUPER_ADMIN\";}',NULL,NULL,NULL),(6,'jeremy','jeremy','jeremy@bmstation.fr','jeremy@bmstation.fr',1,NULL,'$2y$13$ZKgg06KrWdFzHADUSx7xt.3T9o8.pyoL/LH0UwrUMJIs.H3pGlnAO','2017-06-22 17:09:50',NULL,NULL,'a:2:{i:0;s:10:\"ROLE_ADMIN\";i:1;s:16:\"ROLE_SUPER_ADMIN\";}',NULL,NULL,NULL),(16,'pascal','pascal','pascal.cazabat@laposte.net','pascal.cazabat@laposte.net',1,NULL,'$2y$13$UlVZ9SbauQPCbwiC7B1d2u6UVBGcc7ctv9UPZaaFP4WCgwPUp8o8.','2017-06-23 07:15:20',NULL,'2017-06-23 07:51:12','a:0:{}',NULL,NULL,NULL),(17,'hd','hd','omrouge3@gmail.com','omrouge3@gmail.com',1,NULL,'$2y$13$km.k8YhrEjw93Q0IG1nc9e3tTusd30G.rmfGXTSDvboPXHrChAi/W',NULL,NULL,NULL,'a:0:{}',NULL,NULL,NULL),(27,'john','john','john@bmstation.fr','john@bmstation.fr',1,NULL,'$2y$13$da/MeAO0A0bG5dW0vZVPTO1bbRXVfG44MOgOAkJmaO6MN69BuEDP6','2017-06-22 17:21:17',NULL,NULL,'a:1:{i:0;s:10:\"ROLE_ADMIN\";}',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -417,4 +410,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-06-24 17:33:08
+-- Dump completed on 2017-06-23 19:09:44
