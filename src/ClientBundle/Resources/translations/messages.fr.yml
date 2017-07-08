@@ -98,3 +98,10 @@ order:
     after: Suite
       
     explication: Vous pourrez consulter nos produits diponibles à la vente sur ce site et les commander. 
+annonce:
+    name:  Nom de l'offre:
+    shortdesc: Description:
+    longdesc: Description longue:
+    visible: Contact visible:
+    typecontact: Type de contact:
+    contact: Contact: 

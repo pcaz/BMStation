@@ -349,20 +349,38 @@ ol, ul {
 	}
 
 /* ------------------ FOOTER AREA------------------ */
-
-
-
 #footer a {
-	color: #356800;
+	color: blue;
+	text-decoration:none;
 }
+#footer a:hover , #footer a:active{
+	font-size: 120%;
+	}
 
-#footer .readmore {
-	background:none;
-}
+#footer .two-column .sidebar-right {
+  float: right;
+  width: 45%;
+  padding: 0 20px;
+  line-height: 1.5em; 
 
-#footer .subject {
-    display: none;
-}
+   }
+#footer .three-column{
+	clear: both;
+	width:100%;
+	}
+#footer .three-column .sidebar-left {
+  float: left;
+  width: 24%; }
+
+#footer .three-column .sidebar-right {
+  float: right;
+  width: 24%; }
+
+#footer .three-column .center-content {
+  float: left;
+  width: 48%;}
+
+
 
 /******** Mise en forme *******/
 
@@ -772,5 +790,50 @@ pagination {
   cursor: not-allowed;
   background-color: #fff;
   border-color: #ddd;
+}
+
+/***** annonce    ****/
+
+#annonce {
+	display: block;
+	float: left;
+}
+
+#annonce label {
+	width: 150px;
+	vertical-align: top;
+	}
+
+
+
+
+#annonce #filedrag1
+{
+//	display: none;
+    display: block;
+	font-weight: bold;
+	text-align: center;
+	padding: 1em 0;
+	margin: 1em 0;
+	color: #555;
+	width: 100px;
+	height: 100px;
+	border: 2px dashed #555;
+	border-radius: 7px;
+	cursor: default;
+}
+
+#annonce #filedrag1.hover
+{
+	color: #f00;
+	border-color: #f00;
+	border-style: solid;
+	box-shadow: inset 0 3px 4px #888;
+}
+
+#annonce #div_fileselect1
+{
+	display: none;	
+
 }
 

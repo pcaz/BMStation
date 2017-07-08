@@ -19,8 +19,6 @@ body {
   padding: 0;
   border: 0;
   outline: 0;
-  background-image: url("../images/background.jpeg");
-  background-repeat: repeat-y;
   display: block;
   width: 960px;
   margin: 0 auto;
@@ -112,7 +110,6 @@ legend {
   border: 1px solid #457800;
   background: white;
   background-size: 100%;
-  opacity: 0.98;
   line-height: 1.5;
   font-family: Alice, serif;
   font-size: 15px;
@@ -140,7 +137,6 @@ legend {
 
 #footer {
   clear: both;
-  display: block;
   overflow: hidden;
   background: white;
   text-align: center;
@@ -225,24 +221,6 @@ ol, ul {
   clear: right;
   margin: 10px 30px 0 0; }
 
-/******** Mise en forme *******/
-div#content div.one-colum div.center-rightbar {
-  width: 95%;
-  margin: 0;
-  padding: 20px;
-  line-height: 1.5em; }
-
-div#content div.two-column div.sidebar-left {
-  float: left;
-  width: 45%;
-  padding: 0 0 0 20px; }
-
-div#content div.two-column div.sidebar-right {
-  float: right;
-  width: 45%;
-  padding: 0 20px;
-  line-height: 1.5em; }
-
 /* ------------------ FOOTER AREA------------------ */
 #footer a {
   color: blue;
@@ -270,6 +248,36 @@ div#content div.two-column div.sidebar-right {
   width: 24%; }
 
 #footer .three-column .center-content {
+  float: left;
+  width: 48%; }
+
+/******** Mise en forme *******/
+div#content div.one-colum div.center-rightbar {
+  width: 95%;
+  margin: 0;
+  padding: 20px;
+  line-height: 1.5em; }
+
+div#content div.two-column div.sidebar-left {
+  float: left;
+  width: 45%;
+  padding: 0 0 0 20px; }
+
+div#content div.two-column div.sidebar-right {
+  float: right;
+  width: 45%;
+  padding: 0 20px;
+  line-height: 1.5em; }
+
+div#content div.three-column div.sidebar-left {
+  float: left;
+  width: 24%; }
+
+div#content div.three-column div.sidebar-right {
+  float: right;
+  width: 24%; }
+
+div#content div.three-column div.center-content {
   float: left;
   width: 48%; }
 
@@ -306,7 +314,7 @@ div#content div.two-column div.sidebar-right {
   width: 300px; }
 
 #series-name {
-  width: 300px;
+  width: 350px;
   margin-left: -20px; }
 
 #series-name li {
@@ -558,7 +566,33 @@ pagination {
   background-color: #fff;
   border-color: #ddd; }
 
-/****** order2 ******/
-.order2 img {
+/***** annonce    ****/
+#annonce {
+  display: block;
+  float: left; }
+
+#annonce label {
+  width: 150px;
+  vertical-align: top; }
+
+#annonce #filedrag1 {
+  display: block;
+  font-weight: bold;
+  text-align: center;
+  padding: 1em 0;
+  margin: 1em 0;
+  color: #555;
   width: 100px;
-  margin-left: 100px; }
+  height: 100px;
+  border: 2px dashed #555;
+  border-radius: 7px;
+  cursor: default; }
+
+#annonce #filedrag1.hover {
+  color: #f00;
+  border-color: #f00;
+  border-style: solid;
+  box-shadow: inset 0 3px 4px #888; }
+
+#annonce #div_fileselect1 {
+  display: none; }

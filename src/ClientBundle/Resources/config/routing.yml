@@ -19,7 +19,7 @@ setclientaddress:
   path: /setclientaddress
   defaults: { _controller: ClientBundle:Client:setClientAddress}
   requirements :
-    _method: POS    
+    _method: POST    
 
 #
 
@@ -113,3 +113,11 @@ user_order_payment:
 user_order_bill:
   path: /user_order_bill/{id}
   defaults: { _controller: ClientBundle:Order:bill}           
+####
+user_announce:
+  path: /user_annonce/
+  defaults: { _controller: ClientBundle:Annonce:editAnnonce} 
+upload_image:
+  path: /upload_image/{id}
+  defaults: { _controller: ClientBundle:Annonce:uploadImage} 
+  

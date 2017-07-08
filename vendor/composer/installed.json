@@ -2141,86 +2141,6 @@
         ]
     },
     {
-        "name": "gedmo/doctrine-extensions",
-        "version": "v2.4.29",
-        "version_normalized": "2.4.29.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/Atlantic18/DoctrineExtensions.git",
-            "reference": "f65c02eae3bff1aa57709ea4c8ca26947df95b9c"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/Atlantic18/DoctrineExtensions/zipball/f65c02eae3bff1aa57709ea4c8ca26947df95b9c",
-            "reference": "f65c02eae3bff1aa57709ea4c8ca26947df95b9c",
-            "shasum": ""
-        },
-        "require": {
-            "behat/transliterator": "~1.2",
-            "doctrine/common": "~2.4",
-            "php": ">=5.3.2"
-        },
-        "require-dev": {
-            "doctrine/common": ">=2.5.0",
-            "doctrine/mongodb-odm": ">=1.0.2",
-            "doctrine/orm": ">=2.5.0",
-            "phpunit/phpunit": "*",
-            "symfony/yaml": "~2.6|~3.0"
-        },
-        "suggest": {
-            "doctrine/mongodb-odm": "to use the extensions with the MongoDB ODM",
-            "doctrine/orm": "to use the extensions with the ORM"
-        },
-        "time": "2017-05-29T17:33:48+00:00",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "2.4.x-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "Gedmo\\": "lib/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "David Buchmann",
-                "email": "david@liip.ch"
-            },
-            {
-                "name": "Gediminas Morkevicius",
-                "email": "gediminas.morkevicius@gmail.com"
-            },
-            {
-                "name": "Gustavo Falco",
-                "email": "comfortablynumb84@gmail.com"
-            }
-        ],
-        "description": "Doctrine2 behavioral extensions",
-        "homepage": "http://gediminasm.org/",
-        "keywords": [
-            "Blameable",
-            "behaviors",
-            "doctrine2",
-            "extensions",
-            "gedmo",
-            "loggable",
-            "nestedset",
-            "sluggable",
-            "sortable",
-            "timestampable",
-            "translatable",
-            "tree",
-            "uploadable"
-        ]
-    },
-    {
         "name": "incenteev/composer-parameter-handler",
         "version": "v2.1.2",
         "version_normalized": "2.1.2.0",
@@ -5083,6 +5003,86 @@
             "html",
             "html2pdf",
             "pdf"
+        ]
+    },
+    {
+        "name": "gedmo/doctrine-extensions",
+        "version": "v2.4.30",
+        "version_normalized": "2.4.30.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/Atlantic18/DoctrineExtensions.git",
+            "reference": "5e2cc07beb0cd24345cbe02eb7afc3b23f9cd488"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/Atlantic18/DoctrineExtensions/zipball/5e2cc07beb0cd24345cbe02eb7afc3b23f9cd488",
+            "reference": "5e2cc07beb0cd24345cbe02eb7afc3b23f9cd488",
+            "shasum": ""
+        },
+        "require": {
+            "behat/transliterator": "~1.2",
+            "doctrine/common": "~2.4",
+            "php": ">=5.3.2"
+        },
+        "require-dev": {
+            "doctrine/common": ">=2.5.0",
+            "doctrine/mongodb-odm": ">=1.0.2",
+            "doctrine/orm": ">=2.5.0",
+            "phpunit/phpunit": "*",
+            "symfony/yaml": "~2.6|~3.0"
+        },
+        "suggest": {
+            "doctrine/mongodb-odm": "to use the extensions with the MongoDB ODM",
+            "doctrine/orm": "to use the extensions with the ORM"
+        },
+        "time": "2017-07-02T09:46:37+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.4.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Gedmo\\": "lib/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "David Buchmann",
+                "email": "david@liip.ch"
+            },
+            {
+                "name": "Gediminas Morkevicius",
+                "email": "gediminas.morkevicius@gmail.com"
+            },
+            {
+                "name": "Gustavo Falco",
+                "email": "comfortablynumb84@gmail.com"
+            }
+        ],
+        "description": "Doctrine2 behavioral extensions",
+        "homepage": "http://gediminasm.org/",
+        "keywords": [
+            "Blameable",
+            "behaviors",
+            "doctrine2",
+            "extensions",
+            "gedmo",
+            "loggable",
+            "nestedset",
+            "sluggable",
+            "sortable",
+            "timestampable",
+            "translatable",
+            "tree",
+            "uploadable"
         ]
     }
 ]

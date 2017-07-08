@@ -59,11 +59,18 @@ class Product
 	 private $price;
 	 
 	 /**
-	  * @ORM\Column(type="decimal")
+	  * @ORM\Column(type="integer")
 	  * 
 	  */
 	 
 	 private $disponibility;
+	 
+	 /**
+	  * @ORM\Column(type="integer", nullable=true)
+	  *
+	  */
+	 
+	 private $promo;
 	
 	 /**
 	  *@ORM\Column(type="string",length=128, nullable=true)
@@ -339,5 +346,29 @@ class Product
     			'model'=>$this->model->toArray(),
     			);
     	return $result;
+    }
+
+    /**
+     * Set promo
+     *
+     * @param string $promo
+     *
+     * @return Product
+     */
+    public function setPromo($promo)
+    {
+        $this->promo = $promo;
+
+        return $this;
+    }
+
+    /**
+     * Get promo
+     *
+     * @return string
+     */
+    public function getPromo()
+    {
+        return $this->promo;
     }
 }

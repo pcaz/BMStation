@@ -41,11 +41,6 @@ class ClientController extends Controller
 		$client=array();
 		$user=new Client();
 		$address=new Address();
-		$functions=array(
-				'adress'=>false,
-				'client'=>false,
-				'user'=>false,
-		);
 		
 		
 		
@@ -144,24 +139,21 @@ class ClientController extends Controller
 // on sauvegarde d'abord l'adresse de livraison
 		$address->setEmail(strtolower($client['user']['email']));
 		$em->persist($address);
-		$em->flush();
-		$functions['address']=$address;
+//		$em->flush();
 // puis le user
-		$username=$client['user']['username'];
-		$password=$client['user']['plainPassword']['first'];
-		$email=$client['user']['email'];
-		$active=false;
-		$superadmin=false;
-		$manipulator = $this->get('fos_user.util.user_manipulator');
-		$usr=$manipulator->create($username, $password, $email, $active, $superadmin);
+		$usr = $userManager->createUser();
+		$username= $client['user']['username'];
+		$usr->setUsername($username);
+		$email= $client['user']['email'];
+		$usr->setEmail($email);
+		$usr->setPlainPassword($client['user']['plainPassword']['first']);
+		$usr->setEnabled(false);
+		$usr->setSuperAdmin(false);
 		$token=md5(uniqid());
 		$usr->setConfirmationToken($token);
-//		$manipulator->addRole($username, 'ROLE_ADMIN');
-		$userManager->updateUser($usr);
+// on fait persister le user mais on ne flushe pas (transaction atomique)  
+		$userManager->updateUser($usr,false);
 		
-		
-		
-		$functions['user']=$usr;
 // enfin le client
 		$user->setGender($client['gender']);
         $user->setfirstname(ucfirst( strtolower($client['firstName'])));
@@ -169,8 +161,9 @@ class ClientController extends Controller
 		$user->setDeliveryAddress($address);
 		$user->setUser($usr);
 		$em->persist($user);
+// enfin, on flushe le tout		
+		
 		$em->flush();
-		$functions['client']=$user;
 
 
 		
