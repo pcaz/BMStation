@@ -17,6 +17,17 @@ use Symfony\Component\Form\FormError;
 
 class AnnonceController extends Controller
 {
+    
+        public function showAction(Request $request, \ClientBundle\Entity\Annonce $annonce)
+        {
+            $directory = $this->getParameter('app.blog_photos_URL');
+            return $this->render('ClientBundle:Annonce:show.html.twig',
+						array(
+                                'directory'=>$directory,                    
+				'annonce'=>$annonce,				
+						));
+        }
+    
 	public function editAnnonceAction()
 	{
 	

@@ -1,0 +1,54 @@
+{% extends 'ClientBundle::layout.html.twig' %}
+
+{% block title %}homepage{% endblock %}    
+{% block scriptheader %}
+{% endblock %}
+{% block content %}
+    <div id="annonce">
+        
+        <label for="identifier" >{{'annonce.identifier' | trans}}</label>
+        <input type="text" id="identifier" name="identifier" value="{{annonce.identifier}}" readonly><br>
+        
+        <label for="name" >{{'annonce.name' | trans}}</label>
+        <input type="text" id="name" name="name" value="{{annonce.name}}" readonly><br>
+       
+        <label for="shortdesc" >{{'annonce.shortdesc' | trans}}</label>
+        <input type="text" id="shortdesc" name="shortdesc" value="{{annonce.shortdesc}}" readonly><br>
+  
+        <label for="longdesc" >{{'annonce.longdesc' | trans}}</label>
+        <input type="text" id="longdesc" name="longdesc" value="{{annonce.longdesc}}" readonly><br>
+  
+        <label for="price" >{{'annonce.price' | trans}}</label>
+        <input type="text" id="price" name="price" value="{{annonce.price}} €" readonly><br>
+        
+        <label for="email" >{{'annonce.email' | trans}}</label>
+        <input type="text" id="email" name="email" value="{{annonce.client.deliveryaddress.email}}" readonly><br>
+  
+        <label for="phone" >{{'annonce.phone' | trans}}</label>
+        <input type="text" id="phone" name="phone" value="{{annonce.client.deliveryaddress.phone}}" readonly><br>
+        
+  
+  <div id="photos">
+      <table>
+          <tr>
+              {%for photo in annonce.photos%}
+              <td>
+                  <a href="{{directory}}/{{photo.picture}}" target="_blank">
+                      <div class="img-small" style="margin-right: 80px;">
+                          <img src="{{directory}}/{{photo.picture}}"/>
+                      </div>  
+                  </a>    
+              </td>
+             {% endfor %} 
+          </tr>    
+      </table>    
+  </div>
+        
+        </div> <!-- annonce -->
+    {% endblock content %}		
+    {% block script %}
+        <script>
+            $("#blog-menu a").css({"background": "#666"});
+            $("#blog-menu a").css({"font-weight": "bold"});
+        </script>
+    {% endblock script %}

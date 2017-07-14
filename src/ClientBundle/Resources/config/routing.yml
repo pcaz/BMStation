@@ -126,4 +126,8 @@ set_annonce:
 list_annonce:
   path: /list_annonce/
   defaults: { _controller: ClientBundle:Annonce:list}
+show_annonce:
+  path: /show_annonce/{id}
+  defaults: { _controller: ClientBundle:Annonce:show}
+
   

@@ -105,6 +105,8 @@ annonce:
     longdesc: Description longue:
     email: Email:
     phone: Téléphone:
+    price: Prix:
+    add: Déposer une annonce    
     done: Annonce déposée.    
     Description must not be blank: La descrition est obligatoire.
     Name must not be blank: Le nom de l'annonce est obligatoire.
