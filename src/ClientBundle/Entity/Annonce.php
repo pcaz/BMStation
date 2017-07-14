@@ -61,18 +61,8 @@ class Annonce
 	 *
 	 */
 	private $price;
-	/**
-	 *
-	 * @ORM\Column(type="integer", nullable=false)
-	 *
-	 */
-	private $typecontact;
-	/**
-	 * 
-	 * @ORM\Column(type="string", length=128, nullable=false)
-	 * 
-	 */	
-	private $contact;
+      
+        
     /**
      * Constructor
      */
@@ -211,29 +201,6 @@ class Annonce
         return $this->price;
     }
 
-    /**
-     * Set contact
-     *
-     * @param string $contact
-     *
-     * @return Annonce
-     */
-    public function setContact($contact)
-    {
-        $this->contact = $contact;
-
-        return $this;
-    }
-
-    /**
-     * Get contact
-     *
-     * @return string
-     */
-    public function getContact()
-    {
-        return $this->contact;
-    }
 
     /**
      * Set client
@@ -291,30 +258,6 @@ class Annonce
     public function getPhotos()
     {
         return $this->photos;
-    }
-
-    /**
-     * Set typecontact
-     *
-     * @param integer $typecontact
-     *
-     * @return Annonce
-     */
-    public function setTypecontact($typecontact)
-    {
-        $this->typecontact = $typecontact;
-
-        return $this;
-    }
-
-    /**
-     * Get typecontact
-     *
-     * @return integer
-     */
-    public function getTypecontact()
-    {
-        return $this->typecontact;
     }
 
     /**

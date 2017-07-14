@@ -1,95 +1,95 @@
 {%  extends '::layoutPDF.html.twig' %}
 
-{%  block css%}
-<style type="text/css">
-	table:{width:100%; border-collapse:collapse;}
-	.header td { width:50%; vertical-align: top;}
-	.text-left{text-align:left;}
-	.text-right{text-align:right;}
-	.text-center{text-align:center;}
-	.separator{height:80px;width:100%; }
-	.content{width:200mm;}
-	.content td{border: solid 1px #cfd1d2; padding:5px;}
-	.content th{border: solid 1px #000000; padding: 5px; background-color:#0377bf; color:white;}
-</style>
-{% endblock css%}
+{%block css%}
+    <style type="text/css">
+        table {width:100%; border-collapse:collapse;}
+        .header td { width:50%; vertical-align: top;}
+        .text-left{text-align:left;}
+        .text-right{text-align:right;}
+        .text-center{text-align:center;}
+        .separator{height:80px;width:100%; }
+        .content{width:200mm;}
+        .content td{border: solid 1px #cfd1d2; padding:5px;}
+        .content th{border: solid 1px #000000; padding: 5px; background-color:#0377bf; color:white;}
+    </style>
+{%endblock css%}
 {%block content%}
-<!-- <page backtop="20mm" backright="10mm" backbotton="20mm" backleft="10mm"> -->
-<div class="separator"></div>
-<div class="text-left">
-{% if client.gender %}
-Madame
-{% else %}
-Monsieur
-{% endif %}
-	{{ client.lastName }}<br>
-	{{ client.deliveryAddress.address}}<br>
-	{{ client.deliveryAddress.postalcode }} {{ client.deliveryAddress.city }}
-</div>	
-<div class="text-right">
-Nice, le {{ date | localizeddate('long','none') }}
-</div>
-<p></p>
-	<table class="content">
-		<thead>
-			<tr>
-				<th class="text-left" style="...">Désignation</th>
-				<th class="text-center" style="...">Qté</th>
-				<th class="text-center" style="...">PU</th>
+    <!-- <page backtop="20mm" backright="10mm" backbotton="20mm" backleft="10mm"> -->
+    <div class="separator"></div>
+    <div class="text-left">
+        {% if client.gender %}
+            Madame
+        {% else %}
+            Monsieur
+        {% endif %}
+        {{ client.lastName }}<br>
+        {{ client.deliveryAddress.address}}<br>
+        {{ client.deliveryAddress.postalcode }} {{ client.deliveryAddress.city }}
+    </div>	
+    <div class="text-right">
+        Nice, le {{ date | localizeddate('long','none') }}
+    </div>
+    <p></p>
+    <table class="content">
+        <thead>
+            <tr>
+                <th class="text-left" style="...">Désignation</th>
+                <th class="text-center" style="...">Qté</th>
+                <th class="text-center" style="...">PU</th>
                 <th class="text-right" style="...">Total</th>	
-			</tr>
-		</thead>
-		<tbody>
-		{% set total=0 %}
-		{% for product in products %}
-		<tr>
-			<td style="width:60%;" class⁼"text-left">{{ product.name }}</td>
-			<td style="width:10%;" class="text-center">{{ product.command }}</td>
-			<td  style="width:10%;"class="text-center">{{ product.price  |number_format(2,',',' ')}}€</td>
-			<td  style="width:10%;"class="text-right">{{ (product.price * product.command) |number_format(2,',',' ') }}€</td>
-			{% set total=total+(product.price*product.command) %}
-		</tr>
-		{% endfor %}
-		
-		<tr>
-			<td colspan="3" class="text-right"><b>TOTAL</b></td>
-			<td class="text-right"><b>{{ total |number_format(2,',',' ') }} €</b></td>
-		</tr>
-		{% set calc_remise=(total*discount)/100 %}
-		{% set total_net=total-calc_remise %}
-		<tr>
-			<td colspan="3" class="text-right">Remise {{ discount }}%</td>
-            <td class="text-right">{{ calc_remise |number_format(2,',',' ') }}€</td>
-        </tr>
-        <tr>
-			<td colspan="3" class="text-right"><b>TOTAL NET</b></td>
-            <td class="text-right"><b>{{ total_net |number_format(2,',',' ') }}€</b></td>
-        </tr>    				
-		<tr>
-			<td colspan="3" class="text-right">Frais de port</td>
-            <td class="text-right">{{ shipping |number_format(2,',',' ') }}€</td>
-        </tr>
-		{% set total_ht=total_net + shipping %}
-		<tr>
-			<td colspan="3" class="text-right"><b>TOTAL Hors Taxes</b></td>
-            <td class="text-right"><b>{{ total_ht  |number_format(2,',',' ')}}€</b></td>
-        </tr>
-		{% set calc_tva=total_ht*(tva/100) %}
-		<tr>
-			<td colspan="3" class="text-right">TVA à {{ tva }}%</td>
-            <td class="text-right">{{ calc_tva |number_format(2,',',' ') }}€</td>
-        </tr>
-        <tr>
-			<td colspan="3" class="text-right"><b>TOTAL TTC</b></td>
-            <td class="text-right"><b>{{( total_ht + calc_tva )  |number_format(2,',',' ')}}€</b></td>
-        </tr>
-		
-		</tbody>	
-	</table>	
-<!-- </page> -->
+            </tr>
+        </thead>
+        <tbody>
+            {% set total=0 %}
+            {% for product in products %}
+                <tr>
+                    <td style="width:60%;" class⁼"text-left">{{ product.name }}</td>
+                    <td style="width:10%;" class="text-center">{{ product.command }}</td>
+                    <td  style="width:10%;"class="text-center">{{ product.price  |number_format(2,',',' ')}}€</td>
+                    <td  style="width:10%;"class="text-right">{{ (product.price * product.command) |number_format(2,',',' ') }}€</td>
+                    {% set total=total+(product.price*product.command) %}
+                </tr>
+            {% endfor %}
+
+            <tr>
+                <td colspan="3" class="text-right"><b>TOTAL</b></td>
+                <td class="text-right"><b>{{ total |number_format(2,',',' ') }} €</b></td>
+            </tr>
+            {% set calc_remise=(total*discount)/100 %}
+            {% set total_net=total-calc_remise %}
+            <tr>
+                <td colspan="3" class="text-right">Remise {{ discount }}%</td>
+                <td class="text-right">{{ calc_remise |number_format(2,',',' ') }}€</td>
+            </tr>
+            <tr>
+                <td colspan="3" class="text-right"><b>TOTAL NET</b></td>
+                <td class="text-right"><b>{{ total_net |number_format(2,',',' ') }}€</b></td>
+            </tr>    				
+            <tr>
+                <td colspan="3" class="text-right">Frais de port</td>
+                <td class="text-right">{{ shipping |number_format(2,',',' ') }}€</td>
+            </tr>
+            {% set total_ht=total_net + shipping %}
+            <tr>
+                <td colspan="3" class="text-right"><b>TOTAL Hors Taxes</b></td>
+                <td class="text-right"><b>{{ total_ht  |number_format(2,',',' ')}}€</b></td>
+            </tr>
+            {% set calc_tva=total_ht*(tva/100) %}
+            <tr>
+                <td colspan="3" class="text-right">TVA à {{ tva }}%</td>
+                <td class="text-right">{{ calc_tva |number_format(2,',',' ') }}€</td>
+            </tr>
+            <tr>
+                <td colspan="3" class="text-right"><b>TOTAL TTC</b></td>
+                <td class="text-right"><b>{{( total_ht + calc_tva )  |number_format(2,',',' ')}}€</b></td>
+            </tr>
+
+        </tbody>	
+    </table>	
+    <!-- </page> -->
 {% endblock content %}	
 {% block footer %}
-<div style="text-align:center;">BMStation, 46 Bard de Stalingrad, 06300 Nice, immatriculée au TC de Nice - Siret 482 424 710 00010</div>
+    <div style="text-align:center;">BMStation, 46 Bard de Stalingrad, 06300 Nice, immatriculée au TC de Nice - Siret 482 424 710 00010</div>
 {% endblock %}
 
 

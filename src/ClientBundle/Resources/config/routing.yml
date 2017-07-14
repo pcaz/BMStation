@@ -114,10 +114,16 @@ user_order_bill:
   path: /user_order_bill/{id}
   defaults: { _controller: ClientBundle:Order:bill}           
 ####
-user_announce:
+user_annonce:
   path: /user_annonce/
   defaults: { _controller: ClientBundle:Annonce:editAnnonce} 
 upload_image:
   path: /upload_image/{id}
   defaults: { _controller: ClientBundle:Annonce:uploadImage} 
+set_annonce:
+  path: /set_annonce/
+  defaults: { _controller: ClientBundle:Annonce:setAnnonce}
+list_annonce:
+  path: /list_annonce/
+  defaults: { _controller: ClientBundle:Annonce:list}
   

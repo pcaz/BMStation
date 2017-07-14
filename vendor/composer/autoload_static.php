@@ -12,7 +12,6 @@ class ComposerStaticInitf6eac185fef6d863e6381a66124282a6
         'fe1bcd0336136e435eaf197895daf81a' => __DIR__ . '/..' . '/nikic/php-parser/lib/bootstrap.php',
         '5255c38a0faeba867671b61dfda6d864' => __DIR__ . '/..' . '/paragonie/random_compat/lib/random.php',
         'e40631d46120a9c38ea139981f8dab26' => __DIR__ . '/..' . '/ircmaxell/password-compat/lib/password.php',
-        '742b7e606e92b28dd726e835467f413a' => __DIR__ . '/..' . '/herrera-io/json/src/lib/json_version.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '023d27dca8066ef29e6739335ea73bad' => __DIR__ . '/..' . '/symfony/polyfill-php70/bootstrap.php',
         'bd9634f2d41831496de0d3dfe4c94881' => __DIR__ . '/..' . '/symfony/polyfill-php56/bootstrap.php',
@@ -20,6 +19,7 @@ class ComposerStaticInitf6eac185fef6d863e6381a66124282a6
         '3e2471375464aac821502deb0ac64275' => __DIR__ . '/..' . '/symfony/polyfill-php54/bootstrap.php',
         '6a47392539ca2329373e0d33e1dba053' => __DIR__ . '/..' . '/symfony/polyfill-intl-icu/bootstrap.php',
         '32dcc8afd4335739640db7d200c1971d' => __DIR__ . '/..' . '/symfony/polyfill-apcu/bootstrap.php',
+        '742b7e606e92b28dd726e835467f413a' => __DIR__ . '/..' . '/herrera-io/json/src/lib/json_version.php',
         'f0e9d233388e461ee3c460665eb265f0' => __DIR__ . '/..' . '/herrera-io/phar-update/src/lib/constants.php',
         'ce89ac35a6c330c55f4710717db9ff78' => __DIR__ . '/..' . '/kriswallsmith/assetic/src/functions.php',
         '1e856afe5eb575b0ab494c75ec43fff5' => __DIR__ . '/..' . '/symfony/symfony/src/Symfony/Component/VarDumper/Resources/functions/dump.php',
@@ -86,6 +86,7 @@ class ComposerStaticInitf6eac185fef6d863e6381a66124282a6
         'J' => 
         array (
             'JsonSchema\\' => 11,
+            'JMS\\Serializer\\' => 15,
         ),
         'I' => 
         array (
@@ -273,6 +274,10 @@ class ComposerStaticInitf6eac185fef6d863e6381a66124282a6
         array (
             0 => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema',
         ),
+        'JMS\\Serializer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/jms/serializer/src',
+        ),
         'Interop\\Container\\' => 
         array (
             0 => __DIR__ . '/..' . '/container-interop/container-interop/src/Interop/Container',
@@ -401,9 +406,9 @@ class ComposerStaticInitf6eac185fef6d863e6381a66124282a6
         ),
         'J' => 
         array (
-            'JMS\\Serializer' => 
+            'JMS\\TranslationBundle' => 
             array (
-                0 => __DIR__ . '/..' . '/jms/serializer/src',
+                0 => __DIR__ . '/..' . '/jms/translation-bundle',
             ),
             'JMS\\' => 
             array (
@@ -468,6 +473,10 @@ class ComposerStaticInitf6eac185fef6d863e6381a66124282a6
         ),
         'B' => 
         array (
+            'Bnbc\\UploadBundle' => 
+            array (
+                0 => __DIR__ . '/..' . '/bnbc/upload-bundle',
+            ),
             'Behat\\Transliterator' => 
             array (
                 0 => __DIR__ . '/..' . '/behat/transliterator/src',

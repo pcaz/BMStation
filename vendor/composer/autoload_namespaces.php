@@ -18,7 +18,7 @@ return array(
     'Metadata\\' => array($vendorDir . '/jms/metadata/src'),
     'Knp\\Component' => array($vendorDir . '/knplabs/knp-components/src'),
     'KevinGH\\Version' => array($vendorDir . '/kherge/version/src/lib'),
-    'JMS\\Serializer' => array($vendorDir . '/jms/serializer/src'),
+    'JMS\\TranslationBundle' => array($vendorDir . '/jms/translation-bundle'),
     'JMS\\' => array($vendorDir . '/jms/parser-lib/src'),
     'Herrera\\Phar\\Update' => array($vendorDir . '/herrera-io/phar-update/src/lib'),
     'Herrera\\Json' => array($vendorDir . '/herrera-io/json/src/lib'),
@@ -31,6 +31,7 @@ return array(
     'Cilex\\Provider\\Console' => array($vendorDir . '/cilex/console-service-provider/src'),
     'Cilex\\Provider' => array($vendorDir . '/phpdocumentor/phpdocumentor/src'),
     'Cilex' => array($vendorDir . '/cilex/cilex/src'),
+    'Bnbc\\UploadBundle' => array($vendorDir . '/bnbc/upload-bundle'),
     'Behat\\Transliterator' => array($vendorDir . '/behat/transliterator/src'),
     'Assetic' => array($vendorDir . '/kriswallsmith/assetic/src'),
 );

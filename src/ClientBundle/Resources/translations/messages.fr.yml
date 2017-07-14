@@ -99,9 +99,13 @@ order:
       
     explication: Vous pourrez consulter nos produits diponibles à la vente sur ce site et les commander. 
 annonce:
+    identifier: Identifiant:
     name:  Nom de l'offre:
     shortdesc: Description:
     longdesc: Description longue:
-    visible: Contact visible:
-    typecontact: Type de contact:
-    contact: Contact: 
+    email: Email:
+    phone: Téléphone:
+    done: Annonce déposée.    
+    Description must not be blank: La descrition est obligatoire.
+    Name must not be blank: Le nom de l'annonce est obligatoire.
+    Price must not be blank: Le prix proposé est obligatoire. 

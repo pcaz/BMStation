@@ -1,0 +1,63 @@
+{% extends 'ClientBundle::layout.html.twig' %}
+
+{% block title %}list{% endblock %}
+
+{% block content %}
+<div class="container">
+    <table style="width:80%;" class="table">
+        <thead>
+        <th></th>
+        <th>{{'name'|trans}}</th>
+        <th>{{'description'|trans}}</th>
+        <th>{{'price'|trans}}</th>
+        <th>{{'email'|trans}}</th>
+        <th>{{'phone'|trans}}</th>
+        </thead>
+        <tbody>
+        {% for annonce in annonces %}        
+        <tr>
+         
+            <td> 
+            <a href="{{path('homepage')}}">    
+            <div class="img-thumb">    
+                 <img src="{{directory}}/{{annonce.photos[0].picture}}"/>
+            </div>
+            </a>
+            </td>
+            <td>
+                <a href="{{path('homepage')}}">
+                {{annonce.name}}
+                </a>
+            </td>
+            <td>
+                <a href="{{path('homepage')}}">
+                {{annonce.shortdesc}}
+                </a>
+            </td>
+            <td>
+                <a href="{{path('homepage')}}">
+                {{annonce.price}}€
+                </a>
+            </td>
+            <td>
+                <a href="{{path('homepage')}}">
+                {{annonce.client.deliveryaddress.email}}
+                </a>
+            </td>
+            <td>
+                <a href="{{path('homepage')}}">
+                {{annonce.client.deliveryaddress.phone}}
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock content %}
+{% block script %}
+<script>
+$( "#blog-menu a" ).css({ "background":"#666" });
+$( "#blog-menu a" ).css({ "font-weight":"bold" });
+</script>
+{% endblock script %}

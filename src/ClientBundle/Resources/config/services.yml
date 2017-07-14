@@ -14,5 +14,11 @@ services:
        class:     ClientBundle\Service\Product 
           
   app.html2pdf:
-       class:     ClientBundle\Service\HtmlToPDF           
-         
+       class:     ClientBundle\Service\HtmlToPDF     
+             
+  app.image:
+        class: ClientBundle\Service\Image
+        arguments:
+            $targetDir: '%app.blog_photos%'  
+        tags:
+          - { name: extension }       

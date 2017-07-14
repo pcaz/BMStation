@@ -10,12 +10,20 @@ imports:
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: fr
-    app.images_directory: '%kernel.root_dir%/../web/uploads/images'
-    app.URL: '%appURL%'
-    app.images_URL: '%app.URL%/web/uploads/images'
-    app.uploads: '%kernel.root_dir%/../web/uploads/'
-    app.root: '%kernel.root_dir%/../web'
+    
     app.base: '%kernel.root_dir%/..'
+    app.root: '%app.base%/web'
+    app.uploads: '%app.root%/uploads'
+    app.images_directory: '%app.uploads%/images'
+    
+    app.blog: '%app.uploads%/blog'
+    app.blog_photos: '%app.blog%/photos'
+    
+    app.URL: 'http://www.bmstation.fr'
+    app.images_URL: '%app.URL%/uploads/images'
+    app.blog_photos_URL: '%app.URL%/uploads/blog/photos'
+
+    
     
 
 framework:

@@ -569,13 +569,29 @@ pagination {
 /***** annonce    ****/
 #annonce {
   display: block;
-  float: left; }
+  float: left;
+  width: 100%; }
 
 #annonce label {
   width: 150px;
   vertical-align: top; }
 
-#annonce #filedrag1 {
+#annonce input, #annonce textarea {
+  width: 300px; }
+
+#annonce textarea {
+  height: 150x; }
+
+#annonce #submit {
+  width: 150px;
+  text-align: center; }
+
+#annonce #photos {
+  display: block;
+  width: 100%;
+  float: left; }
+
+#annonce #filedrag1, #annonce #filedrag2, #annonce #filedrag3 {
   display: block;
   font-weight: bold;
   text-align: center;
@@ -588,11 +604,23 @@ pagination {
   border-radius: 7px;
   cursor: default; }
 
-#annonce #filedrag1.hover {
+#annonce #filedrag1.hover, #annonce #filedrag2.hover, #annonce #filedrag3.hover {
   color: #f00;
   border-color: #f00;
   border-style: solid;
   box-shadow: inset 0 3px 4px #888; }
 
-#annonce #div_fileselect1 {
+#annonce #div_fileselect1, #annonce #div_fileselect2, #annonce #div_fileselect3 {
+  width: 20%;
+  display: block;
+  float: left; }
+
+#annonce #submitbutton1, #annonce #submitbutton2, #annonce #submitbutton3 {
+  padding-left: 20px; }
+
+#annonce #loading1, #annonce #loading2, #annonce #loading3 {
+  background: url(../images/loading.gif) no-repeat top left;
+  width: 36px;
+  height: 36px;
+  margin: 0 auto;
   display: none; }

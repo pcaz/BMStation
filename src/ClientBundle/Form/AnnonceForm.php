@@ -15,11 +15,19 @@ use ClientBundle\Entity\Photo;
 
 
 
+
 class AnnonceForm extends AbstractType
 {
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
 		$builder
+                ->add('identifier', TextType::class, array(
+                    'label'=>'annonce.identifier',
+                    'read_only'=>true,
+                    'required'=> false,
+                    'label_attr'=>array(
+                        'id'=>'label_annnonce_identifier',)
+                ))        
 		->add('name', TextType::class, array(
 				'label'=>'annonce.name',
 				'label_attr'=>array(
@@ -28,33 +36,38 @@ class AnnonceForm extends AbstractType
 		->add('shortdesc',TextType::class,array(
 				'label'=>'annonce.shortdesc',
 				'label_attr'=>array(
-						'id'=>'label_annonce_shortdesc',
-				)))
+					'id'=>'label_annonce_shortdesc',
+				),
+                               
+                    ))
 		->add('longdesc',TextareaType::class, array(
 				'label'=>'annonce.longdesc', 
 				'required'=>false,
 				'label_attr'=>array(
 						'id'=>'label_annonce_longdesc',
 				)))
-		->add( 'visiblecontact',CheckboxType::class, array(
-				'mapped'=>false, 
-				'label'=>'annonce.visible',
-				'label_attr'=>array(
-						'id'=>'label_annonce_visiblecontact',
-						)))		
-		->add ('typecontact',ChoiceType::class, array(
-						'choices'  => array(
-								'1'=>'phone',
-								'2'=>'email',
+                ->add('price', 'text', array(
+                    'label'=>'price'))     
+		->add ('email', TextType::class, array(
+                                'label'=>'annonce.email',
+                                'mapped'=>false,
+                                'label_attr'=> array(
+                                            'id'=>'label_annnonce_email',
 						),
-				'label'=>'annonce.typecontact',
-				'label_attr'=>array(
-						'id'=>'label_annonce_typecontact')))
-        ->add('contact',TextType::class, array(
-        		'label'=>'annonce.contact',
+				))
+                ->add('phone',TextType::class, array(
+        		'label'=>'annonce.phone',
+                        'mapped'=>false,
+                        'required'=>false,
         		'label_attr'=>array(
-        		'id'=>'label_annonce_contact',)))
-				;
+        		'id'=>'label_annonce_phone',)))
+/*        ->add('photo1', 'collection', array(
+        		    'type' => new PhotoForm1(),
+        		    'allow_add' => true,
+        		    'allow_delete' => true,
+                    'mapped' => false,
+        		))
+*/				;
        
  //       $builder->add('photos', CollectionType::class, array(  ));
        

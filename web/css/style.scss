@@ -797,6 +797,7 @@ pagination {
 #annonce {
 	display: block;
 	float: left;
+        width: 100%;
 }
 
 #annonce label {
@@ -804,13 +805,31 @@ pagination {
 	vertical-align: top;
 	}
 
+#annonce input, #annonce textarea {
+            width: 300px;
+        }
+
+#annonce textarea {
+            height: 150x;
+        }         
+#annonce #submit {
+            width: 150px;
+            text-align: center;
+        }
+        
+        
+#annonce #photos {
+        display: block;
+        width: 100%;
+        float: left;
+            
+        }        
 
 
 
-#annonce #filedrag1
+#annonce #filedrag1, #annonce #filedrag2, #annonce #filedrag3
 {
-//	display: none;
-    display: block;
+        display: block;
 	font-weight: bold;
 	text-align: center;
 	padding: 1em 0;
@@ -823,7 +842,7 @@ pagination {
 	cursor: default;
 }
 
-#annonce #filedrag1.hover
+#annonce #filedrag1.hover, #annonce #filedrag2.hover , #annonce #filedrag3.hover
 {
 	color: #f00;
 	border-color: #f00;
@@ -831,9 +850,21 @@ pagination {
 	box-shadow: inset 0 3px 4px #888;
 }
 
-#annonce #div_fileselect1
+#annonce #div_fileselect1, #annonce #div_fileselect2, #annonce #div_fileselect3
 {
-	display: none;	
+      width: 20%;
+      display: block;
+      float: left;
+}
+#annonce #submitbutton1, #annonce #submitbutton2, #annonce #submitbutton3 {
+    padding-left: 20px;
+}
 
+#annonce #loading1, #annonce #loading2, #annonce #loading3 {
+    background:url(../images/loading.gif) no-repeat top left;
+    width: 36px;
+    height: 36px;
+    margin: 0 auto;
+    display:none;
 }
 
