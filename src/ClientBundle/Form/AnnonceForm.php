@@ -50,14 +50,12 @@ class AnnonceForm extends AbstractType
                     'label'=>'price'))     
 		->add ('email', TextType::class, array(
                                 'label'=>'annonce.email',
-                                'mapped'=>false,
                                 'label_attr'=> array(
                                             'id'=>'label_annnonce_email',
 						),
 				))
                 ->add('phone',TextType::class, array(
         		'label'=>'annonce.phone',
-                        'mapped'=>false,
                         'required'=>false,
         		'label_attr'=>array(
         		'id'=>'label_annonce_phone',)))

@@ -117,6 +117,9 @@ user_order_bill:
 user_annonce:
   path: /user_annonce/
   defaults: { _controller: ClientBundle:Annonce:editAnnonce} 
+user_annonce_modify:
+  path: /user_annonce/{id}
+  defaults: { _controller: ClientBundle:Annonce:editAnnonce}   
 upload_image:
   path: /upload_image/{id}
   defaults: { _controller: ClientBundle:Annonce:uploadImage} 
@@ -126,6 +129,9 @@ set_annonce:
 list_annonce:
   path: /list_annonce/
   defaults: { _controller: ClientBundle:Annonce:list}
+list_user_annonce:
+  path: /list_user_annonce/
+  defaults: { _controller: ClientBundle:Annonce:listUser}  
 show_annonce:
   path: /show_annonce/{id}
   defaults: { _controller: ClientBundle:Annonce:show}

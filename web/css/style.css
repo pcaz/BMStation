@@ -580,10 +580,10 @@ pagination {
   width: 300px; }
 
 #annonce textarea {
-  height: 150x; }
+  height: 150px; }
 
 #annonce #submit {
-  width: 150px;
+  width: 200px;
   text-align: center; }
 
 #annonce #photos {

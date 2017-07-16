@@ -629,7 +629,7 @@ class ProductController extends Controller{
 			if(!$mod)
 				$result=$resultCategory;
 			else{
-				if(!cat)
+				if(!$cat)
 					$result=$resultModel;
 				else 
 				for($i=0, $j=0; $i<count($resultModel); $i++){

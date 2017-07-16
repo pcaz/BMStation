@@ -16,16 +16,16 @@
         <input type="text" id="shortdesc" name="shortdesc" value="{{annonce.shortdesc}}" readonly><br>
   
         <label for="longdesc" >{{'annonce.longdesc' | trans}}</label>
-        <input type="text" id="longdesc" name="longdesc" value="{{annonce.longdesc}}" readonly><br>
+        <textarea id="longdesc" name="longdesc" readonly >{{annonce.longdesc}}</textarea><br>
   
         <label for="price" >{{'annonce.price' | trans}}</label>
         <input type="text" id="price" name="price" value="{{annonce.price}} €" readonly><br>
         
         <label for="email" >{{'annonce.email' | trans}}</label>
-        <input type="text" id="email" name="email" value="{{annonce.client.deliveryaddress.email}}" readonly><br>
+        <input type="text" id="email" name="email" value="{{annonce.email}}" readonly><br>
   
         <label for="phone" >{{'annonce.phone' | trans}}</label>
-        <input type="text" id="phone" name="phone" value="{{annonce.client.deliveryaddress.phone}}" readonly><br>
+        <input type="text" id="phone" name="phone" value="{{annonce.phone}}" readonly><br>
         
   
   <div id="photos">
@@ -44,11 +44,17 @@
       </table>    
   </div>
         
+             <button onclick="back()"> {{'backlist' | trans}}</button>
         </div> <!-- annonce -->
     {% endblock content %}		
     {% block script %}
         <script>
             $("#blog-menu a").css({"background": "#666"});
             $("#blog-menu a").css({"font-weight": "bold"});
+            
+        function back() {
+            document.location.href="{{path('list_annonce')}}";
+        }
+            
         </script>
     {% endblock script %}

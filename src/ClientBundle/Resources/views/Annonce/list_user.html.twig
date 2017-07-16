@@ -18,7 +18,7 @@
         <tr>
          
             <td> 
-            <a href="{{path('show_annonce',{'id':annonce.id})}}">    
+            <a href="{{path('user_annonce_modify',{'id':annonce.id})}}">    
             <div class="img-thumb">
                 {% if annonce.photos is empty %}
                  <img src="{{directory}}/motorcycle.png"/>
@@ -29,27 +29,27 @@
             </a>
             </td>
             <td>
-                <a href="{{path('show_annonce',{'id':annonce.id})}}">
+                <a href="{{path('user_annonce_modify',{'id':annonce.id})}}">
                 {{annonce.name}}
                 </a>
             </td>
             <td>
-                <a href="{{path('show_annonce',{'id':annonce.id})}}">
+                <a href="{{path('user_annonce_modify',{'id':annonce.id})}}">
                 {{annonce.shortdesc}}
                 </a>
             </td>
             <td>
-                <a href="{{path('show_annonce',{'id':annonce.id})}}">
+                <a href="{{path('user_annonce_modify',{'id':annonce.id})}}">
                 {{annonce.price}}€
                 </a>
             </td>
             <td>
-                <a href="{{path('show_annonce',{'id':annonce.id})}}">
+                <a href="{{path('user_annonce_modify',{'id':annonce.id})}}">
                 {{annonce.email}}
                 </a>
             </td>
             <td>
-                <a href="{{path('show_annonce',{'id':annonce.id})}}">
+                <a href="{{path('user_annonce_modify',{'id':annonce.id})}}">
                 {{annonce.phone}}
                 </a>
             </td>
@@ -60,8 +60,7 @@
         </tbody>
     </table>
         
-        <button onclick="add()"> {{'annonce.add' | trans}}</button>
-        <button onclick="user()"> {{'annonce.user_list' | trans}}</button>
+        <button onclick="add()"> {{'annonce.add' | trans}}</button>  
 </div>
 {% endblock content %}
 {% block script %}
@@ -72,9 +71,6 @@ $( "#blog-menu a" ).css({ "font-weight":"bold" });
 function add() {
     document.location.href="{{path('user_annonce')}}";
 }
-
-function user() {
-    document.location.href="{{path('list_user_annonce')}}";
-}
 </script>
 {% endblock script %}
+{# empty Twig template #}
