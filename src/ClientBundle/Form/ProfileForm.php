@@ -3,15 +3,13 @@ namespace ClientBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\FormEvent;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use UserBundle\Form\RegistrationFormType;
 
 
 
-class ClientForm extends AbstractType
+class ProfileForm extends AbstractType
 {
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
@@ -22,13 +20,10 @@ class ClientForm extends AbstractType
 						'1'=>'female',
 				),'label'=>'gender'
 				))
-				->add('firstName', 'text', array('label'=>'firstname'))
-				->add('lastName','text',array('label'=>'lastname'))
-				->add('deliveryAddress', new AddressForm(),array('label'=>'deliveryaddress'))
-				->add('user', new RegistrationFormType('UserBundle\Entity\User'))
-		
-					 ;
-		
+		->add('firstName', TextType::class, array('label'=>'firstname'))
+		->add('lastName',TextType::class,array('label'=>'lastname'))
+		->add('deliveryAddress', new AddressForm(),array('label'=>'deliveryaddress',))
+		;
 				
 		}
 		
@@ -43,7 +38,7 @@ class ClientForm extends AbstractType
 		
 		public function getName()
 		{
-			return 'client';
+			return 'profile';
 		}
 
 }

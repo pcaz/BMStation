@@ -38,7 +38,7 @@ contact: Contactez nous
 blog: Achat/Vente
 command: Commander
 shop: Magasin
-
+profile: Profil
 
 #
 # USER FUNCTIONS
@@ -58,6 +58,7 @@ email: Email
 user: Utilisateur
 lost_password: Mot de passe oublié
 new_password: Nouveau mot de passe.
+user_not_found: Cet email est inconnu.
 username: Utilisateur
 lastlogin: Connecté
 never: Jamais

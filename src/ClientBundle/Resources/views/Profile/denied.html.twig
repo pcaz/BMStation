@@ -1,0 +1,19 @@
+{% extends 'ClientBundle::layout.html.twig' %}
+
+{% block title %}Denied{% endblock %}
+
+{% block content %}
+
+
+<p>Bonjour</p>
+<p>Vous n'avez pas de profil utilisateur enregistré sur ce site.<p>
+<p>
+<p>Si vous êtes déja inscrit, il faut vous connecter</p>
+
+{% endblock content %}
+{% block script %}
+<script>
+$( "#blog-profile a" ).css({ "background":"#666" });
+$( "#blog-profile a" ).css({ "font-weight":"bold" });
+</script>
+{% endblock script %}

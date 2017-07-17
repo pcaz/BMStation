@@ -1,0 +1,64 @@
+{% extends 'ClientBundle::layout.html.twig' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+<H1> </H1>
+
+
+
+<div id="profile">
+
+<span class="space"></span>
+<form action="{{ path('setprofileclient')}}" method="post" id="profile_form">
+
+<table>
+<tr>
+<td>
+{{ form_row(form.gender)}}
+</td>
+<td>
+{{ form_row(form.firstName) }}
+</td>
+<td>
+{{ form_row(form.lastName)}}
+</td>
+</tr>
+</table>
+
+<fieldset>
+<legend class="subtitle">{{ 'deliveryaddress' | trans}} </legend>
+<table>
+<tr>
+    <td>{{ form_row(form.deliveryAddress.address) }}</td>
+</tr>
+<tr>    
+    <td>  {{ form_row(form.deliveryAddress.city) }} </td>
+    <td>  {{ form_row(form.deliveryAddress.postalCode) }}</td>
+</tr>
+<tr>   
+  <td> {{ form_row(form.deliveryAddress.phone) }} </td>
+ </tr>
+ <tr>
+     <td>{{ form_row(form.deliveryAddress.email) }} </td>
+</tr>
+</table>
+{{ form_rest(form) }}
+<input type="submit" onclick="submitclient()" value="{{ 'record' | trans}}"/>
+{{ form_end(form) }}
+</div> <!-- profile -->
+{% endblock %}
+{% block script %}
+<script>
+$( "#client-menu>a" ).css({ "background":"#666" });
+$( "#client-menu>a" ).css({ "font-weight":"bold" });
+
+function submitclient(){
+	 var token=document.getElementById("client__token");
+	 var form=document.getElementById("client_form");
+	 form.appendChild(token);
+	 document.getElementById("client_form").submit(); 	
+}
+</script>
+{% endblock %}
+

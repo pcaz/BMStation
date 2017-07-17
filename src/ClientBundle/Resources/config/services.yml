@@ -21,4 +21,10 @@ services:
         arguments:
             $targetDir: '%app.blog_photos%'  
         tags:
-          - { name: extension }       
+          - { name: app.extension } 
+  app.historic:
+       class: ClientBundle\Service\HistoricGest
+       arguments: [ "@doctrine.orm.entity_manager" ]
+       tags:
+           - { name: app.extension }
+           

@@ -78,10 +78,6 @@
 {{ form_errors(form.user.email)}}
  {{ form_label(form.user.email)}}
  {{ form_widget(form.user.email)}}
-
- {{ form_errors(form.user.username)}}
- {{ form_label(form.user.username)}}
- {{ form_widget(form.user.username)}}
  
  {{ form_errors(form.user.plainPassword)}}
  {# form_label(form.user.plainPassword)#}
@@ -95,6 +91,9 @@
  {# form_label(form.user.answer)#}
  {# form_widget(form.user.answer)#}
 
+ <div class='hidden'>
+  {{form_widget(form.deliveryAddress.email)}}
+ </div>  
   
 <!-- </form> -->
 {#    include "UserBundle:Registration:register_content.html.twig" #}

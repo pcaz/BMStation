@@ -55,7 +55,15 @@ lostPassword:
   defaults: { _controller: ClientBundle:Client:lostPassword}
 passwordclient:
   path: /password/{token}
-  defaults: { _controller: ClientBundle:Client:passwordClient}    
+  defaults: { _controller: ClientBundle:Client:passwordClient}  
+profileclient:
+   path: /profileclient
+   defaults: { _controller: ClientBundle:Profile:profileClient}  
+setprofileclient:
+   path: /setprofileclient/
+   defaults: { _controller: ClientBundle:Profile:setProfileClient}
+   requirements:
+     _method: POST  
 contact:
   path: /contact/   
   defaults: { _controller: ClientBundle:Contact:contact}

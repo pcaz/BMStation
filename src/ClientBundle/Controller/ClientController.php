@@ -123,10 +123,7 @@ class ClientController extends Controller
 	    	$flashbag->add("error", $this->get('translator')->trans('existing_email'));
 	    	$error++;
 	    }
-	    if($userManager->findUserByUserName($client['user']['username'])){
-	    	$flashbag->add("error", $this->get('translator')->trans('existing_username'));
-	    	$error++;
-	    }
+	    
 	    if($error<>0)
 	    	return $this->container->get('templating')->renderResponse(
 	    			'ClientBundle:Client:getClient.html.twig', array(
@@ -142,9 +139,8 @@ class ClientController extends Controller
 //		$em->flush();
 // puis le user
 		$usr = $userManager->createUser();
-		$username= $client['user']['username'];
-		$usr->setUsername($username);
 		$email= $client['user']['email'];
+                $username = $email;
 		$usr->setEmail($email);
 		$usr->setPlainPassword($client['user']['plainPassword']['first']);
 		$usr->setEnabled(false);
@@ -255,36 +251,53 @@ class ClientController extends Controller
 		$client=$em->getRepository('\ClientBundle\Entity\Client')->findByEmail($user->getEmail());
 		
 		// et on gère l'historic
-		$historic=new Historic();
-		$historic->setClient($client);
-		$historic->setType('Self Validation');
-		$historic->setEventId($client->getId());
-		$historic->setDate(new \DateTime());
-		$em->persist($historic);
-		$em->flush();
+
+                $type = 'Self Validation';
+                $event_id = $client->getId();;
+                $historic = $this->get('app.historic');
+                $historic->addHistoric($client,$type,$event_id);
+		
 		
 		return new RedirectResponse($this->get('router')->generate('fos_user_security_login'));
 		
 		
 	}
-	
+	/**
+         *  lostPassword
+         * 
+         * L'utilisaterur cherche à renouveler son mot de passe 
+         * 
+         * @return RedirectResponse
+         */
 	public function lostPasswordAction(){
 		
 		$request = $this->get('request');
 		$form = $this->createForm(new LostPasswordForm());
+                $em=$this->get('doctrine')->getManager();
 		if($request->getMethod()=='POST'){
 		
 		$form->handlerequest($request);
 		if($form->isValid()){
-			
+			$email=$form->getData()['email'];
+                        if(!$em->getRepository('UserBundle\Entity\User')->findOneByEmail($email))
+                        {
+                            // la boîte aux lettres est inconnue
+                            
+                            $this->get('session')->getFlashBag()->add('error', $this->get('translator')->trans('user_not_found'));
+                            return $this->container->get('templating')->renderResponse(
+					'ClientBundle:Client:lostPassword.html.twig', array(
+							'form'=> $form->createView(),
+					));
+                        }
+                        
+                        // on envoie le mail de renouvellement
+                        
 			$mailer = $this->get('mailer');
 			$message = new \Swift_Message();
 			$urlSite=$this->getParameter('app.URL');
 			//		$imgUrl = $message->attach(\Swift_Attachment::fromPath('http://www.bm.usrestation.fr/images/logo.png'));
 			$imgUrl = $urlSite.'/images/logo.png';
-			
 			$token=md5(uniqid());
-			$email=$form->getData()['email'];
 			$urlValidation=$this->get('router')->generate('passwordclient',array('token' => $token));
 			$urlValidation=$urlSite.$urlValidation;
 			$message->setFrom('no_reply@bmstation.fr')
@@ -302,14 +315,21 @@ class ClientController extends Controller
 							));
 			$mailer->send($message);
 			
-			$em=$this->get('doctrine')->getManager();
+			// on enregistre le token
 			$base=new Token();
 			$base->setToken($token);
 			$base->setEmail($email);
-			
 			$em->persist($base);
 			$em->flush();
 			
+                        // on gère l'historique
+                        $client = $em->getRepository('ClientBundle\Entity\Client')->findByEmail($email);
+                        $type = 'RenewPassword: Email sent';
+                        $event_id = $client->getid();
+                        $historic = $this->get('app.historic');
+                        $historic->addHistoric($client,$type,$event_id);
+                        
+                               
 			
 			return new RedirectResponse($this->get('router')->generate('homepage'));
 			
@@ -335,29 +355,28 @@ class ClientController extends Controller
 	public function passwordClientAction($token=null){
 		
 		
-		
+		// on arrive ici suite à l'URL envoyée
 
 		$form = $this->createForm(new PasswordForm());
 		$request = $this->get('request');
-		
+		$em=$this->get('doctrine')->getManager();
+                
+                // on regarde d'abord si le token existe		
+		if(!($oldToken = $em->getRepository('ClientBundle:Token')->findOneByToken($token)))
+		{
+		return $this->get('templating')->renderResponse('ClientBundle::error.html.twig');
+                }
+				
+                
 		if($request->getMethod()=='POST'){
 			$form->handleRequest($request);
 			if($form->isValid()){
-				// on regarde d'abord si le token existe
-				$em=$this->get('doctrine')->getManager();
-				if(!$em->getRepository('ClientBundle:Token')->findByToken($token))
-				{
-					return $this->get('templating')->renderResponse(
-							'ClientBundle::error.html.twig');
-				}
 				
 				$data=$form->getData();
-				
 				$username=$data['username'];
-                $password=$data['plainPassword'];					
-                $user=$em->getRepository("UserBundle:User")->findOneByUsername($username);
-                $oldToken=$em->getRepository('ClientBundle:Token')->findOneByToken($token);
-				if(!$oldToken || !$user){
+                                $password=$data['plainPassword'];					
+                                $user=$em->getRepository("UserBundle:User")->findOneByUsername($username);
+				if(!$user){
 					
 					return $this->get('templating')->renderResponse(
 							'ClientBundle::error.html.twig');
@@ -371,12 +390,19 @@ class ClientController extends Controller
 				$em->remove($oldToken);
 				$em->flush();
 			    
-			    // et on tiens à jour le user
+			    // et on tiens à jour le user et l'historique
 			    
 				$user->setPasswordRequestedAt(new \DateTime());
 				$em->persist($user);
 				$em->flush();
-				
+		        
+                                $email= $user->getEmail();
+                                $client = $em->getRepository('ClientBundle\Entity\Client')->findByEmail($email);
+                                $type = 'RenewPassword: Password Changed';
+                                $event_id = $client->getid();
+                                $historic = $this->get('app.historic');
+                                $historic->addHistoric($client,$type,$event_id);
+                        	
 			
 				return $this->container->get('templating')->renderResponse(
 						'ClientBundle::success.html.twig', array(
@@ -402,5 +428,6 @@ class ClientController extends Controller
 	}
 	
 	
+        
 	
 }
