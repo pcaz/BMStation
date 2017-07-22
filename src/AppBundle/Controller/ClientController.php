@@ -26,9 +26,13 @@ class ClientController extends Controller{
 						'clients'=>$return,
 				));
 	}
-	public function deleteClientAction($id=null){
+	public function deleteClientAction(\ClientBundle\Entity\Client $client){
 	
-		$em=$this->get('doctrine')->getManager();
+            
+            $gest = $this->get('app.client');
+            $gest->deleteClient($client);
+            
+		/*$em=$this->get('doctrine')->getManager();
 	
 	
 		if($id==0) {
@@ -75,7 +79,7 @@ class ClientController extends Controller{
 		
 		
 		
-		
+		*/
 		
 		$return=$this->listClient();
 		$return = $this->get('knp_paginator')->paginate($return,$this->get('request')->query->get('page', 1),10);

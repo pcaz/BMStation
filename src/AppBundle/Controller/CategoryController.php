@@ -121,7 +121,8 @@ class CategoryController extends Controller
 								$category->setImage($fileName);
 								// Il faut effacer le fichie de l'image precedente
 								if($oldimage != null){
-										unlink ($this->container->getParameter('app.images_directory').'/'.$oldimage);
+                                                                    if(is_file($val=$this->container->getParameter('app.images_directory').'/'.$oldimage))
+										unlink ($val);
 								}									
 						}
 						else{

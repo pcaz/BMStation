@@ -19,7 +19,7 @@ parameters:
     app.blog: '%app.uploads%/blog'
     app.blog_photos: '%app.blog%/photos'
     
-    app.URL: 'http://www.bmstation.fr'
+    app.URL: 'http://bmstation.fr'
     app.images_URL: '%app.URL%/uploads/images'
     app.blog_photos_URL: '%app.URL%/uploads/blog/photos'
 

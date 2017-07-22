@@ -27,4 +27,11 @@ services:
        arguments: [ "@doctrine.orm.entity_manager" ]
        tags:
            - { name: app.extension }
+  app.client:
+       class: ClientBundle\Service\ClientGest
+       arguments:
+           $em:  "@doctrine.orm.entity_manager" 
+           $directory: "%app.blog_photos%"
+       tags:
+           - { name: app.extension }
            

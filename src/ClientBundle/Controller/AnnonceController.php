@@ -73,6 +73,7 @@ class AnnonceController extends Controller
                         $form->get('email')->setData($user->getEmail());
                         $phone=$client->getDeliveryAddress()->getPhone();
                         $form->get('phone')->setData($phone);
+                        $photo1=$photo2=$photo3=null;
                         
                     }
                     $this->get('session')->set('client',$client);
