@@ -66,7 +66,7 @@ class Product
 	 private $disponibility;
 	 
 	 /**
-	  * @ORM\Column(type="integer", nullable=true)
+	  * @ORM\Column(type="integer")
 	  *
 	  */
 	 
@@ -95,6 +95,8 @@ class Product
 	public function __construct()
 	{
 		$this->model = new ArrayCollection();
+                $this->disponibility = 0;
+                $this->promo = 0;
 	}
 
     /**

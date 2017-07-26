@@ -60,6 +60,10 @@ model_added: Modèle ajoutée avec succès # Success message
 model: Modèle # Series field
 model_input: Choisir un modèle # Label of the Series Box 
 disponibility: Disp.
+promo: Code promo.
+none: Rien
+new: Nouveau
+promotion: Promotion
 # Product
 #
 product: Produit  #title

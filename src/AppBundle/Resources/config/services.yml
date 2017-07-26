@@ -23,3 +23,8 @@ services:
             $targetDir: '%app.images_directory%'  
         tags:
           - { name: extension }
+  #app.implicit_login:
+  #      class: AppBundle\EventListener\ImplicitLogin
+  #      autowire: true
+  #      tags:
+  #         - { name: kernel.event_subscriber }

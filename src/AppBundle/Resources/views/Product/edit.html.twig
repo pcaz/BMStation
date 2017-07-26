@@ -100,6 +100,10 @@ $(document).ready(function(){
 {{ form_label(form.disponibility)}}
 {{ form_widget(form.disponibility , { 'attr': {'style': 'width:40px; text-align: right;'} } ) }}</br>
 </tr>
+{{ form_errors(form.promo) }}
+{{ form_label(form.promo)}}
+{{ form_widget(form.promo , { 'attr': {'style': 'width:100px; text-align: right;'} } ) }}</br>
+</tr>
 <tr>
 
 <label for="product_image"style="margin-left:50px;">Image</label>

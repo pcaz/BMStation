@@ -141,7 +141,8 @@ class ClientController extends Controller
 		$usr = $userManager->createUser();
 		$email= $client['user']['email'];
                 $username = $email;
-		$usr->setEmail($email);
+                $usr->setName($username);
+                $usr->setEmail($email);
 		$usr->setPlainPassword($client['user']['plainPassword']['first']);
 		$usr->setEnabled(false);
 		$usr->setSuperAdmin(false);

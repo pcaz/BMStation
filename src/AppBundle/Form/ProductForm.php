@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use AppBundle\Form\Common;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class ProductForm extends AbstractType
@@ -18,6 +19,14 @@ class ProductForm extends AbstractType
 		->add('comment', 'textarea', array('label'=>'comment','required'=>false))
 		->add('price', 'text', array('label'=>'price'))
 		->add('disponibility', 'text', array('label'=>'disponibility','required'=>false))
+                ->add ('promo',ChoiceType::class, array(
+				'choices'  => array(
+						'0'=>'none',
+						'1'=>'new',
+                                                '2'=>'promotion',
+				),'label'=>'promo',
+                                'required'=>false,
+				))        
 		->add('model', new  Common\SeriesModelForm(), array('required'=>false))
 		->add('image', FileType::class, array('data_class'=>null,'label' => 'image', 'required' => False))
   //	    ->add('category', 'entity',array(

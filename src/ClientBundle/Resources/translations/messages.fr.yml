@@ -63,7 +63,7 @@ username: Utilisateur
 lastlogin: Connecté
 never: Jamais
 required: (Tous les champs sont obligatoires)
-command: pour commander
+to_command: pour commander
 user_existant: Un utilisateur existe déjà avec le même email 
 procedure_inscription: Vous allez vous inscrire. Un message de confirmation vous sera envoyé dans votre boîte aux lettre. Vous ne pourrez vous connecter qu'après avoir validé votre inscription.  Si vous avez le moindre problème, n'hésitez pas à nous contacter.
 product_homepage: Nos Produits
