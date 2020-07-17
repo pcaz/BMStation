@@ -109,7 +109,8 @@ annonce:
     phone: Téléphone:
     price: Prix:
     add: Déposer une annonce    
-    done: Annonce déposée.    
+    done: Annonce déposée. 
+    user_list: Vos annonces
     Description must not be blank: La descrition est obligatoire.
     Name must not be blank: Le nom de l'annonce est obligatoire.
     Price must not be blank: Le prix proposé est obligatoire. 

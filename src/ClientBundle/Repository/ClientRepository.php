@@ -33,12 +33,16 @@ class ClientRepository extends EntityRepository
 		$query = $qb->getQuery();
 		$ret=$query->getResult();
 		
-		$newClient=$ret[0];    
-	    $cl=$newClient->toArray();
+		if($ret){
+                    $newClient=$ret[0];    
+	            $cl=$newClient->toArray();
+                }
+                else
+                    $cl=null;
+                
 		
 		return $cl;
 	}
-	
 	public function findByEmail($email) {
 		
 		$qb = $this->createQueryBuilder('c')

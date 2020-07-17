@@ -34,6 +34,10 @@ class ProfileController extends Controller
         $em=$this->get('doctrine')->getManager();
         $cl = $em->getRepository("\ClientBundle\Entity\Client")->findOneByUser($user);
         $client=$em->getRepository("\ClientBundle\Entity\Client")->findAllValues($cl);
+        if($client==null){
+            // user mais pas client ??? administrateur ?
+              return $this->render('ClientBundle:Profile:denied.html.twig');
+        }
         $form = $this->createForm(new ProfileForm(), $client);
         
         return $this->get('templating')->renderResponse(

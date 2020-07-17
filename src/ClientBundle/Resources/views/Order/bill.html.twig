@@ -1,6 +1,6 @@
 {%  extends '::layoutPDF.html.twig' %}
 
-{%block css%}
+{% block css%}
     <style type="text/css">
         table {width:100%; border-collapse:collapse;}
         .header td { width:50%; vertical-align: top;}
@@ -12,8 +12,8 @@
         .content td{border: solid 1px #cfd1d2; padding:5px;}
         .content th{border: solid 1px #000000; padding: 5px; background-color:#0377bf; color:white;}
     </style>
-{%endblock css%}
-{%block content%}
+{% endblock css%}
+{% block content%}
     <!-- <page backtop="20mm" backright="10mm" backbotton="20mm" backleft="10mm"> -->
     <div class="separator"></div>
     <div class="text-left">

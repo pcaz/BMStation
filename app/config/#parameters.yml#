@@ -1,4 +1,4 @@
-# This file is auto-generated during the composer install
+2# This file is auto-generated during the composer install
 parameters:
     database_host: 
     database_port: null
@@ -9,6 +9,6 @@ parameters:
     mailer_host: smtp.presence-web.fr
     mailer_port: 587
     mailer_user: pascal.cazabat@presence-web.fr
-    mailer_password: V%p8Rv2FliKic
+    mailer_password: V%p8Rv2FliKi
     secret: 92e5079c78d11000d36a4681906dc6ecadc14dbe
     mailer_auth: login
